@@ -9,6 +9,8 @@ export const EletricidadeResidencial = lazy(() => import('./pages/services/Eletr
 export const InstalacoesEletricas = lazy(() => import('./pages/services/InstalacoesEletricas'));
 export const RedesSociais = lazy(() => import('./pages/services/RedesSociais'));
 export const TrafegoPago = lazy(() => import('./pages/services/TrafegoPago'));
+export const Topografia = lazy(() => import('./pages/services/Topografia'));
+export const EnsaiosFotograficos = lazy(() => import('./pages/services/EnsaiosFotograficos'));
 
 // Lazy load other pages
 export const About = lazy(() => import('./pages/About'));

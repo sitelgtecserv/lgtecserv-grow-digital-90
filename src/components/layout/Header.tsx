@@ -31,6 +31,8 @@ const Header = () => {
     { name: "Tráfego Pago", href: "/servicos/gestao-trafego-pago-marketing-digital-mocambique" },
     { name: "Redes Sociais", href: "/servicos/gestao-redes-sociais-marketing-digital-mocambique" },
     { name: "Consultoria Marketing", href: "/servicos/consultoria-marketing-digital-estrategico-mocambique" },
+    { name: "Topografia", href: "/servicos/servicos-topograficos-profissionais-maputo-mocambique" },
+    { name: "Ensaios Fotográficos", href: "/servicos/ensaios-fotograficos-profissionais-sem-studio-mocambique" },
     { name: "Instalações Elétricas", href: "/servicos/instalacoes-eletricas-profissionais-mocambique" },
     { name: "Eletricidade Residencial", href: "/servicos/eletricidade-residencial-instalacoes-domesticas-mocambique" },
     { name: "Eletricidade Industrial", href: "/servicos/eletricidade-industrial-instalacoes-empresariais-mocambique" },

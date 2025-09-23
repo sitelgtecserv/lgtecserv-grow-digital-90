@@ -66,6 +66,19 @@ const allPages: RelatedLink[] = [
     path: "/servicos/consultoria-marketing-digital-estrategico-mocambique",
     category: "digital"
   },
+  // Serviços Técnicos
+  {
+    title: "Topografia",
+    description: "Levantamentos topográficos e demarcação de terrenos",
+    path: "/servicos/servicos-topograficos-profissionais-maputo-mocambique",
+    category: "tecnico"
+  },
+  {
+    title: "Ensaios Fotográficos",
+    description: "Fotografia profissional sem sair de casa",
+    path: "/servicos/ensaios-fotograficos-profissionais-sem-studio-mocambique",
+    category: "tecnico"
+  },
   // Serviços Elétricos
   {
     title: "Instalações Elétricas",

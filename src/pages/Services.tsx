@@ -16,7 +16,9 @@ import {
   Smartphone,
   Search,
   BarChart3,
-  Settings
+  Settings,
+  MapPin,
+  Camera
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import SEOHead from "@/components/seo/SEOHead";
@@ -120,6 +122,38 @@ const Services = () => {
       ],
       pricing: "A partir de 12,000 MT",
       deliveryTime: "1-3 semanas"
+    },
+    {
+      title: "Topografia",
+      description: "Levantamentos topográficos e demarcação de terrenos com precisão e qualidade.",
+      icon: <MapPin className="w-8 h-8" />,
+      image: "/lovable-uploads/topografia-banner.webp",
+      features: [
+        "Levantamentos topográficos precisos",
+        "Demarcação e divisão de terrenos",
+        "Plantas topográficas detalhadas",
+        "Certificação profissional ART",
+        "Equipamentos de última geração",
+        "Relatórios técnicos completos"
+      ],
+      pricing: "A partir de 8,000 MT",
+      deliveryTime: "1-2 semanas"
+    },
+    {
+      title: "Ensaios Fotográficos",
+      description: "Fotografia profissional sem sair de casa com flexibilidade total.",
+      icon: <Camera className="w-8 h-8" />,
+      image: "/lovable-uploads/ensaios-fotograficos-banner.webp",
+      features: [
+        "Sessões no local da sua escolha",
+        "Edição profissional incluída",
+        "Flexibilidade total de horário",
+        "Entrega rápida das fotos",
+        "Sem limitações de vestuário",
+        "Qualidade de estúdio garantida"
+      ],
+      pricing: "A partir de 3,500 MT",
+      deliveryTime: "48 horas"
     }
   ];
 

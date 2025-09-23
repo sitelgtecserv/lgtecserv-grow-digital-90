@@ -23,7 +23,9 @@ import {
   EletricidadeResidencial,
   InstalacoesEletricas,
   RedesSociais,
-  TrafegoPago 
+  TrafegoPago,
+  Topografia,
+  EnsaiosFotograficos 
 } from "./App.lazy";
 
 const queryClient = new QueryClient();
@@ -47,6 +49,8 @@ const AppContent = () => {
         <Route path="/servicos/instalacoes-eletricas-profissionais-mocambique" element={<InstalacoesEletricas />} />
         <Route path="/servicos/eletricidade-residencial-instalacoes-domesticas-mocambique" element={<EletricidadeResidencial />} />
         <Route path="/servicos/eletricidade-industrial-instalacoes-empresariais-mocambique" element={<EletricidadeIndustrial />} />
+        <Route path="/servicos/servicos-topograficos-profissionais-maputo-mocambique" element={<Topografia />} />
+        <Route path="/servicos/ensaios-fotograficos-profissionais-sem-studio-mocambique" element={<EnsaiosFotograficos />} />
         <Route path="/pagina-de-contato-lg-tecserv-mocambique" element={<Contact />} />
         <Route path="/termos-e-condicoes-lg-tecserv" element={<TermosCondicoes />} />
         <Route path="/sitemap" element={<Sitemap />} />

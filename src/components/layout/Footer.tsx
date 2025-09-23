@@ -161,6 +161,18 @@ const Footer = () => {
                   Eletricidade Industrial
                 </Link>
               </li>
+              <li>
+                <Link to="/servicos/servicos-topograficos-profissionais-maputo-mocambique" className="text-sm text-white/90 hover:text-white hover:translate-x-1 transition-all duration-300 flex items-center group">
+                  <span className="w-1 h-1 bg-white rounded-full mr-3 group-hover:w-2 transition-all duration-300"></span>
+                  Topografia
+                </Link>
+              </li>
+              <li>
+                <Link to="/servicos/ensaios-fotograficos-profissionais-sem-studio-mocambique" className="text-sm text-white/90 hover:text-white hover:translate-x-1 transition-all duration-300 flex items-center group">
+                  <span className="w-1 h-1 bg-white rounded-full mr-3 group-hover:w-2 transition-all duration-300"></span>
+                  Ensaios Fotográficos
+                </Link>
+              </li>
             </ul>
           </div>
 

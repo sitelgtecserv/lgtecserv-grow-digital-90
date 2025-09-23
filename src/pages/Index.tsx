@@ -33,7 +33,9 @@ import {
   ChevronRight,
   Monitor,
   Smartphone,
-  Search
+  Search,
+  MapPin,
+  Camera
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import SEOHead from "@/components/seo/SEOHead";
@@ -119,6 +121,32 @@ const Index = () => {
       ],
       image: "/lovable-uploads/instalacoes-eletricas-banner.webp",
       link: "/servicos/instalacoes-eletricas-profissionais-mocambique"
+    },
+    {
+      title: "Topografia",
+      description: "Levantamentos topográficos e demarcação de terrenos com precisão",
+      icon: <MapPin className="w-6 h-6" />,
+      features: [
+        "Levantamentos topográficos precisos",
+        "Demarcação de terrenos",
+        "Plantas topográficas detalhadas",
+        "Certificação ART profissional"
+      ],
+      image: "/lovable-uploads/topografia-banner.webp",
+      link: "/servicos/servicos-topograficos-profissionais-maputo-mocambique"
+    },
+    {
+      title: "Ensaios Fotográficos",
+      description: "Fotografia profissional sem sair de casa ou do escritório",
+      icon: <Camera className="w-6 h-6" />,
+      features: [
+        "Sessões no local da sua escolha",
+        "Edição profissional incluída",
+        "Flexibilidade total de horário",
+        "Entrega rápida das fotos"
+      ],
+      image: "/lovable-uploads/ensaios-fotograficos-banner.webp",
+      link: "/servicos/ensaios-fotograficos-profissionais-sem-studio-mocambique"
     }
   ];
 
