@@ -3,8 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import WhatsAppButton from "@/components/layout/WhatsAppButton";
-import OptimizedImage from "@/components/ui/optimized-image";
-import RelatedLinks from "@/components/ui/related-links";
+import BusinessBanner from "@/components/ui/business-banner";
 import ScrollReveal from "@/components/ui/scroll-reveal";
 import FloatingElements from "@/components/ui/floating-elements";
 import { 
@@ -145,46 +144,43 @@ const ConsultoriaMarketing = () => {
         structuredData={[organizationData, serviceStructuredData]}
       />
       <div className="min-h-screen">
-        <Header />
         <Breadcrumbs />
+      <Header />
       
       {/* Hero Section */}
       <section className="relative py-20 overflow-hidden">
-        <div className="absolute inset-0">
-          <OptimizedImage
-            src="/lovable-uploads/consultoria-marketing-banner.png"
-            alt="Consultoria de Marketing Digital Estratégico"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-black/60" />
-        </div>
+        <div 
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${marketingService})` }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-yellow-600/90 to-orange-600/90" />
         <FloatingElements />
-        
-        <div className="relative container mx-auto px-4">
-          <ScrollReveal className="max-w-4xl">
-            <span className="inline-block px-4 py-2 bg-primary/20 text-primary-foreground rounded-full text-sm font-medium mb-4">
-              Consultoria Especializada
-            </span>
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white">
-              Consultoria de <span className="gradient-text">Marketing Estratégico</span>
-            </h1>
-            <p className="text-xl md:text-2xl text-white/90 mb-8 text-balance max-w-3xl">
-              Transforme o seu negócio com consultoria especializada que combina estratégias 
-              globais com conhecimento profundo do mercado moçambicano.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" asChild className="bg-gradient-primary shadow-primary">
-                <a href="https://api.whatsapp.com/send?phone=258869824047&text=Ol%C3%A1%2C%20preciso%20de%20consultoria%20de%20marketing.%20Podem%20me%20dar%20mais%20informa%C3%A7%C3%B5es%3F" target="_blank" rel="noopener noreferrer">
-                  Solicitar Consultoria
-                  <ArrowRight className="w-5 h-5 ml-2" />
-                </a>
-              </Button>
-              <Button size="lg" variant="outline" asChild className="border-white text-white hover:bg-white hover:text-primary">
-                <Link to="/pagina-de-contato-lg-tecserv-mocambique">
-                  Saiba Mais
-                </Link>
-              </Button>
+        <div className="container mx-auto px-4 relative">
+          <ScrollReveal>
+            <div className="max-w-4xl mx-auto text-center text-white">
+              <h1 className="text-4xl md:text-6xl font-bold mb-6 animate-fade-in">
+                Consultoria de Marketing
+                <span className="block text-3xl md:text-4xl mt-2 bg-gradient-to-r from-yellow-200 to-orange-200 bg-clip-text text-transparent">
+                  Estratégica em Moçambique
+                </span>
+              </h1>
+              <p className="text-xl md:text-2xl mb-8 text-gray-200 leading-relaxed">
+                Transforme o seu negócio com consultoria especializada que combina estratégias 
+                globais com conhecimento profundo do mercado moçambicano.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button size="lg" asChild className="bg-white text-primary hover:bg-gray-100 hover:scale-105 transition-all duration-300">
+                  <Link to="/pagina-de-contato-lg-tecserv-mocambique">
+                    Solicitar Consultoria
+                    <ArrowRight className="w-5 h-5 ml-2" />
+                  </Link>
+                </Button>
+                <Button size="lg" variant="outline" asChild className="border-2 border-white text-white hover:bg-white hover:text-primary transition-all duration-300">
+                  <a href="https://wa.me/258869824047" target="_blank" rel="noopener noreferrer">
+                    Falar com Consultor
+                  </a>
+                </Button>
+              </div>
             </div>
           </ScrollReveal>
         </div>
@@ -239,15 +235,13 @@ const ConsultoriaMarketing = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {benefits.map((benefit, index) => (
-              <ScrollReveal key={index} delay={index * 100}>
-                <Card className="bg-gradient-card border-0 shadow-elegant hover:shadow-lg transition-all duration-300 p-6 text-center">
-                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 text-primary mb-4 mx-auto">
-                    {benefit.icon}
-                  </div>
-                  <CardTitle className="text-lg mb-3">{benefit.title}</CardTitle>
-                  <p className="text-muted-foreground">{benefit.description}</p>
-                </Card>
-              </ScrollReveal>
+              <Card key={index} className="p-6 text-center hover:shadow-lg transition-shadow">
+                <div className="flex justify-center mb-4">
+                  {benefit.icon}
+                </div>
+                <h3 className="text-lg font-semibold mb-3">{benefit.title}</h3>
+                <p className="text-muted-foreground">{benefit.description}</p>
+              </Card>
             ))}
           </div>
         </div>
@@ -309,21 +303,19 @@ const ConsultoriaMarketing = () => {
           
           <div className="space-y-8">
             {mozambiqueAdvantages.map((item, index) => (
-              <ScrollReveal key={index} delay={index * 200}>
-                <Card className="bg-gradient-card border-0 shadow-elegant hover:shadow-lg transition-all duration-300 p-8">
-                  <div className="flex items-start space-x-4">
-                    <div className="flex-shrink-0">
-                      <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                        <Users className="w-6 h-6 text-primary" />
-                      </div>
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
-                      <p className="text-muted-foreground">{item.description}</p>
+              <Card key={index} className="p-8">
+                <div className="flex items-start space-x-4">
+                  <div className="flex-shrink-0">
+                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                      <Users className="w-6 h-6 text-primary" />
                     </div>
                   </div>
-                </Card>
-              </ScrollReveal>
+                  <div>
+                    <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
+                    <p className="text-muted-foreground">{item.description}</p>
+                  </div>
+                </div>
+              </Card>
             ))}
           </div>
         </div>
@@ -417,9 +409,8 @@ const ConsultoriaMarketing = () => {
         </div>
       </section>
 
-      <RelatedLinks 
-        currentPath="/servicos/consultoria-marketing-digital-estrategico-mocambique"
-      />
+      {/* Business Banner */}
+      <BusinessBanner />
 
       <Footer />
       <WhatsAppButton />

@@ -5,8 +5,6 @@ import Footer from "@/components/layout/Footer";
 import WhatsAppButton from "@/components/layout/WhatsAppButton";
 import ScrollReveal from "@/components/ui/scroll-reveal";
 import FloatingElements from "@/components/ui/floating-elements";
-import OptimizedImage from "@/components/ui/optimized-image";
-import RelatedLinks from "@/components/ui/related-links";
 import { 
   Zap, 
   Shield, 
@@ -127,47 +125,48 @@ const InstalacoesEletricas = () => {
         structuredData={[organizationData, serviceStructuredData]}
       />
       <div className="min-h-screen">
-        <Header />
         <Breadcrumbs />
+      <Header />
       
       {/* Hero Section */}
-      <section className="relative py-20 overflow-hidden">
-        <div className="absolute inset-0">
-          <OptimizedImage
-            src="/lovable-uploads/instalacoes-eletricas-banner.png"
-            alt="Instalações Elétricas Profissionais"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-black/60" />
-        </div>
+      <section className="relative py-20 bg-gradient-to-br from-primary/10 to-secondary/10 overflow-hidden">
         <FloatingElements />
-        
-        <div className="relative container mx-auto px-4">
-          <ScrollReveal className="max-w-4xl">
-            <span className="inline-block px-4 py-2 bg-primary/20 text-primary-foreground rounded-full text-sm font-medium mb-4">
-              Serviços Elétricos
-            </span>
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white">
-              Instalações <span className="gradient-text">Elétricas Profissionais</span>
-            </h1>
-            <p className="text-xl md:text-2xl text-white/90 mb-8 text-balance max-w-3xl">
-              Soluções elétricas completas para residências e indústrias 
-              com segurança, qualidade e certificação profissional.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" asChild className="bg-gradient-primary shadow-primary">
-                <a href="https://api.whatsapp.com/send?phone=258869824047&text=Ol%C3%A1%2C%20preciso%20de%20or%C3%A7amento%20para%20instala%C3%A7%C3%A3o%20el%C3%A9trica." target="_blank" rel="noopener noreferrer">
-                  Orçamento Gratuito
-                  <Phone className="w-5 h-5 ml-2" />
-                </a>
-              </Button>
-              <Button size="lg" variant="outline" asChild className="border-white text-white hover:bg-white hover:text-primary">
-                <Link to="/pagina-de-contato-lg-tecserv-mocambique">
-                  Saiba Mais
-                  <ArrowRight className="w-5 h-5 ml-2" />
-                </Link>
-              </Button>
+        <div className="container mx-auto px-4 relative z-10">
+          <ScrollReveal>
+            <div className="max-w-4xl mx-auto text-center">
+              <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-primary/20 text-primary mb-6">
+                <Zap className="w-10 h-10" />
+              </div>
+              <h1 className="text-4xl md:text-6xl font-bold mb-6">
+                Instalações <span className="gradient-text">Elétricas</span>
+              </h1>
+              <p className="text-xl md:text-2xl text-muted-foreground mb-8 text-balance">
+                Soluções elétricas completas para residências e indústrias 
+                com segurança, qualidade e certificação profissional.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <Button 
+                  size="lg" 
+                  asChild
+                  className="bg-gradient-primary shadow-primary text-lg px-8"
+                >
+                  <a href="https://api.whatsapp.com/send?phone=258869824047&text=Ol%C3%A1%2C%20preciso%20de%20or%C3%A7amento%20para%20instala%C3%A7%C3%A3o%20el%C3%A9trica." target="_blank" rel="noopener noreferrer">
+                    Orçamento Gratuito
+                    <Phone className="w-5 h-5 ml-2" />
+                  </a>
+                </Button>
+                <Button 
+                  size="lg" 
+                  variant="outline"
+                  asChild
+                  className="text-lg px-8"
+                >
+                  <Link to="/pagina-de-contato-lg-tecserv-mocambique">
+                    Falar com Especialista
+                    <ArrowRight className="w-5 h-5 ml-2" />
+                  </Link>
+                </Button>
+              </div>
             </div>
           </ScrollReveal>
         </div>
@@ -358,10 +357,6 @@ const InstalacoesEletricas = () => {
           </ScrollReveal>
         </div>
       </section>
-
-      <RelatedLinks 
-        currentPath="/servicos/instalacoes-eletricas-profissionais-mocambique"
-      />
 
       <Footer />
       <WhatsAppButton />
