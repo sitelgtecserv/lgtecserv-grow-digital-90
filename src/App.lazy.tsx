@@ -1,0 +1,17 @@
+import { lazy } from 'react';
+
+// Lazy load service pages for better performance
+export const ConsultoriaMarketing = lazy(() => import('./pages/services/ConsultoriaMarketing'));
+export const CriacaoSites = lazy(() => import('./pages/services/CriacaoSites'));
+export const DesignGrafico = lazy(() => import('./pages/services/DesignGrafico'));
+export const EletricidadeIndustrial = lazy(() => import('./pages/services/EletricidadeIndustrial'));
+export const EletricidadeResidencial = lazy(() => import('./pages/services/EletricidadeResidencial'));
+export const InstalacoesEletricas = lazy(() => import('./pages/services/InstalacoesEletricas'));
+export const RedesSociais = lazy(() => import('./pages/services/RedesSociais'));
+export const TrafegoPago = lazy(() => import('./pages/services/TrafegoPago'));
+
+// Lazy load other pages
+export const About = lazy(() => import('./pages/About'));
+export const Services = lazy(() => import('./pages/Services'));
+export const Contact = lazy(() => import('./pages/Contact'));
+export const TermosCondicoes = lazy(() => import('./pages/TermosCondicoes'));

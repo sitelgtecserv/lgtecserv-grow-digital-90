@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  
+  <!-- Página Inicial -->
+  <url>
+    <loc>https://www.lgtecserv.com/</loc>
+    <lastmod>2024-12-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://www.lgtecserv.com/lovable-uploads/7c383221-e93f-4908-a3ab-03f2194a4b5b.png</image:loc>
+      <image:title>LG TecServ - Soluções Digitais Completas</image:title>
+    </image:image>
+  </url>
+
+  <!-- Sobre Nós -->
+  <url>
+    <loc>https://www.lgtecserv.com/sobre-nos-lg-tecserv-mocambique</loc>
+    <lastmod>2024-12-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Serviços -->
+  <url>
+    <loc>https://www.lgtecserv.com/servicos-lg-tecserv-mocambique</loc>
+    <lastmod>2024-12-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Criação de Sites -->
+  <url>
+    <loc>https://www.lgtecserv.com/servicos/criacao-desenvolvimento-sites-profissionais-mocambique</loc>
+    <lastmod>2024-12-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.lgtecserv.com/lovable-uploads/criacao-sites-banner.png</image:loc>
+      <image:title>Criação de Sites Profissionais Moçambique</image:title>
+    </image:image>
+  </url>
+
+  <!-- Design Gráfico -->
+  <url>
+    <loc>https://www.lgtecserv.com/servicos/design-grafico-profissional-mocambique</loc>
+    <lastmod>2024-12-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.lgtecserv.com/lovable-uploads/design-grafico-banner.png</image:loc>
+      <image:title>Design Gráfico Profissional Moçambique</image:title>
+    </image:image>
+  </url>
+
+  <!-- Tráfego Pago -->
+  <url>
+    <loc>https://www.lgtecserv.com/servicos/gestao-trafego-pago-marketing-digital-mocambique</loc>
+    <lastmod>2024-12-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.lgtecserv.com/lovable-uploads/consultoria-marketing-banner.png</image:loc>
+      <image:title>Gestão Tráfego Pago Marketing Digital Moçambique</image:title>
+    </image:image>
+  </url>
+
+  <!-- Gestão de Redes Sociais -->
+  <url>
+    <loc>https://www.lgtecserv.com/servicos/gestao-redes-sociais-marketing-digital-mocambique</loc>
+    <lastmod>2024-12-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.lgtecserv.com/lovable-uploads/consultoria-marketing-banner.png</image:loc>
+      <image:title>Gestão Redes Sociais Marketing Digital Moçambique</image:title>
+    </image:image>
+  </url>
+
+  <!-- Consultoria de Marketing -->
+  <url>
+    <loc>https://www.lgtecserv.com/servicos/consultoria-marketing-digital-estrategico-mocambique</loc>
+    <lastmod>2024-12-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.lgtecserv.com/lovable-uploads/consultoria-marketing-banner.png</image:loc>
+      <image:title>Consultoria Marketing Digital Estratégico Moçambique</image:title>
+    </image:image>
+  </url>
+
+  <!-- Instalações Elétricas -->
+  <url>
+    <loc>https://www.lgtecserv.com/servicos/instalacoes-eletricas-profissionais-mocambique</loc>
+    <lastmod>2024-12-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.lgtecserv.com/lovable-uploads/instalacoes-eletricas-banner.png</image:loc>
+      <image:title>Instalações Elétricas Profissionais Moçambique</image:title>
+    </image:image>
+  </url>
+
+  <!-- Eletricidade Residencial -->
+  <url>
+    <loc>https://www.lgtecserv.com/servicos/eletricidade-residencial-instalacoes-domesticas-mocambique</loc>
+    <lastmod>2024-12-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Eletricidade Industrial -->
+  <url>
+    <loc>https://www.lgtecserv.com/servicos/eletricidade-industrial-instalacoes-empresariais-mocambique</loc>
+    <lastmod>2024-12-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Contacto -->
+  <url>
+    <loc>https://www.lgtecserv.com/pagina-de-contato-lg-tecserv-mocambique</loc>
+    <lastmod>2024-12-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Termos e Condições -->
+  <url>
+    <loc>https://www.lgtecserv.com/termos-e-condicoes-lg-tecserv</loc>
+    <lastmod>2024-12-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <!-- Mapa do Site -->
+  <url>
+    <loc>https://www.lgtecserv.com/sitemap</loc>
+    <lastmod>2024-12-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
+</urlset>
