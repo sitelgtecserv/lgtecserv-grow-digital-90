@@ -3,10 +3,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import WhatsAppButton from "@/components/layout/WhatsAppButton";
-import BusinessBanner from "@/components/ui/business-banner";
 import ScrollReveal from "@/components/ui/scroll-reveal";
 import FloatingElements from "@/components/ui/floating-elements";
-import HeroBanner from "@/components/ui/hero-banner";
+import OptimizedImage from "@/components/ui/optimized-image";
+import RelatedLinks from "@/components/ui/related-links";
 import { 
   Globe, 
   Search, 
@@ -24,9 +24,7 @@ import {
 import { Link } from "react-router-dom";
 import SEOHead from "@/components/seo/SEOHead";
 import Breadcrumbs from "@/components/seo/Breadcrumbs";
-import RelatedLinks from "@/components/ui/related-links";
-import { generateServiceData, organizationData, faqData } from "@/utils/seoData";
-import webDevelopmentHero from "@/assets/web-development-hero.jpg";
+import { generateServiceData, organizationData } from "@/utils/seoData";
 
 const CriacaoSites = () => {
   const benefits = [
@@ -104,38 +102,41 @@ const CriacaoSites = () => {
       
       {/* Hero Section */}
       <section className="relative py-20 overflow-hidden">
-        <div 
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${webDevelopmentHero})` }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/90 to-purple-600/90" />
+        <div className="absolute inset-0">
+          <OptimizedImage
+            src="/lovable-uploads/criacao-sites-banner.png"
+            alt="Criação de Sites Profissionais em Moçambique"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-black/60" />
+        </div>
         <FloatingElements />
-        <div className="container mx-auto px-4 relative">
-          <ScrollReveal>
-            <div className="max-w-4xl mx-auto text-center text-white">
-              <h1 className="text-4xl md:text-6xl font-bold mb-6 animate-fade-in">
-                Criação de Sites
-                <span className="block text-3xl md:text-4xl mt-2 bg-gradient-to-r from-blue-200 to-purple-200 bg-clip-text text-transparent">
-                  Profissionais em Moçambique
-                </span>
-              </h1>
-              <p className="text-xl md:text-2xl mb-8 text-gray-200 leading-relaxed">
-                Desenvolva a presença digital da sua empresa com sites modernos, rápidos e otimizados 
-                para conquistar mais clientes no mercado moçambicano.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" asChild className="bg-white text-primary hover:bg-gray-100 hover:scale-105 transition-all duration-300">
-                  <Link to="/pagina-de-contato-lg-tecserv-mocambique">
-                    Solicitar Orçamento
-                    <ArrowRight className="w-5 h-5 ml-2" />
-                  </Link>
-                </Button>
-                <Button size="lg" variant="outline" asChild className="border-2 border-white text-white hover:bg-white hover:text-primary transition-all duration-300">
-                  <a href="https://wa.me/258869824047" target="_blank" rel="noopener noreferrer">
-                    Falar no WhatsApp
-                  </a>
-                </Button>
-              </div>
+        
+        <div className="relative container mx-auto px-4">
+          <ScrollReveal className="max-w-4xl">
+            <span className="inline-block px-4 py-2 bg-primary/20 text-primary-foreground rounded-full text-sm font-medium mb-4">
+              Desenvolvimento Web
+            </span>
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white">
+              Criação de <span className="gradient-text">Sites Profissionais</span>
+            </h1>
+            <p className="text-xl md:text-2xl text-white/90 mb-8 text-balance max-w-3xl">
+              Desenvolva a presença digital da sua empresa com sites modernos, rápidos e otimizados 
+              para conquistar mais clientes no mercado moçambicano.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Button size="lg" asChild className="bg-gradient-primary shadow-primary">
+                <a href="https://api.whatsapp.com/send?phone=258869824047&text=Ol%C3%A1%2C%20preciso%20de%20um%20site%20profissional.%20Podem%20me%20dar%20mais%20informa%C3%A7%C3%B5es%3F" target="_blank" rel="noopener noreferrer">
+                  Solicitar Orçamento
+                  <ArrowRight className="w-5 h-5 ml-2" />
+                </a>
+              </Button>
+              <Button size="lg" variant="outline" asChild className="border-white text-white hover:bg-white hover:text-primary">
+                <Link to="/pagina-de-contato-lg-tecserv-mocambique">
+                  Saiba Mais
+                </Link>
+              </Button>
             </div>
           </ScrollReveal>
         </div>
@@ -205,13 +206,11 @@ const CriacaoSites = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {benefits.map((benefit, index) => (
               <ScrollReveal key={index} delay={index * 100}>
-                <Card className="group p-8 text-center hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border-0 bg-gradient-to-br from-card to-card/80">
-                  <div className="flex justify-center mb-6">
-                    <div className="p-4 rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors group-hover:scale-110 duration-300">
-                      {benefit.icon}
-                    </div>
+                <Card className="bg-gradient-card border-0 shadow-elegant hover:shadow-lg transition-all duration-300 p-8 text-center">
+                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 text-primary mb-4 mx-auto">
+                    {benefit.icon}
                   </div>
-                  <h3 className="text-xl font-bold mb-4 group-hover:text-primary transition-colors">{benefit.title}</h3>
+                  <CardTitle className="text-xl mb-3">{benefit.title}</CardTitle>
                   <p className="text-muted-foreground leading-relaxed">{benefit.description}</p>
                 </Card>
               </ScrollReveal>
@@ -231,15 +230,15 @@ const CriacaoSites = () => {
           <div className="space-y-8">
             {whyChoose.map((item, index) => (
               <ScrollReveal key={index} delay={index * 200}>
-                <Card className="group p-8 hover:shadow-2xl transition-all duration-500 hover:-translate-y-1 border-0 bg-gradient-to-r from-card to-card/80">
+                <Card className="bg-gradient-card border-0 shadow-elegant hover:shadow-lg transition-all duration-300 p-8">
                   <div className="flex items-start space-x-6">
                     <div className="flex-shrink-0">
-                      <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors group-hover:scale-110 duration-300">
+                      <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
                         <span className="text-primary font-bold text-xl">{index + 1}</span>
                       </div>
                     </div>
                     <div>
-                      <h3 className="text-2xl font-bold mb-3 group-hover:text-primary transition-colors">{item.title}</h3>
+                      <h3 className="text-2xl font-bold mb-3">{item.title}</h3>
                       <p className="text-muted-foreground text-lg leading-relaxed">{item.description}</p>
                     </div>
                   </div>
@@ -372,11 +371,9 @@ const CriacaoSites = () => {
         </div>
       </section>
 
-      {/* Related Links */}
-      <RelatedLinks currentPath="/servicos/criacao-desenvolvimento-sites-profissionais-mocambique" />
-
-      {/* Business Banner */}
-      <BusinessBanner />
+      <RelatedLinks 
+        currentPath="/servicos/criacao-desenvolvimento-sites-profissionais-mocambique"
+      />
 
       <Footer />
       <WhatsAppButton />
