@@ -143,6 +143,24 @@ const Footer = () => {
                   Consultoria de Marketing
                 </Link>
               </li>
+              <li>
+                <Link to="/servicos/instalacoes-eletricas-profissionais-mocambique" className="text-sm text-white/90 hover:text-white hover:translate-x-1 transition-all duration-300 flex items-center group">
+                  <span className="w-1 h-1 bg-white rounded-full mr-3 group-hover:w-2 transition-all duration-300"></span>
+                  Instalações Elétricas
+                </Link>
+              </li>
+              <li>
+                <Link to="/servicos/eletricidade-residencial-instalacoes-domesticas-mocambique" className="text-sm text-white/90 hover:text-white hover:translate-x-1 transition-all duration-300 flex items-center group">
+                  <span className="w-1 h-1 bg-white rounded-full mr-3 group-hover:w-2 transition-all duration-300"></span>
+                  Eletricidade Residencial
+                </Link>
+              </li>
+              <li>
+                <Link to="/servicos/eletricidade-industrial-instalacoes-empresariais-mocambique" className="text-sm text-white/90 hover:text-white hover:translate-x-1 transition-all duration-300 flex items-center group">
+                  <span className="w-1 h-1 bg-white rounded-full mr-3 group-hover:w-2 transition-all duration-300"></span>
+                  Eletricidade Industrial
+                </Link>
+              </li>
             </ul>
           </div>
 

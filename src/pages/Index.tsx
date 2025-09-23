@@ -53,7 +53,7 @@ const Index = () => {
         "Painel administrativo intuitivo"
       ],
       image: "/lovable-uploads/13b16b00-a0c3-4b06-97f3-2a00840fba17.png",
-      link: "/servicos/criacao-sites"
+      link: "/servicos/criacao-desenvolvimento-sites-profissionais-mocambique"
     },
     {
       title: "Design Gráfico",
@@ -66,7 +66,7 @@ const Index = () => {
         "Design para redes sociais"
       ],
       image: "/lovable-uploads/6ebe3952-c9f6-4acb-9671-26f3d73b4d89.png",
-      link: "/servicos/design-grafico"
+      link: "/servicos/design-grafico-profissional-mocambique"
     },
     {
       title: "Tráfego Pago",
@@ -79,7 +79,7 @@ const Index = () => {
         "Otimização contínua das campanhas"
       ],
       image: "/lovable-uploads/97dafdc2-4228-47b1-b714-a1bac6741704.png",
-      link: "/servicos/trafego-pago"
+      link: "/servicos/gestao-trafego-pago-marketing-digital-mocambique"
     },
     {
       title: "Gestão de Redes Sociais",
@@ -92,7 +92,7 @@ const Index = () => {
         "Análise de métricas e resultados"
       ],
       image: "/lovable-uploads/956f6140-f148-4d7b-8b9e-46e4e63a8bf2.png",
-      link: "/servicos/redes-sociais"
+      link: "/servicos/gestao-redes-sociais-marketing-digital-mocambique"
     },
     {
       title: "Consultoria de Marketing",
@@ -105,7 +105,20 @@ const Index = () => {
         "Relatórios de performance"
       ],
       image: "/lovable-uploads/8aa64f23-1d05-4062-baf8-1ebc04598ee1.png",
-      link: "/servicos/consultoria-marketing"
+      link: "/servicos/consultoria-marketing-digital-estrategico-mocambique"
+    },
+    {
+      title: "Instalações Elétricas",
+      description: "Soluções elétricas completas para residências e indústrias",
+      icon: <Zap className="w-6 h-6" />,
+      features: [
+        "Instalações residenciais e industriais",
+        "Manutenção elétrica preventiva",
+        "Certificação profissional",
+        "Suporte técnico especializado"
+      ],
+      image: "/lovable-uploads/instalacoes-eletricas-banner.webp",
+      link: "/servicos/instalacoes-eletricas-profissionais-mocambique"
     }
   ];
 
@@ -330,7 +343,7 @@ const Index = () => {
             </div>
           </OptimizedScrollReveal>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8">
             {services.map((service, index) => (
               <OptimizedScrollReveal key={index} delay={index * 150}>
                 <div className="transform hover:scale-105 transition-transform duration-300">

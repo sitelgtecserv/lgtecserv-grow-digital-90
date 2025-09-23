@@ -4,7 +4,6 @@ import { ServiceCard } from "@/components/ui/service-card";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import WhatsAppButton from "@/components/layout/WhatsAppButton";
-import BusinessBanner from "@/components/ui/business-banner";
 import { 
   Globe, 
   Palette, 
@@ -110,7 +109,7 @@ const Services = () => {
       title: "Instalações Elétricas",
       description: "Soluções elétricas completas para residências e indústrias com segurança garantida.",
       icon: <Zap className="w-8 h-8" />,
-      image: "/lovable-uploads/instalacoes-eletricas-banner.png",
+      image: "/lovable-uploads/instalacoes-eletricas-banner.webp",
       features: [
         "Instalações elétricas residenciais",
         "Projetos elétricos industriais",
@@ -381,8 +380,36 @@ const Services = () => {
         </div>
       </section>
 
-      {/* Business Banner */}
-      <BusinessBanner />
+      {/* Services Gallery */}
+      <section className="py-16 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Galeria dos <span className="gradient-text">Nossos Serviços</span>
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto text-balance">
+              Conheça visualmente os serviços que oferecemos com qualidade e excelência.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {mainServices.map((service, index) => (
+              <div key={index} className="group">
+                <div className="aspect-video rounded-lg overflow-hidden shadow-elegant bg-gradient-card">
+                  <img 
+                    src={service.image} 
+                    alt={`Serviço de ${service.title}`}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <div className="mt-4 text-center">
+                  <h3 className="text-lg font-semibold mb-2">{service.title}</h3>
+                  <p className="text-sm text-muted-foreground">{service.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       <Footer />
       <WhatsAppButton />
