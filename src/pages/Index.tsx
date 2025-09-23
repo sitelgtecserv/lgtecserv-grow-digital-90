@@ -371,7 +371,7 @@ const Index = () => {
             </div>
           </OptimizedScrollReveal>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8">
             {services.map((service, index) => (
               <OptimizedScrollReveal key={index} delay={index * 150}>
                 <div className="transform hover:scale-105 transition-transform duration-300">

@@ -7,7 +7,7 @@ const BusinessBanner = () => {
         <Card className="bg-gradient-card border-0 shadow-elegant overflow-hidden">
           <div className="relative">
             {/* Banner Image */}
-            <div className="aspect-[16/6] md:aspect-[16/4] lg:aspect-[16/3] relative overflow-hidden">
+            <div className="aspect-[16/8] sm:aspect-[16/6] md:aspect-[16/4] lg:aspect-[16/3] relative overflow-hidden bg-muted/10">
               <img
                 src="/lovable-uploads/325d2c5b-6f59-4ea5-9d92-9f389ced5bf8.png"
                 alt="Transformação Digital - Tecnologia e Inovação"
@@ -18,12 +18,12 @@ const BusinessBanner = () => {
               
               {/* Content overlay */}
               <div className="absolute inset-0 flex items-center">
-                <div className="container mx-auto px-6">
+                <div className="container mx-auto px-4 sm:px-6 md:px-8">
                   <div className="max-w-2xl">
-                    <h3 className="text-2xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
+                    <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-white mb-2 sm:mb-4">
                       Transformação Digital
                     </h3>
-                    <p className="text-lg md:text-xl text-white/90 mb-6">
+                    <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white/90 mb-4 sm:mb-6">
                       Conectamos o seu negócio ao futuro com soluções tecnológicas inovadoras
                     </p>
                   </div>

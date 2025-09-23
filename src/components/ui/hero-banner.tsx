@@ -24,7 +24,7 @@ const HeroBanner = () => {
 
 
   return (
-    <section className="relative h-screen min-h-[600px] overflow-hidden">
+    <section className="relative min-h-[400px] sm:min-h-[500px] md:min-h-[600px] lg:h-screen overflow-hidden">
       {/* Background Images with Smooth Transition */}
       <div className="absolute inset-0">
         {bannerImages.map((image, index) => (
@@ -48,33 +48,33 @@ const HeroBanner = () => {
 
       {/* Content */}
       <div className="relative z-10 h-full flex items-center justify-center">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 sm:px-6 md:px-8">
           <div className="max-w-4xl mx-auto text-center text-white">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 text-balance">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold mb-4 sm:mb-6 text-balance">
               Soluções Digitais que{" "}
               <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
                 Transformam Negócios
               </span>
             </h1>
-            <p className="text-xl md:text-2xl text-gray-200 mb-8 text-balance">
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-200 mb-6 sm:mb-8 text-balance">
               Criamos sites, design gráfico e estratégias de marketing digital 
               para fazer o seu negócio crescer e destacar-se da concorrência.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button size="lg" asChild className="bg-gradient-primary shadow-primary text-lg px-8">
+              <Button size="lg" asChild className="bg-gradient-primary shadow-primary text-base sm:text-lg px-6 sm:px-8">
                 <Link to="/pagina-de-contato-lg-tecserv-mocambique">
                   Começar Agora
-                  <ArrowRight className="w-5 h-5 ml-2" />
+                  <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2" />
                 </Link>
               </Button>
               <Button 
                 size="lg" 
                 variant="outline" 
                 asChild
-                className="text-lg px-8 border-2 border-white text-white hover:bg-white hover:text-primary bg-white/10 backdrop-blur-md shadow-lg"
+                className="text-base sm:text-lg px-6 sm:px-8 border-2 border-white text-white hover:bg-white hover:text-primary bg-white/10 backdrop-blur-md shadow-lg"
               >
                 <Link to="/servicos-lg-tecserv-mocambique">
-                  <Play className="w-5 h-5 mr-2" />
+                  <Play className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
                   Ver Nosso Trabalho
                 </Link>
               </Button>

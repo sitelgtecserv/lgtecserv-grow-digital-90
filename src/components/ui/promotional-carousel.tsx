@@ -68,13 +68,15 @@ const PromotionalCarousel = () => {
                       rel="noopener noreferrer"
                       className="block relative"
                     >
-                      <div className="relative overflow-hidden">
-                        <img
-                          src={banner.image}
-                          alt={banner.alt}
-                          className="w-full h-[300px] md:h-[400px] lg:h-[500px] object-cover transition-transform duration-700 group-hover:scale-105"
-                          loading="lazy"
-                        />
+                      <div className="relative overflow-hidden bg-muted/10 rounded-lg">
+                        <div className="aspect-[16/9] sm:aspect-[2/1] md:aspect-[5/2] w-full">
+                          <img
+                            src={banner.image}
+                            alt={banner.alt}
+                            className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105"
+                            loading="lazy"
+                          />
+                        </div>
                         <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                       </div>
                       
