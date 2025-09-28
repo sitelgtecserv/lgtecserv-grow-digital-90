@@ -1,8 +1,15 @@
+# Permitir todos os bots indexarem o site
 User-agent: *
 Allow: /
+Disallow: /admin/
+Disallow: /private/
+Disallow: /login/
+Disallow: /cgi-bin/
+
+# Sitemap para melhor indexação
 Sitemap: https://www.lgtecserv.com/sitemap.xml
 
-# Specific crawlers
+# Regras específicas para bots principais
 User-agent: Googlebot
 Allow: /
 
@@ -14,3 +21,9 @@ Allow: /
 
 User-agent: facebookexternalhit
 Allow: /
+
+# Preferência de host (para evitar duplicação entre www e não-www)
+Host: www.lgtecserv.com
+
+# Crawl-delay opcional (Bing e Yandex respeitam, Google ignora)
+Crawl-delay: 1
