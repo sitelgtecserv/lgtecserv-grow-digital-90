@@ -17,3 +17,5 @@ export const About = lazy(() => import('./pages/About'));
 export const Services = lazy(() => import('./pages/Services'));
 export const Contact = lazy(() => import('./pages/Contact'));
 export const TermosCondicoes = lazy(() => import('./pages/TermosCondicoes'));
+export const PoliticaPrivacidade = lazy(() => import('./pages/PoliticaPrivacidade'));
+export const FAQ = lazy(() => import('./pages/FAQ'));

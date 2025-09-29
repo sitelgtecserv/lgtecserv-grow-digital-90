@@ -16,6 +16,8 @@ import {
   Services, 
   Contact, 
   TermosCondicoes,
+  PoliticaPrivacidade,
+  FAQ,
   ConsultoriaMarketing,
   CriacaoSites,
   DesignGrafico,
@@ -53,6 +55,8 @@ const AppContent = () => {
         <Route path="/servicos/ensaios-fotograficos-profissionais-sem-studio-mocambique" element={<EnsaiosFotograficos />} />
         <Route path="/pagina-de-contato-lg-tecserv-mocambique" element={<Contact />} />
         <Route path="/termos-e-condicoes-lg-tecserv" element={<TermosCondicoes />} />
+        <Route path="/politica-privacidade" element={<PoliticaPrivacidade />} />
+        <Route path="/faq" element={<FAQ />} />
         <Route path="/sitemap" element={<Sitemap />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
