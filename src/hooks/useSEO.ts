@@ -41,7 +41,7 @@ export const useSEO = (config: SEOConfig) => {
       { property: 'og:description', content: config.description },
       { property: 'og:type', content: config.type || 'website' },
       { property: 'og:url', content: config.url || fullUrl },
-      { property: 'og:image', content: config.image || `${baseUrl}/lovable-uploads/7c383221-e93f-4908-a3ab-03f2194a4b5b.png` },
+      { property: 'og:image', content: config.image || `${baseUrl}/lovable-uploads/cf635400-84f4-488e-9657-e75e01a40cb9.png` },
       { property: 'og:site_name', content: 'LG TecServ' },
       { property: 'og:locale', content: 'pt_PT' },
       
@@ -49,7 +49,7 @@ export const useSEO = (config: SEOConfig) => {
       { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:title', content: config.title },
       { name: 'twitter:description', content: config.description },
-      { name: 'twitter:image', content: config.image || `${baseUrl}/lovable-uploads/7c383221-e93f-4908-a3ab-03f2194a4b5b.png` },
+      { name: 'twitter:image', content: config.image || `${baseUrl}/lovable-uploads/cf635400-84f4-488e-9657-e75e01a40cb9.png` },
       { name: 'twitter:site', content: '@lgtecserv' },
     ];
 

@@ -5,8 +5,8 @@ export const organizationData = {
   "name": "LG TecServ",
   "description": "Empresa moçambicana especializada em soluções digitais completas: criação de sites, design gráfico, marketing digital, gestão de redes sociais e instalações elétricas.",
   "url": "https://www.lgtecserv.com",
-  "logo": "https://www.lgtecserv.com/lovable-uploads/7c383221-e93f-4908-a3ab-03f2194a4b5b.png",
-  "image": "https://www.lgtecserv.com/lovable-uploads/7c383221-e93f-4908-a3ab-03f2194a4b5b.png",
+  "logo": "https://www.lgtecserv.com/lovable-uploads/cf635400-84f4-488e-9657-e75e01a40cb9.png",
+  "image": "https://www.lgtecserv.com/lovable-uploads/cf635400-84f4-488e-9657-e75e01a40cb9.png",
   "telephone": "+258869824047",
   "email": "info@lgtecserv.com",
   "address": {
