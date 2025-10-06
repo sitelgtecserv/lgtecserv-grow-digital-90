@@ -218,6 +218,10 @@ const Footer = () => {
         <div className="border-t border-white/10 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0">
             <div className="flex flex-wrap justify-center md:justify-start gap-6 text-sm">
+              <Link to="/documentacao-oficial-lg-tecserv" className="text-white/80 hover:text-white transition-colors duration-300 relative group">
+                Documentação Oficial
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
+              </Link>
               <Link to="/politica-privacidade" className="text-white/80 hover:text-white transition-colors duration-300 relative group">
                 Política de Privacidade
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>

@@ -7,6 +7,8 @@ import { HelpCircle, Globe, Zap, Camera, DollarSign, Clock, Shield } from "lucid
 import SEOHead from "@/components/seo/SEOHead";
 import Breadcrumbs from "@/components/seo/Breadcrumbs";
 import { organizationData } from "@/utils/seoData";
+import { Link } from "react-router-dom";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import {
   Accordion,
   AccordionContent,
@@ -83,6 +85,17 @@ const FAQ = () => {
                 <p className="text-xl md:text-2xl text-white/90 max-w-2xl mx-auto">
                   Encontre respostas rápidas para as suas dúvidas sobre nossos serviços
                 </p>
+                <div className="mt-6">
+                  <Alert className="bg-white/10 border-white/20 text-white max-w-2xl mx-auto">
+                    <AlertDescription className="flex items-center justify-center gap-2 text-sm">
+                      <Shield className="h-4 w-4" />
+                      <span>Para informações detalhadas sobre políticas e processos, consulte nossa</span>
+                      <Link to="/documentacao-oficial-lg-tecserv" className="underline font-semibold hover:text-white/80">
+                        Documentação Oficial
+                      </Link>
+                    </AlertDescription>
+                  </Alert>
+                </div>
               </div>
             </ScrollReveal>
           </div>

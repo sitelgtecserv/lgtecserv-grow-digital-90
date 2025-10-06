@@ -14,6 +14,7 @@ export const EnsaiosFotograficos = lazy(() => import('./pages/services/EnsaiosFo
 
 // Lazy load other pages
 export const About = lazy(() => import('./pages/About'));
+export const Documentacao = lazy(() => import('./pages/Documentacao'));
 export const Services = lazy(() => import('./pages/Services'));
 export const Contact = lazy(() => import('./pages/Contact'));
 export const TermosCondicoes = lazy(() => import('./pages/TermosCondicoes'));

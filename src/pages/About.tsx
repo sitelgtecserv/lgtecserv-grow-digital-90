@@ -218,6 +218,29 @@ const About = () => {
         </div>
       </section>
 
+      {/* Documentation CTA */}
+      <section className="py-12 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <Card className="max-w-4xl mx-auto border-primary/20 bg-gradient-to-br from-primary/5 to-secondary/5">
+            <CardContent className="p-8 text-center">
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-4">
+                <Target className="w-8 h-8 text-primary" />
+              </div>
+              <h3 className="text-2xl font-bold mb-3">Conheça a Nossa Documentação Oficial</h3>
+              <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
+                Transparência total: políticas, processos e compromissos detalhados para sua tranquilidade.
+              </p>
+              <Button asChild variant="default" size="lg">
+                <Link to="/documentacao-oficial-lg-tecserv">
+                  Ver Documentação Completa
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Link>
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="py-20 bg-primary text-primary-foreground">
         <div className="container mx-auto px-4">

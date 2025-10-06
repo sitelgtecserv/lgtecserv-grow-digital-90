@@ -18,6 +18,7 @@ import {
   TermosCondicoes,
   PoliticaPrivacidade,
   FAQ,
+  Documentacao,
   ConsultoriaMarketing,
   CriacaoSites,
   DesignGrafico,
@@ -57,6 +58,7 @@ const AppContent = () => {
         <Route path="/termos-e-condicoes-lg-tecserv" element={<TermosCondicoes />} />
         <Route path="/politica-privacidade" element={<PoliticaPrivacidade />} />
         <Route path="/faq" element={<FAQ />} />
+        <Route path="/documentacao-oficial-lg-tecserv" element={<Documentacao />} />
         <Route path="/sitemap" element={<Sitemap />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
