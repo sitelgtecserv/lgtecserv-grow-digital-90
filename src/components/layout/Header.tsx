@@ -21,6 +21,9 @@ const Header = () => {
     name: "Sobre Nós",
     href: "/sobre-nos-lg-tecserv-mocambique"
   }, {
+    name: "Loja",
+    href: "/auth"
+  }, {
     name: "Contacto",
     href: "/pagina-de-contato-lg-tecserv-mocambique"
   }];

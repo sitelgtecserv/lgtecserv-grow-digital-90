@@ -20,3 +20,9 @@ export const Contact = lazy(() => import('./pages/Contact'));
 export const TermosCondicoes = lazy(() => import('./pages/TermosCondicoes'));
 export const PoliticaPrivacidade = lazy(() => import('./pages/PoliticaPrivacidade'));
 export const FAQ = lazy(() => import('./pages/FAQ'));
+
+// Lazy load shop pages
+export const Auth = lazy(() => import('./pages/Auth'));
+export const Loja = lazy(() => import('./pages/Loja'));
+export const ProductDetail = lazy(() => import('./pages/ProductDetail'));
+export const Admin = lazy(() => import('./pages/Admin'));

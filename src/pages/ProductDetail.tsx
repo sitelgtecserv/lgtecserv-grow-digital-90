@@ -1,0 +1,209 @@
+import { useEffect, useState } from 'react';
+import { useParams, useNavigate, Link } from 'react-router-dom';
+import { supabase } from '@/integrations/supabase/client';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Separator } from '@/components/ui/separator';
+import { ArrowLeft, Loader2, MessageCircle, ShoppingCart, Trash2 } from 'lucide-react';
+import { useCart } from '@/contexts/CartContext';
+import { useAuth } from '@/contexts/AuthContext';
+import SEOHead from '@/components/seo/SEOHead';
+import { useToast } from '@/hooks/use-toast';
+
+interface Product {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  image_url: string | null;
+  category: string | null;
+}
+
+const WHATSAPP_NUMBER = '258869824047'; // Configurável
+
+const ProductDetail = () => {
+  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
+  const { user } = useAuth();
+  const { cart, removeFromCart } = useCart();
+  const { toast } = useToast();
+  const [product, setProduct] = useState<Product | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!user) {
+      navigate('/auth');
+      return;
+    }
+    if (id) {
+      fetchProduct();
+    }
+  }, [id, user, navigate]);
+
+  const fetchProduct = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('products')
+        .select('*')
+        .eq('id', id)
+        .single();
+
+      if (error) throw error;
+      setProduct(data);
+    } catch (error) {
+      console.error('Erro ao carregar produto:', error);
+      navigate('/loja');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleWhatsAppClick = () => {
+    if (!product) return;
+
+    const message = `Olá! Tenho interesse no seguinte produto:\n\n` +
+      `*${product.name}*\n\n` +
+      `Descrição: ${product.description}\n\n` +
+      `Preço: ${product.price.toLocaleString('pt-MZ', { style: 'currency', currency: 'MZN' })}\n\n` +
+      (product.image_url ? `Imagem: ${product.image_url}\n\n` : '') +
+      `Gostaria de mais informações.`;
+
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodedMessage}`;
+    
+    window.open(whatsappUrl, '_blank');
+  };
+
+  const productInCart = cart.find((item) => item.id === id);
+
+  const handleRemoveFromCart = () => {
+    if (id) {
+      removeFromCart(id);
+      toast({
+        title: 'Removido do carrinho',
+        description: 'O produto foi removido do carrinho.',
+      });
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    );
+  }
+
+  if (!product) {
+    return null;
+  }
+
+  return (
+    <>
+      <SEOHead
+        title={`${product.name} | Loja Online LG TecServ`}
+        description={product.description}
+        keywords={`${product.name}, ${product.category || 'produto'}, loja online, LG TecServ`}
+        url={`https://www.lgtecserv.com/produto/${product.id}`}
+      />
+      <div className="min-h-screen bg-background">
+        {/* Header */}
+        <header className="sticky top-0 z-10 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b">
+          <div className="container mx-auto px-4 py-4">
+            <Button variant="ghost" onClick={() => navigate('/loja')}>
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              Voltar para a loja
+            </Button>
+          </div>
+        </header>
+
+        {/* Product Detail */}
+        <main className="container mx-auto px-4 py-8">
+          <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+            {/* Image */}
+            <Card className="overflow-hidden">
+              <div className="aspect-square bg-muted">
+                {product.image_url ? (
+                  <img
+                    src={product.image_url}
+                    alt={product.name}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center text-muted-foreground">
+                    <ShoppingCart className="h-24 w-24" />
+                  </div>
+                )}
+              </div>
+            </Card>
+
+            {/* Info */}
+            <div className="space-y-6">
+              <div>
+                {product.category && (
+                  <Badge variant="secondary" className="mb-2">
+                    {product.category}
+                  </Badge>
+                )}
+                <h1 className="text-4xl font-bold mb-4">{product.name}</h1>
+                <p className="text-3xl font-bold text-primary mb-4">
+                  {product.price.toLocaleString('pt-MZ', {
+                    style: 'currency',
+                    currency: 'MZN',
+                  })}
+                </p>
+              </div>
+
+              <Separator />
+
+              <div>
+                <h2 className="text-xl font-semibold mb-2">Descrição</h2>
+                <p className="text-muted-foreground leading-relaxed">{product.description}</p>
+              </div>
+
+              <Separator />
+
+              {/* Cart Status */}
+              {productInCart && (
+                <Card className="bg-primary/5 border-primary/20">
+                  <CardContent className="p-4 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <ShoppingCart className="h-5 w-5 text-primary" />
+                      <span className="font-medium">Este produto está no seu carrinho</span>
+                    </div>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={handleRemoveFromCart}
+                    >
+                      <Trash2 className="h-4 w-4 mr-2" />
+                      Remover
+                    </Button>
+                  </CardContent>
+                </Card>
+              )}
+
+              {/* WhatsApp Button */}
+              <Button
+                size="lg"
+                className="w-full"
+                onClick={handleWhatsAppClick}
+              >
+                <MessageCircle className="mr-2 h-5 w-5" />
+                Solicitar produto via WhatsApp
+              </Button>
+
+              <p className="text-sm text-muted-foreground text-center">
+                Clique no botão acima para enviar uma solicitação pelo WhatsApp com todos os detalhes
+                deste produto.
+              </p>
+            </div>
+          </div>
+        </main>
+      </div>
+    </>
+  );
+};
+
+export default ProductDetail;
