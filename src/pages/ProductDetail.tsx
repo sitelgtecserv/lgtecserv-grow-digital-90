@@ -20,7 +20,7 @@ interface Product {
   category: string | null;
 }
 
-const WHATSAPP_NUMBER = '258869824047'; // Configurável
+const WHATSAPP_NUMBER = '258869824047'; // WhatsApp LG TecServ
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
