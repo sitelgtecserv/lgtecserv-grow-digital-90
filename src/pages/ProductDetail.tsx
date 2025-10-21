@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -10,6 +10,8 @@ import { useCart } from '@/contexts/CartContext';
 import { useAuth } from '@/contexts/AuthContext';
 import SEOHead from '@/components/seo/SEOHead';
 import { useToast } from '@/hooks/use-toast';
+import { ShopHeader } from '@/components/layout/ShopHeader';
+import { BottomNav } from '@/components/shop/BottomNav';
 
 interface Product {
   id: string;
@@ -75,11 +77,11 @@ const ProductDetail = () => {
     window.open(whatsappUrl, '_blank');
   };
 
-  const productInCart = cart.find((item) => item.id === id);
+  const productInCart = cart.find((item) => item.id === product?.id);
 
   const handleRemoveFromCart = () => {
-    if (id) {
-      removeFromCart(id);
+    if (productInCart) {
+      removeFromCart(productInCart.cartItemId);
       toast({
         title: 'Removido do carrinho',
         description: 'O produto foi removido do carrinho.',
@@ -107,19 +109,15 @@ const ProductDetail = () => {
         keywords={`${product.name}, ${product.category || 'produto'}, loja online, LG TecServ`}
         url={`https://www.lgtecserv.com/produto/${product.id}`}
       />
-      <div className="min-h-screen bg-background">
-        {/* Header */}
-        <header className="sticky top-0 z-10 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b">
-          <div className="container mx-auto px-4 py-4">
-            <Button variant="ghost" onClick={() => navigate('/loja')}>
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Voltar para a loja
-            </Button>
-          </div>
-        </header>
+      <div className="min-h-screen bg-background pb-20 md:pb-0">
+        <ShopHeader />
 
         {/* Product Detail */}
         <main className="container mx-auto px-4 py-8">
+          <Button variant="ghost" onClick={() => navigate('/loja')} className="mb-6">
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            Voltar para a loja
+          </Button>
           <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
             {/* Image */}
             <Card className="overflow-hidden">
@@ -201,6 +199,7 @@ const ProductDetail = () => {
             </div>
           </div>
         </main>
+        <BottomNav />
       </div>
     </>
   );
