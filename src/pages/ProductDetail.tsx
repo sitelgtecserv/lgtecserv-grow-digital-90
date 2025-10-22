@@ -12,6 +12,7 @@ import SEOHead from '@/components/seo/SEOHead';
 import { useToast } from '@/hooks/use-toast';
 import { ShopHeader } from '@/components/layout/ShopHeader';
 import { BottomNav } from '@/components/shop/BottomNav';
+import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
 
 interface Product {
   id: string;
@@ -34,14 +35,10 @@ const ProductDetail = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!user) {
-      navigate('/auth');
-      return;
-    }
     if (id) {
       fetchProduct();
     }
-  }, [id, user, navigate]);
+  }, [id]);
 
   const fetchProduct = async () => {
     try {
@@ -114,10 +111,14 @@ const ProductDetail = () => {
 
         {/* Product Detail */}
         <main className="container mx-auto px-4 py-8">
-          <Button variant="ghost" onClick={() => navigate('/loja')} className="mb-6">
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Voltar para a loja
-          </Button>
+          <Breadcrumbs
+            items={[
+              { label: 'Loja', href: '/loja' },
+              { label: product.category || 'Produto', href: `/loja?category=${product.category}` },
+              { label: product.name }
+            ]}
+            className="mb-6"
+          />
           <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
             {/* Image */}
             <Card className="overflow-hidden">

@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
+import { toast } from '@/hooks/use-toast';
 
 interface Product {
   id: string;
@@ -43,33 +44,43 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   }, [cart]);
 
   const addToCart = (product: Product) => {
-    setCart((prev) => {
-      // Check if product already exists
-      const existingItem = prev.find((item) => item.id === product.id);
-      
-      if (existingItem) {
-        // Increment quantity
-        return prev.map((item) =>
+    const existingItem = cart.find((item) => item.id === product.id);
+
+    if (existingItem) {
+      setCart(
+        cart.map((item) =>
           item.id === product.id
             ? { ...item, quantity: item.quantity + 1 }
             : item
-        );
-      }
-      
-      // Add new item with unique cartItemId
-      return [
-        ...prev,
-        {
-          ...product,
-          cartItemId: `${product.id}-${Date.now()}`,
-          quantity: 1,
-        },
-      ];
-    });
+        )
+      );
+      toast({
+        title: 'Quantidade atualizada',
+        description: `${product.name} - Quantidade aumentada no carrinho`,
+      });
+    } else {
+      const newItem: CartItem = {
+        ...product,
+        quantity: 1,
+        cartItemId: `${product.id}-${Date.now()}`,
+      };
+      setCart([...cart, newItem]);
+      toast({
+        title: 'Adicionado ao carrinho',
+        description: `${product.name} foi adicionado ao seu carrinho`,
+      });
+    }
   };
 
   const removeFromCart = (cartItemId: string) => {
-    setCart((prev) => prev.filter((item) => item.cartItemId !== cartItemId));
+    const item = cart.find((item) => item.cartItemId === cartItemId);
+    setCart(cart.filter((item) => item.cartItemId !== cartItemId));
+    if (item) {
+      toast({
+        title: 'Removido do carrinho',
+        description: `${item.name} foi removido do carrinho`,
+      });
+    }
   };
 
   const updateQuantity = (cartItemId: string, quantity: number) => {
@@ -86,6 +97,10 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
   const clearCart = () => {
     setCart([]);
+    toast({
+      title: 'Carrinho limpo',
+      description: 'Todos os produtos foram removidos do carrinho',
+    });
   };
 
   const getCartTotal = () => {

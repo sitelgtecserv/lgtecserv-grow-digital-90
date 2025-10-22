@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import SEOHead from "@/components/seo/SEOHead";
-import Breadcrumbs from "@/components/seo/Breadcrumbs";
+import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { organizationData } from "@/utils/seoData";
 import { 
   FileText, 

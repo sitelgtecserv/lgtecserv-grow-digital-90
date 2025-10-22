@@ -7,7 +7,7 @@ import BusinessBanner from "@/components/ui/business-banner";
 import { Target, Eye, Heart, Users, Award, Lightbulb, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import SEOHead from "@/components/seo/SEOHead";
-import Breadcrumbs from "@/components/seo/Breadcrumbs";
+import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { organizationData, localBusinessData } from "@/utils/seoData";
 
 const About = () => {

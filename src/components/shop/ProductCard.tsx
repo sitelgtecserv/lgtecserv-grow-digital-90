@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ShoppingCart } from 'lucide-react';
 import { useCart } from '@/contexts/CartContext';
-import { useToast } from '@/hooks/use-toast';
+import { useAuth } from '@/contexts/AuthContext';
 
 interface Product {
   id: string;
@@ -16,21 +16,29 @@ interface Product {
 }
 
 interface ProductCardProps {
-  product: Product;
+  product: Product & { created_at?: string };
 }
 
 export const ProductCard = ({ product }: ProductCardProps) => {
   const navigate = useNavigate();
   const { addToCart } = useCart();
-  const { toast } = useToast();
+  const { user } = useAuth();
+
+  const isNew = () => {
+    if (!product.created_at) return false;
+    const createdAt = new Date(product.created_at);
+    const now = new Date();
+    const daysDiff = Math.floor((now.getTime() - createdAt.getTime()) / (1000 * 60 * 60 * 24));
+    return daysDiff <= 7;
+  };
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.stopPropagation();
+    if (!user) {
+      navigate('/auth');
+      return;
+    }
     addToCart(product);
-    toast({
-      title: 'Produto adicionado!',
-      description: `${product.name} foi adicionado ao carrinho.`,
-    });
   };
 
   return (
@@ -39,6 +47,11 @@ export const ProductCard = ({ product }: ProductCardProps) => {
       onClick={() => navigate(`/produto/${product.id}`)}
     >
       <div className="aspect-square bg-muted relative overflow-hidden">
+        {isNew() && (
+          <Badge className="absolute top-2 left-2 z-10 bg-gradient-to-r from-primary to-primary/80">
+            Novo
+          </Badge>
+        )}
         {product.image_url ? (
           <img
             src={product.image_url}

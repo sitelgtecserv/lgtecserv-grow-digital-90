@@ -18,6 +18,18 @@ export const ShopHeader = ({ onCartOpen, onSearchOpen }: ShopHeaderProps) => {
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  const handleCartClick = () => {
+    if (!user) {
+      navigate('/auth');
+      return;
+    }
+    if (onCartOpen) {
+      onCartOpen();
+    } else {
+      navigate('/carrinho');
+    }
+  };
+
   const handleSignOut = async () => {
     await signOut();
     navigate('/auth');
@@ -39,11 +51,11 @@ export const ShopHeader = ({ onCartOpen, onSearchOpen }: ShopHeaderProps) => {
           </div>
 
           <div className="flex items-center gap-2">
-            {cartCount > 0 && (
+            {user && cartCount > 0 && (
               <Button
                 variant="outline"
                 size="lg"
-                onClick={onCartOpen}
+                onClick={handleCartClick}
                 className="relative"
               >
                 <ShoppingBag className="mr-2 h-4 w-4" />
@@ -62,10 +74,16 @@ export const ShopHeader = ({ onCartOpen, onSearchOpen }: ShopHeaderProps) => {
                 Admin
               </Button>
             )}
-            <Button variant="outline" onClick={handleSignOut}>
-              <LogOut className="mr-2 h-4 w-4" />
-              Sair
-            </Button>
+            {user ? (
+              <Button variant="outline" onClick={handleSignOut}>
+                <LogOut className="mr-2 h-4 w-4" />
+                Sair
+              </Button>
+            ) : (
+              <Button variant="outline" onClick={() => navigate('/auth')}>
+                Entrar
+              </Button>
+            )}
           </div>
         </div>
 
@@ -83,12 +101,19 @@ export const ShopHeader = ({ onCartOpen, onSearchOpen }: ShopHeaderProps) => {
                   <div className="bg-gradient-primary p-2 rounded-lg">
                     <ShoppingBag className="h-5 w-5 text-white" />
                   </div>
-                  <div>
-                    <p className="font-semibold">{user?.email}</p>
-                    <p className="text-xs text-muted-foreground">
-                      {isAdmin ? 'Administrador' : 'Cliente'}
-                    </p>
-                  </div>
+                  {user ? (
+                    <div>
+                      <p className="font-semibold">{user.email}</p>
+                      <p className="text-xs text-muted-foreground">
+                        {isAdmin ? 'Administrador' : 'Cliente'}
+                      </p>
+                    </div>
+                  ) : (
+                    <div>
+                      <p className="font-semibold">LG TecServ</p>
+                      <p className="text-xs text-muted-foreground">Visitante</p>
+                    </div>
+                  )}
                 </div>
                 <Button
                   variant="outline"
@@ -101,7 +126,7 @@ export const ShopHeader = ({ onCartOpen, onSearchOpen }: ShopHeaderProps) => {
                   <ShoppingBag className="mr-2 h-4 w-4" />
                   Loja
                 </Button>
-                {isAdmin && (
+                {user && isAdmin && (
                   <Button
                     variant="outline"
                     className="justify-start"
@@ -114,14 +139,28 @@ export const ShopHeader = ({ onCartOpen, onSearchOpen }: ShopHeaderProps) => {
                     Admin
                   </Button>
                 )}
-                <Button
-                  variant="outline"
-                  className="justify-start"
-                  onClick={handleSignOut}
-                >
-                  <LogOut className="mr-2 h-4 w-4" />
-                  Sair
-                </Button>
+                {user ? (
+                  <Button
+                    variant="outline"
+                    className="justify-start"
+                    onClick={handleSignOut}
+                  >
+                    <LogOut className="mr-2 h-4 w-4" />
+                    Sair
+                  </Button>
+                ) : (
+                  <Button
+                    variant="outline"
+                    className="justify-start"
+                    onClick={() => {
+                      navigate('/auth');
+                      setMobileMenuOpen(false);
+                    }}
+                  >
+                    <LogOut className="mr-2 h-4 w-4" />
+                    Entrar
+                  </Button>
+                )}
               </div>
             </SheetContent>
           </Sheet>
@@ -139,11 +178,11 @@ export const ShopHeader = ({ onCartOpen, onSearchOpen }: ShopHeaderProps) => {
                 <Search className="h-5 w-5" />
               </Button>
             )}
-            {cartCount > 0 && (
+            {user && cartCount > 0 && (
               <Button
                 variant="ghost"
                 size="icon"
-                onClick={onCartOpen}
+                onClick={handleCartClick}
                 className="relative"
               >
                 <ShoppingBag className="h-5 w-5" />

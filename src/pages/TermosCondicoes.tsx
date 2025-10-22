@@ -5,7 +5,7 @@ import ScrollReveal from "@/components/ui/scroll-reveal";
 import { Card } from "@/components/ui/card";
 import { FileText, Shield, Cookie, Eye } from "lucide-react";
 import SEOHead from "@/components/seo/SEOHead";
-import Breadcrumbs from "@/components/seo/Breadcrumbs";
+import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { organizationData } from "@/utils/seoData";
 
 const TermosCondicoes = () => {

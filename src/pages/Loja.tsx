@@ -72,16 +72,8 @@ const Loja = () => {
     (priceRange[0] !== productPriceRange.min || priceRange[1] !== productPriceRange.max ? 1 : 0);
 
   useEffect(() => {
-    if (!authLoading && !user) {
-      navigate('/auth');
-    }
-  }, [user, authLoading, navigate]);
-
-  useEffect(() => {
-    if (user) {
-      fetchProducts();
-    }
-  }, [user]);
+    fetchProducts();
+  }, []);
 
   const fetchProducts = async () => {
     try {
@@ -105,7 +97,7 @@ const Loja = () => {
     setSearchQuery('');
   };
 
-  if (authLoading || !user) {
+  if (authLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />

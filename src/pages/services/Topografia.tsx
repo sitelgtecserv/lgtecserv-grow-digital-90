@@ -6,7 +6,7 @@ import WhatsAppButton from "@/components/layout/WhatsAppButton";
 import { ArrowRight, CheckCircle, MapPin, Ruler, FileText, Shield, Clock, Award } from "lucide-react";
 import { Link } from "react-router-dom";
 import SEOHead from "@/components/seo/SEOHead";
-import Breadcrumbs from "@/components/seo/Breadcrumbs";
+import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import OptimizedImage from "@/components/ui/optimized-image";
 import RelatedLinks from "@/components/ui/related-links";
 import ScrollReveal from "@/components/ui/scroll-reveal";

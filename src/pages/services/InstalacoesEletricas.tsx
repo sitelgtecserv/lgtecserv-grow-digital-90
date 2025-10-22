@@ -19,7 +19,7 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import SEOHead from "@/components/seo/SEOHead";
-import Breadcrumbs from "@/components/seo/Breadcrumbs";
+import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { generateServiceData, organizationData } from "@/utils/seoData";
 import electricalIndustrialImage from "@/assets/electrical-industrial.jpg";
 import electricalResidentialImage from "@/assets/electrical-residential.jpg";

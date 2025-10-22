@@ -7,7 +7,7 @@ import BusinessBanner from "@/components/ui/business-banner";
 import { MapPin, Phone, Mail, Clock, MessageCircle, Navigation, Users, Award } from "lucide-react";
 import { Link } from "react-router-dom";
 import SEOHead from "@/components/seo/SEOHead";
-import Breadcrumbs from "@/components/seo/Breadcrumbs";
+import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { localBusinessData, organizationData } from "@/utils/seoData";
 
 const Contact = () => {
