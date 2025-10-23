@@ -4,9 +4,10 @@ import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { ProductForm } from '@/components/admin/ProductForm';
 import { ProductList } from '@/components/admin/ProductList';
+import { CategoryManager } from '@/components/admin/CategoryManager';
 import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
-import { ArrowLeft, Loader2, Shield } from 'lucide-react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { ArrowLeft, Loader2, Shield, Package, Folder } from 'lucide-react';
 import SEOHead from '@/components/seo/SEOHead';
 
 interface Product {
@@ -15,7 +16,12 @@ interface Product {
   description: string;
   price: number;
   image_url: string | null;
-  category: string | null;
+  category_id: string | null;
+  stock: number;
+  stock_alert_threshold: number;
+  categories?: {
+    name: string;
+  } | null;
 }
 
 const Admin = () => {
@@ -44,7 +50,7 @@ const Admin = () => {
     try {
       const { data, error } = await supabase
         .from('products')
-        .select('*')
+        .select('*, categories(name)')
         .order('created_at', { ascending: false });
 
       if (error) throw error;
@@ -79,7 +85,9 @@ const Admin = () => {
               <Shield className="h-8 w-8 text-primary" />
               <div>
                 <h1 className="text-xl font-bold">Painel de Administração</h1>
-                <p className="text-sm text-muted-foreground">Gerenciar produtos</p>
+                <p className="text-sm text-muted-foreground">
+                  Gerenciar produtos e categorias
+                </p>
               </div>
             </div>
             <Button variant="outline" onClick={() => navigate('/loja')}>
@@ -91,23 +99,43 @@ const Admin = () => {
 
         {/* Main Content */}
         <main className="container mx-auto px-4 py-8 max-w-7xl">
-          <div className="grid lg:grid-cols-2 gap-8">
-            {/* Form Section */}
-            <div>
-              <ProductForm onSuccess={fetchProducts} />
-            </div>
+          <Tabs defaultValue="products" className="w-full">
+            <TabsList className="grid w-full max-w-md grid-cols-2">
+              <TabsTrigger value="products" className="flex items-center gap-2">
+                <Package className="h-4 w-4" />
+                Produtos
+              </TabsTrigger>
+              <TabsTrigger value="categories" className="flex items-center gap-2">
+                <Folder className="h-4 w-4" />
+                Categorias
+              </TabsTrigger>
+            </TabsList>
 
-            {/* List Section */}
-            <div>
-              <div className="mb-4">
-                <h2 className="text-2xl font-bold">Produtos Cadastrados</h2>
-                <p className="text-muted-foreground">
-                  Total: {products.length} produto{products.length !== 1 ? 's' : ''}
-                </p>
+            <TabsContent value="products" className="mt-6">
+              <div className="grid lg:grid-cols-2 gap-8">
+                {/* Form Section */}
+                <div>
+                  <ProductForm onSuccess={fetchProducts} />
+                </div>
+
+                {/* List Section */}
+                <div>
+                  <div className="mb-4">
+                    <h2 className="text-2xl font-bold">Produtos Cadastrados</h2>
+                    <p className="text-muted-foreground">
+                      Total: {products.length} produto
+                      {products.length !== 1 ? 's' : ''}
+                    </p>
+                  </div>
+                  <ProductList products={products} onDelete={fetchProducts} />
+                </div>
               </div>
-              <ProductList products={products} onDelete={fetchProducts} />
-            </div>
-          </div>
+            </TabsContent>
+
+            <TabsContent value="categories" className="mt-6">
+              <CategoryManager />
+            </TabsContent>
+          </Tabs>
         </main>
       </div>
     </>

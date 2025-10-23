@@ -20,7 +20,11 @@ interface Product {
   description: string;
   price: number;
   image_url: string | null;
-  category: string | null;
+  category_id: string | null;
+  stock: number;
+  categories?: {
+    name: string;
+  } | null;
 }
 
 const WHATSAPP_NUMBER = '258869824047'; // WhatsApp LG TecServ
@@ -44,7 +48,7 @@ const ProductDetail = () => {
     try {
       const { data, error } = await supabase
         .from('products')
-        .select('*')
+        .select('*, categories(name)')
         .eq('id', id)
         .single();
 
@@ -100,10 +104,10 @@ const ProductDetail = () => {
 
   return (
     <>
-      <SEOHead
+        <SEOHead
         title={`${product.name} | Loja Online LG TecServ`}
         description={product.description}
-        keywords={`${product.name}, ${product.category || 'produto'}, loja online, LG TecServ`}
+        keywords={`${product.name}, ${product.categories?.name || 'produto'}, loja online, LG TecServ`}
         url={`https://www.lgtecserv.com/produto/${product.id}`}
       />
       <div className="min-h-screen bg-background pb-20 md:pb-0">
@@ -114,7 +118,7 @@ const ProductDetail = () => {
           <Breadcrumbs
             items={[
               { label: 'Loja', href: '/loja' },
-              { label: product.category || 'Produto', href: `/loja?category=${product.category}` },
+              { label: product.categories?.name || 'Produto', href: `/loja` },
               { label: product.name }
             ]}
             className="mb-6"
@@ -139,13 +143,21 @@ const ProductDetail = () => {
 
             {/* Info */}
             <div className="space-y-6">
-              <div>
-                {product.category && (
-                  <Badge variant="secondary" className="mb-2">
-                    {product.category}
-                  </Badge>
-                )}
-                <h1 className="text-4xl font-bold mb-4">{product.name}</h1>
+              <div className="space-y-2">
+                <h1 className="text-3xl font-bold">{product.name}</h1>
+                <div className="flex items-center gap-2">
+                  {product.categories?.name && (
+                    <Badge variant="secondary">{product.categories.name}</Badge>
+                  )}
+                  {product.stock === 0 && (
+                    <Badge variant="destructive">Esgotado</Badge>
+                  )}
+                  {product.stock > 0 && product.stock < 5 && (
+                    <Badge className="bg-yellow-500 text-white">
+                      Últimas {product.stock} unidades
+                    </Badge>
+                  )}
+                </div>
                 <p className="text-3xl font-bold text-primary mb-4">
                   {product.price.toLocaleString('pt-MZ', {
                     style: 'currency',
@@ -162,6 +174,12 @@ const ProductDetail = () => {
               </div>
 
               <Separator />
+
+              {product.stock > 0 && (
+                <div className="text-sm text-muted-foreground">
+                  <p>Disponível em estoque: {product.stock} unidades</p>
+                </div>
+              )}
 
               {/* Cart Status */}
               {productInCart && (
@@ -188,15 +206,24 @@ const ProductDetail = () => {
                 size="lg"
                 className="w-full"
                 onClick={handleWhatsAppClick}
+                disabled={product.stock === 0}
               >
                 <MessageCircle className="mr-2 h-5 w-5" />
-                Solicitar produto via WhatsApp
+                {product.stock === 0
+                  ? 'Produto Indisponível'
+                  : 'Solicitar produto via WhatsApp'}
               </Button>
 
-              <p className="text-sm text-muted-foreground text-center">
-                Clique no botão acima para enviar uma solicitação pelo WhatsApp com todos os detalhes
-                deste produto.
-              </p>
+              {product.stock === 0 ? (
+                <p className="text-sm text-destructive text-center">
+                  Este produto está temporariamente esgotado.
+                </p>
+              ) : (
+                <p className="text-sm text-muted-foreground text-center">
+                  Clique no botão acima para enviar uma solicitação pelo WhatsApp com todos os
+                  detalhes deste produto.
+                </p>
+              )}
             </div>
           </div>
         </main>

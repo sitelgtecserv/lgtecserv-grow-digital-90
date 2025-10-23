@@ -7,7 +7,12 @@ interface Product {
   description: string;
   price: number;
   image_url: string | null;
-  category: string | null;
+  category_id: string | null;
+  stock: number;
+  created_at?: string;
+  categories?: {
+    name: string;
+  } | null;
 }
 
 interface CartItem extends Product {

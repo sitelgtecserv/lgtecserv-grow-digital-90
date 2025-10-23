@@ -12,7 +12,11 @@ interface Product {
   description: string;
   price: number;
   image_url: string | null;
-  category: string | null;
+  category_id: string | null;
+  stock: number;
+  categories?: {
+    name: string;
+  } | null;
 }
 
 interface ProductCardProps {
@@ -47,11 +51,18 @@ export const ProductCard = ({ product }: ProductCardProps) => {
       onClick={() => navigate(`/produto/${product.id}`)}
     >
       <div className="aspect-square bg-muted relative overflow-hidden">
-        {isNew() && (
-          <Badge className="absolute top-2 left-2 z-10 bg-gradient-to-r from-primary to-primary/80">
-            Novo
-          </Badge>
-        )}
+        {/* Badges */}
+        <div className="absolute top-2 right-2 flex flex-col gap-1 z-10">
+          {product.stock === 0 && (
+            <Badge variant="destructive">Esgotado</Badge>
+          )}
+          {product.stock > 0 && product.stock < 5 && (
+            <Badge className="bg-yellow-500 text-white">Últimas unidades</Badge>
+          )}
+          {isNew() && product.stock > 0 && (
+            <Badge className="bg-primary text-primary-foreground">Novo</Badge>
+          )}
+        </div>
         {product.image_url ? (
           <img
             src={product.image_url}
@@ -68,7 +79,11 @@ export const ProductCard = ({ product }: ProductCardProps) => {
       <CardContent className="p-4">
         <div className="flex items-start justify-between gap-2 mb-2">
           <h3 className="font-semibold text-lg line-clamp-1">{product.name}</h3>
-          {product.category && <Badge variant="secondary" className="flex-shrink-0">{product.category}</Badge>}
+          {product.categories?.name && (
+            <Badge variant="secondary" className="flex-shrink-0">
+              {product.categories.name}
+            </Badge>
+          )}
         </div>
         <p className="text-sm text-muted-foreground line-clamp-2 mb-3">{product.description}</p>
         <p className="text-2xl font-bold text-primary">
@@ -79,9 +94,13 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         </p>
       </CardContent>
       <CardFooter className="p-4 pt-0">
-        <Button onClick={handleAddToCart} className="w-full">
+        <Button 
+          onClick={handleAddToCart} 
+          className="w-full"
+          disabled={product.stock === 0}
+        >
           <ShoppingCart className="mr-2 h-4 w-4" />
-          Adicionar
+          {product.stock === 0 ? 'Indisponível' : 'Adicionar'}
         </Button>
       </CardFooter>
     </Card>

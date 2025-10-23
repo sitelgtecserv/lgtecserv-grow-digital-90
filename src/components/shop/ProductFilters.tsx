@@ -6,7 +6,6 @@ import { PriceSlider } from './PriceSlider';
 import { Badge } from '@/components/ui/badge';
 
 interface ProductFiltersProps {
-  categories: string[];
   selectedCategory: string;
   onCategoryChange: (category: string) => void;
   priceRange: [number, number];
@@ -18,7 +17,6 @@ interface ProductFiltersProps {
 }
 
 export const ProductFilters = ({
-  categories,
   selectedCategory,
   onCategoryChange,
   priceRange,
@@ -58,7 +56,6 @@ export const ProductFilters = ({
           <div>
             <h3 className="font-semibold mb-3">Categorias</h3>
             <CategoryFilter
-              categories={categories}
               selected={selectedCategory}
               onSelect={onCategoryChange}
             />

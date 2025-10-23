@@ -6,7 +6,7 @@ interface Product {
   description: string;
   price: number;
   image_url: string | null;
-  category: string | null;
+  category_id: string | null;
 }
 
 interface FilterOptions {
@@ -35,7 +35,7 @@ export const useProductFilters = (
 
     // Category filter
     if (filters.selectedCategory && filters.selectedCategory !== 'all') {
-      result = result.filter((p) => p.category === filters.selectedCategory);
+      result = result.filter((p) => p.category_id === filters.selectedCategory);
     }
 
     // Price range filter
@@ -62,10 +62,9 @@ export const useProductFilters = (
   }, [products, filters]);
 
   const categories = useMemo(() => {
-    const cats = products
-      .map((p) => p.category)
-      .filter((c): c is string => c !== null);
-    return ['all', ...Array.from(new Set(cats))];
+    // Categories are now fetched directly in CategoryFilter component
+    // This is kept for compatibility but not used
+    return ['all'];
   }, [products]);
 
   const priceRange = useMemo(() => {

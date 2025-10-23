@@ -14,9 +14,34 @@ export type Database = {
   }
   public: {
     Tables: {
+      categories: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          name: string
+          slug: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name: string
+          slug: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name?: string
+          slug?: string
+        }
+        Relationships: []
+      }
       products: {
         Row: {
           category: string | null
+          category_id: string | null
           created_at: string
           created_by: string | null
           description: string
@@ -24,10 +49,13 @@ export type Database = {
           image_url: string | null
           name: string
           price: number
+          stock: number
+          stock_alert_threshold: number | null
           updated_at: string
         }
         Insert: {
           category?: string | null
+          category_id?: string | null
           created_at?: string
           created_by?: string | null
           description: string
@@ -35,10 +63,13 @@ export type Database = {
           image_url?: string | null
           name: string
           price: number
+          stock?: number
+          stock_alert_threshold?: number | null
           updated_at?: string
         }
         Update: {
           category?: string | null
+          category_id?: string | null
           created_at?: string
           created_by?: string | null
           description?: string
@@ -46,9 +77,19 @@ export type Database = {
           image_url?: string | null
           name?: string
           price?: number
+          stock?: number
+          stock_alert_threshold?: number | null
           updated_at?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "products_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       profiles: {
         Row: {

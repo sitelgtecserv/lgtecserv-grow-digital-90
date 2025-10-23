@@ -25,7 +25,12 @@ interface Product {
   description: string;
   price: number;
   image_url: string | null;
-  category: string | null;
+  category_id: string | null;
+  stock: number;
+  created_at: string;
+  categories?: {
+    name: string;
+  } | null;
 }
 
 const Loja = () => {
@@ -77,12 +82,14 @@ const Loja = () => {
 
   const fetchProducts = async () => {
     try {
+      setLoading(true);
       const { data, error } = await supabase
         .from('products')
-        .select('*')
+        .select('*, categories(name)')
         .order('created_at', { ascending: false });
 
       if (error) throw error;
+
       setProducts(data || []);
     } catch (error) {
       console.error('Erro ao carregar produtos:', error);
@@ -130,7 +137,6 @@ const Loja = () => {
               <div className="flex gap-2">
                 <div className="md:hidden">
                   <ProductFilters
-                    categories={categories}
                     selectedCategory={selectedCategory}
                     onCategoryChange={setSelectedCategory}
                     priceRange={priceRange}
@@ -148,7 +154,6 @@ const Loja = () => {
             {/* Category Pills - Desktop */}
             <div className="hidden md:block">
               <CategoryFilter
-                categories={categories}
                 selected={selectedCategory}
                 onSelect={setSelectedCategory}
               />
