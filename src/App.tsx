@@ -36,6 +36,8 @@ import {
   ProductDetail,
   Carrinho,
   Checkout,
+  OrderConfirmation,
+  MeusPedidos,
   Admin
 } from "./App.lazy";
 
@@ -74,6 +76,8 @@ const AppContent = () => {
         <Route path="/produto/:id" element={<ProductDetail />} />
         <Route path="/carrinho" element={<Carrinho />} />
         <Route path="/checkout" element={<Checkout />} />
+        <Route path="/confirmacao-pedido" element={<OrderConfirmation />} />
+        <Route path="/meus-pedidos" element={<MeusPedidos />} />
         <Route path="/admin" element={<Admin />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />

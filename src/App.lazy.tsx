@@ -27,4 +27,6 @@ export const Loja = lazy(() => import('./pages/Loja'));
 export const ProductDetail = lazy(() => import('./pages/ProductDetail'));
 export const Carrinho = lazy(() => import('./pages/Carrinho'));
 export const Checkout = lazy(() => import('./pages/Checkout'));
+export const OrderConfirmation = lazy(() => import('./pages/OrderConfirmation'));
+export const MeusPedidos = lazy(() => import('./pages/MeusPedidos'));
 export const Admin = lazy(() => import('./pages/Admin'));

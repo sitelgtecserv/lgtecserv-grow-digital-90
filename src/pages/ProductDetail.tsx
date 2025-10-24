@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import { ArrowLeft, Loader2, MessageCircle, ShoppingCart, Trash2 } from 'lucide-react';
+import { Loader2, MessageCircle, ShoppingCart, Trash2 } from 'lucide-react';
 import { useCart } from '@/contexts/CartContext';
 import { useAuth } from '@/contexts/AuthContext';
 import SEOHead from '@/components/seo/SEOHead';
@@ -13,6 +13,7 @@ import { useToast } from '@/hooks/use-toast';
 import { ShopHeader } from '@/components/layout/ShopHeader';
 import { BottomNav } from '@/components/shop/BottomNav';
 import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
+import { ImageGallery } from '@/components/shop/ImageGallery';
 
 interface Product {
   id: string;
@@ -36,6 +37,7 @@ const ProductDetail = () => {
   const { cart, removeFromCart } = useCart();
   const { toast } = useToast();
   const [product, setProduct] = useState<Product | null>(null);
+  const [images, setImages] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -54,6 +56,15 @@ const ProductDetail = () => {
 
       if (error) throw error;
       setProduct(data);
+
+      // Fetch product images
+      const { data: imagesData } = await supabase
+        .from('product_images')
+        .select('*')
+        .eq('product_id', id)
+        .order('display_order');
+
+      setImages(imagesData || []);
     } catch (error) {
       console.error('Erro ao carregar produto:', error);
       navigate('/loja');
@@ -124,22 +135,10 @@ const ProductDetail = () => {
             className="mb-6"
           />
           <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-            {/* Image */}
-            <Card className="overflow-hidden">
-              <div className="aspect-square bg-muted">
-                {product.image_url ? (
-                  <img
-                    src={product.image_url}
-                    alt={product.name}
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center text-muted-foreground">
-                    <ShoppingCart className="h-24 w-24" />
-                  </div>
-                )}
-              </div>
-            </Card>
+            {/* Image Gallery */}
+            <div>
+              <ImageGallery images={images} productName={product.name} />
+            </div>
 
             {/* Info */}
             <div className="space-y-6">

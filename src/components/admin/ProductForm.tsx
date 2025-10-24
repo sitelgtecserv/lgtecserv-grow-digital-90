@@ -12,8 +12,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Loader2, Upload, X } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { ImageUploader } from './ImageUploader';
 
 interface Category {
   id: string;
@@ -47,16 +48,16 @@ export const ProductForm = ({ mode = 'create', product, onSuccess }: ProductForm
     product?.stock_alert_threshold?.toString() || '5'
   );
   const [categories, setCategories] = useState<Category[]>([]);
-  const [imageFile, setImageFile] = useState<File | null>(null);
-  const [imagePreview, setImagePreview] = useState<string | null>(
-    product?.image_url || null
-  );
+  const [images, setImages] = useState<any[]>([]);
   const [uploading, setUploading] = useState(false);
   const { toast } = useToast();
 
   useEffect(() => {
     fetchCategories();
-  }, []);
+    if (product?.id) {
+      fetchProductImages();
+    }
+  }, [product?.id]);
 
   const fetchCategories = async () => {
     try {
@@ -72,45 +73,51 @@ export const ProductForm = ({ mode = 'create', product, onSuccess }: ProductForm
     }
   };
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setImageFile(file);
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImagePreview(reader.result as string);
-      };
-      reader.readAsDataURL(file);
+  const fetchProductImages = async () => {
+    if (!product?.id) return;
+    
+    try {
+      const { data, error } = await supabase
+        .from('product_images')
+        .select('*')
+        .eq('product_id', product.id)
+        .order('display_order');
+
+      if (error) throw error;
+      setImages(data || []);
+    } catch (error) {
+      console.error('Erro ao carregar imagens:', error);
     }
   };
 
-  const removeImage = () => {
-    setImageFile(null);
-    setImagePreview(null);
-  };
+  const uploadImages = async (productId: string) => {
+    const newImages = images.filter(img => img.file);
+    
+    for (const image of newImages) {
+      try {
+        const fileExt = image.file.name.split('.').pop();
+        const fileName = `${Math.random()}.${fileExt}`;
+        const filePath = `${fileName}`;
 
-  const uploadImage = async (): Promise<string | null> => {
-    if (!imageFile) return null;
+        const { error: uploadError } = await supabase.storage
+          .from('product-images')
+          .upload(filePath, image.file);
 
-    try {
-      const fileExt = imageFile.name.split('.').pop();
-      const fileName = `${Math.random()}.${fileExt}`;
-      const filePath = `${fileName}`;
+        if (uploadError) throw uploadError;
 
-      const { error: uploadError } = await supabase.storage
-        .from('product-images')
-        .upload(filePath, imageFile);
+        const { data: { publicUrl } } = supabase.storage
+          .from('product-images')
+          .getPublicUrl(filePath);
 
-      if (uploadError) throw uploadError;
-
-      const { data: { publicUrl } } = supabase.storage
-        .from('product-images')
-        .getPublicUrl(filePath);
-
-      return publicUrl;
-    } catch (error) {
-      console.error('Erro ao fazer upload da imagem:', error);
-      return null;
+        await supabase.from('product_images').insert({
+          product_id: productId,
+          image_url: publicUrl,
+          display_order: image.display_order,
+          is_primary: image.is_primary,
+        });
+      } catch (error) {
+        console.error('Erro ao fazer upload da imagem:', error);
+      }
     }
   };
 
@@ -119,12 +126,6 @@ export const ProductForm = ({ mode = 'create', product, onSuccess }: ProductForm
     setUploading(true);
 
     try {
-      // Upload new image if exists, otherwise keep existing
-      let imageUrl = product?.image_url || null;
-      if (imageFile) {
-        imageUrl = await uploadImage();
-      }
-
       const productData = {
         name,
         description,
@@ -132,7 +133,6 @@ export const ProductForm = ({ mode = 'create', product, onSuccess }: ProductForm
         category_id: categoryId || null,
         stock: parseInt(stock),
         stock_alert_threshold: parseInt(stockAlertThreshold),
-        image_url: imageUrl,
       };
 
       if (mode === 'edit' && product) {
@@ -144,15 +144,27 @@ export const ProductForm = ({ mode = 'create', product, onSuccess }: ProductForm
 
         if (error) throw error;
 
+        // Upload new images
+        await uploadImages(product.id);
+
         toast({
           title: 'Produto atualizado!',
           description: 'O produto foi atualizado com sucesso.',
         });
       } else {
         // Insert product
-        const { error } = await supabase.from('products').insert(productData);
+        const { data, error } = await supabase
+          .from('products')
+          .insert(productData)
+          .select()
+          .single();
 
         if (error) throw error;
+
+        // Upload images for new product
+        if (data) {
+          await uploadImages(data.id);
+        }
 
         toast({
           title: 'Produto criado!',
@@ -168,8 +180,7 @@ export const ProductForm = ({ mode = 'create', product, onSuccess }: ProductForm
         setCategoryId('');
         setStock('0');
         setStockAlertThreshold('5');
-        setImageFile(null);
-        setImagePreview(null);
+        setImages([]);
       }
 
       onSuccess();
@@ -276,39 +287,12 @@ export const ProductForm = ({ mode = 'create', product, onSuccess }: ProductForm
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="image">Imagem do Produto</Label>
-            {imagePreview ? (
-              <div className="relative">
-                <img
-                  src={imagePreview}
-                  alt="Preview"
-                  className="w-full h-48 object-cover rounded-lg"
-                />
-                <Button
-                  type="button"
-                  variant="destructive"
-                  size="icon"
-                  className="absolute top-2 right-2"
-                  onClick={removeImage}
-                >
-                  <X className="h-4 w-4" />
-                </Button>
-              </div>
-            ) : (
-              <div className="border-2 border-dashed rounded-lg p-8 text-center">
-                <Upload className="h-8 w-8 mx-auto mb-2 text-muted-foreground" />
-                <Label htmlFor="image" className="cursor-pointer text-sm text-muted-foreground">
-                  Clique para selecionar uma imagem
-                </Label>
-                <Input
-                  id="image"
-                  type="file"
-                  accept="image/*"
-                  onChange={handleImageChange}
-                  className="hidden"
-                />
-              </div>
-            )}
+            <Label>Imagens do Produto</Label>
+            <ImageUploader
+              productId={product?.id}
+              images={images}
+              onImagesChange={setImages}
+            />
           </div>
 
           <Button type="submit" className="w-full" disabled={uploading}>

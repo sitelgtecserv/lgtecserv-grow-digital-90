@@ -5,9 +5,10 @@ import { supabase } from '@/integrations/supabase/client';
 import { ProductForm } from '@/components/admin/ProductForm';
 import { ProductList } from '@/components/admin/ProductList';
 import { CategoryManager } from '@/components/admin/CategoryManager';
+import { OrderManager } from '@/components/admin/OrderManager';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { ArrowLeft, Loader2, Shield, Package, Folder } from 'lucide-react';
+import { ArrowLeft, Loader2, Shield, Package, Folder, ShoppingBag } from 'lucide-react';
 import SEOHead from '@/components/seo/SEOHead';
 
 interface Product {
@@ -100,7 +101,7 @@ const Admin = () => {
         {/* Main Content */}
         <main className="container mx-auto px-4 py-8 max-w-7xl">
           <Tabs defaultValue="products" className="w-full">
-            <TabsList className="grid w-full max-w-md grid-cols-2">
+            <TabsList className="grid w-full max-w-2xl grid-cols-3">
               <TabsTrigger value="products" className="flex items-center gap-2">
                 <Package className="h-4 w-4" />
                 Produtos
@@ -108,6 +109,10 @@ const Admin = () => {
               <TabsTrigger value="categories" className="flex items-center gap-2">
                 <Folder className="h-4 w-4" />
                 Categorias
+              </TabsTrigger>
+              <TabsTrigger value="orders" className="flex items-center gap-2">
+                <ShoppingBag className="h-4 w-4" />
+                Pedidos
               </TabsTrigger>
             </TabsList>
 
@@ -134,6 +139,10 @@ const Admin = () => {
 
             <TabsContent value="categories" className="mt-6">
               <CategoryManager />
+            </TabsContent>
+
+            <TabsContent value="orders" className="mt-6">
+              <OrderManager />
             </TabsContent>
           </Tabs>
         </main>
