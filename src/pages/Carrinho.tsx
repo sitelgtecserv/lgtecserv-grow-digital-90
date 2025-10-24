@@ -128,11 +128,11 @@ const Carrinho = () => {
                             className="font-semibold text-lg line-clamp-1 cursor-pointer hover:text-primary"
                             onClick={() => navigate(`/produto/${item.id}`)}
                           >
-                            {item.name}
+                          {item.name}
                           </h3>
-                          {item.category && (
+                          {item.categories?.name && (
                             <p className="text-sm text-muted-foreground">
-                              {item.category}
+                              {item.categories.name}
                             </p>
                           )}
                           <p className="font-bold text-primary mt-2">

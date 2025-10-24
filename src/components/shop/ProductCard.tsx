@@ -14,13 +14,14 @@ interface Product {
   image_url: string | null;
   category_id: string | null;
   stock: number;
+  created_at?: string;
   categories?: {
     name: string;
   } | null;
 }
 
 interface ProductCardProps {
-  product: Product & { created_at?: string };
+  product: Product;
 }
 
 export const ProductCard = ({ product }: ProductCardProps) => {
