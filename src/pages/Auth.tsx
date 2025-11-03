@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -18,13 +18,15 @@ const Auth = () => {
   const { signIn, signUp, user } = useAuth();
   const { toast } = useToast();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
   // Redirect if already logged in
   useEffect(() => {
     if (user) {
-      navigate('/loja');
+      const redirect = searchParams.get('redirect');
+      navigate(redirect || '/loja');
     }
-  }, [user, navigate]);
+  }, [user, navigate, searchParams]);
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -43,7 +45,8 @@ const Auth = () => {
         title: 'Bem-vindo!',
         description: 'Login realizado com sucesso.',
       });
-      navigate('/loja');
+      const redirect = searchParams.get('redirect');
+      navigate(redirect || '/loja');
     }
 
     setLoading(false);
@@ -76,7 +79,8 @@ const Auth = () => {
         title: 'Conta criada!',
         description: 'Sua conta foi criada com sucesso. Você já pode fazer login.',
       });
-      navigate('/loja');
+      const redirect = searchParams.get('redirect');
+      navigate(redirect || '/loja');
     }
 
     setLoading(false);

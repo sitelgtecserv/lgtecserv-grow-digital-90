@@ -24,7 +24,7 @@ const checkoutSchema = z.object({
 });
 
 const Checkout = () => {
-  const { user, loading: authLoading } = useAuth();
+  const { user } = useAuth();
   const { cart, getCartTotal, clearCart } = useCart();
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -36,11 +36,22 @@ const Checkout = () => {
   const [submitting, setSubmitting] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
+  // Recuperar dados do formulário salvos após login
   useEffect(() => {
-    if (!authLoading && !user) {
-      navigate('/auth');
+    const savedData = localStorage.getItem('checkoutData');
+    if (savedData && user) {
+      try {
+        const data = JSON.parse(savedData);
+        setCustomerName(data.customerName || '');
+        setCustomerPhone(data.customerPhone || '');
+        setCustomerAddress(data.customerAddress || '');
+        setNotes(data.notes || '');
+        localStorage.removeItem('checkoutData');
+      } catch (error) {
+        console.error('Erro ao recuperar dados do checkout:', error);
+      }
     }
-  }, [user, authLoading, navigate]);
+  }, [user]);
 
   const validateForm = () => {
     try {
@@ -68,6 +79,25 @@ const Checkout = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Verificar se o usuário está autenticado ANTES de processar
+    if (!user) {
+      toast({
+        title: 'Login necessário',
+        description: 'Por favor, faça login para finalizar seu pedido.',
+        variant: 'default',
+      });
+      // Salvar dados do formulário no localStorage
+      localStorage.setItem('checkoutData', JSON.stringify({
+        customerName,
+        customerPhone,
+        customerAddress,
+        notes,
+      }));
+      // Redirecionar para autenticação
+      navigate('/auth?redirect=/checkout');
+      return;
+    }
     
     if (!validateForm()) {
       toast({
@@ -169,14 +199,6 @@ const Checkout = () => {
       setSubmitting(false);
     }
   };
-
-  if (authLoading || !user) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-      </div>
-    );
-  }
 
   return (
     <>
