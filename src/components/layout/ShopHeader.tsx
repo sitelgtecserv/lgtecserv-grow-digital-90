@@ -19,10 +19,6 @@ export const ShopHeader = ({ onCartOpen, onSearchOpen }: ShopHeaderProps) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleCartClick = () => {
-    if (!user) {
-      navigate('/auth');
-      return;
-    }
     if (onCartOpen) {
       onCartOpen();
     } else {
@@ -51,7 +47,7 @@ export const ShopHeader = ({ onCartOpen, onSearchOpen }: ShopHeaderProps) => {
           </div>
 
           <div className="flex items-center gap-2">
-            {user && cartCount > 0 && (
+            {cartCount > 0 && (
               <Button
                 variant="outline"
                 size="lg"
@@ -178,7 +174,7 @@ export const ShopHeader = ({ onCartOpen, onSearchOpen }: ShopHeaderProps) => {
                 <Search className="h-5 w-5" />
               </Button>
             )}
-            {user && cartCount > 0 && (
+            {cartCount > 0 && (
               <Button
                 variant="ghost"
                 size="icon"

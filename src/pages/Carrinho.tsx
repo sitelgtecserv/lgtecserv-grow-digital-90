@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '@/contexts/AuthContext';
 import { useCart } from '@/contexts/CartContext';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -8,7 +7,6 @@ import SEOHead from '@/components/seo/SEOHead';
 import { EmptyState } from '@/components/shop/EmptyState';
 import { ShopHeader } from '@/components/layout/ShopHeader';
 import { BottomNav } from '@/components/shop/BottomNav';
-import { useEffect } from 'react';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -22,23 +20,8 @@ import {
 } from "@/components/ui/alert-dialog";
 
 const Carrinho = () => {
-  const { user, loading: authLoading } = useAuth();
   const { cart, removeFromCart, updateQuantity, clearCart, getCartTotal } = useCart();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!authLoading && !user) {
-      navigate('/auth');
-    }
-  }, [user, authLoading, navigate]);
-
-  if (authLoading || !user) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-      </div>
-    );
-  }
 
   return (
     <>
