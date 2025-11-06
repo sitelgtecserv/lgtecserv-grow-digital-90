@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import { Loader2, MessageCircle, ShoppingCart, Trash2 } from 'lucide-react';
+import { Loader2, ShoppingCart, Trash2 } from 'lucide-react';
 import { useCart } from '@/contexts/CartContext';
 import { useAuth } from '@/contexts/AuthContext';
 import SEOHead from '@/components/seo/SEOHead';
@@ -28,13 +28,11 @@ interface Product {
   } | null;
 }
 
-const WHATSAPP_NUMBER = '258869824047'; // WhatsApp LG TecServ
-
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { user } = useAuth();
-  const { cart, removeFromCart } = useCart();
+  const { cart, addToCart, removeFromCart } = useCart();
   const { toast } = useToast();
   const [product, setProduct] = useState<Product | null>(null);
   const [images, setImages] = useState<any[]>([]);
@@ -73,20 +71,15 @@ const ProductDetail = () => {
     }
   };
 
-  const handleWhatsAppClick = () => {
+  const handleAddToCart = () => {
     if (!product) return;
 
-    const message = `Olá! Tenho interesse no seguinte produto:\n\n` +
-      `*${product.name}*\n\n` +
-      `Descrição: ${product.description}\n\n` +
-      `Preço: ${product.price.toLocaleString('pt-MZ', { style: 'currency', currency: 'MZN' })}\n\n` +
-      (product.image_url ? `Imagem: ${product.image_url}\n\n` : '') +
-      `Gostaria de mais informações.`;
-
-    const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodedMessage}`;
+    addToCart(product);
     
-    window.open(whatsappUrl, '_blank');
+    toast({
+      title: 'Produto adicionado',
+      description: 'O produto foi adicionado ao carrinho com sucesso.',
+    });
   };
 
   const productInCart = cart.find((item) => item.id === product?.id);
@@ -200,18 +193,27 @@ const ProductDetail = () => {
                 </Card>
               )}
 
-              {/* WhatsApp Button */}
-              <Button
-                size="lg"
-                className="w-full"
-                onClick={handleWhatsAppClick}
-                disabled={product.stock === 0}
-              >
-                <MessageCircle className="mr-2 h-5 w-5" />
-                {product.stock === 0
-                  ? 'Produto Indisponível'
-                  : 'Solicitar produto via WhatsApp'}
-              </Button>
+              {/* Add to Cart Button */}
+              {!productInCart ? (
+                <Button
+                  size="lg"
+                  className="w-full"
+                  onClick={handleAddToCart}
+                  disabled={product.stock === 0}
+                >
+                  <ShoppingCart className="mr-2 h-5 w-5" />
+                  {product.stock === 0 ? 'Produto Indisponível' : 'Adicionar ao Carrinho'}
+                </Button>
+              ) : (
+                <Button
+                  size="lg"
+                  className="w-full"
+                  onClick={() => navigate('/carrinho')}
+                >
+                  <ShoppingCart className="mr-2 h-5 w-5" />
+                  Ver Carrinho
+                </Button>
+              )}
 
               {product.stock === 0 ? (
                 <p className="text-sm text-destructive text-center">
@@ -219,8 +221,9 @@ const ProductDetail = () => {
                 </p>
               ) : (
                 <p className="text-sm text-muted-foreground text-center">
-                  Clique no botão acima para enviar uma solicitação pelo WhatsApp com todos os
-                  detalhes deste produto.
+                  {productInCart
+                    ? 'Este produto já está no seu carrinho.'
+                    : 'Adicione o produto ao carrinho para finalizar seu pedido.'}
                 </p>
               )}
             </div>

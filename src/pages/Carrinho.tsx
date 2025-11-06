@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useCart } from '@/contexts/CartContext';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Trash2, Plus, Minus, ShoppingBag, ArrowLeft } from 'lucide-react';
+import { Trash2, Plus, Minus, ShoppingBag, ArrowLeft, MessageCircle } from 'lucide-react';
 import SEOHead from '@/components/seo/SEOHead';
 import { EmptyState } from '@/components/shop/EmptyState';
 import { ShopHeader } from '@/components/layout/ShopHeader';
@@ -19,9 +19,34 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
+const WHATSAPP_NUMBER = '258869824047';
+
 const Carrinho = () => {
   const { cart, removeFromCart, updateQuantity, clearCart, getCartTotal } = useCart();
   const navigate = useNavigate();
+
+  const handleWhatsAppClick = () => {
+    if (cart.length === 0) return;
+
+    let message = `Olá! Gostaria de solicitar os seguintes produtos:\n\n`;
+    
+    cart.forEach((item, index) => {
+      const subtotal = item.price * item.quantity;
+      message += `*${index + 1}. ${item.name}*\n`;
+      message += `Quantidade: ${item.quantity}\n`;
+      message += `Preço unitário: ${item.price.toLocaleString('pt-MZ', { style: 'currency', currency: 'MZN' })}\n`;
+      message += `Subtotal: ${subtotal.toLocaleString('pt-MZ', { style: 'currency', currency: 'MZN' })}\n\n`;
+    });
+
+    message += `------------------\n`;
+    message += `*Total: ${getCartTotal().toLocaleString('pt-MZ', { style: 'currency', currency: 'MZN' })}*\n\n`;
+    message += `Aguardo retorno para confirmar o pedido.`;
+
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodedMessage}`;
+    
+    window.open(whatsappUrl, '_blank');
+  };
 
   return (
     <>
@@ -223,19 +248,20 @@ const Carrinho = () => {
                     </div>
                     <Button
                       size="lg"
+                      variant="whatsapp"
                       className="w-full"
+                      onClick={handleWhatsAppClick}
+                    >
+                      <MessageCircle className="mr-2 h-4 w-4" />
+                      Solicitar via WhatsApp
+                    </Button>
+                    <Button
+                      size="lg"
+                      className="w-full mt-2"
                       onClick={() => navigate('/checkout')}
                     >
                       <ShoppingBag className="mr-2 h-4 w-4" />
-                      Finalizar Pedido
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="lg"
-                      className="w-full mt-2"
-                      onClick={() => navigate('/loja')}
-                    >
-                      Continuar Comprando
+                      Finalizar com Formulário
                     </Button>
                   </CardContent>
                 </Card>
