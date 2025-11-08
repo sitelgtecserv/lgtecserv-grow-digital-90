@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import { toast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
 
 interface Product {
   id: string;
@@ -20,26 +21,42 @@ interface CartItem extends Product {
   quantity: number;
 }
 
+interface Coupon {
+  code: string;
+  discount_type: 'percentage' | 'fixed';
+  discount_value: number;
+}
+
 interface CartContextType {
   cart: CartItem[];
+  coupon: Coupon | null;
   addToCart: (product: Product) => void;
   removeFromCart: (cartItemId: string) => void;
   updateQuantity: (cartItemId: string, quantity: number) => void;
   clearCart: () => void;
   cartCount: number;
   getCartTotal: () => number;
+  applyCoupon: (code: string) => Promise<boolean>;
+  removeCoupon: () => void;
+  getDiscount: () => number;
+  getFinalTotal: () => number;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [cart, setCart] = useState<CartItem[]>([]);
+  const [coupon, setCoupon] = useState<Coupon | null>(null);
 
-  // Load cart from localStorage on mount
+  // Load cart and coupon from localStorage on mount
   useEffect(() => {
     const savedCart = localStorage.getItem('cart');
     if (savedCart) {
       setCart(JSON.parse(savedCart));
+    }
+    const savedCoupon = localStorage.getItem('coupon');
+    if (savedCoupon) {
+      setCoupon(JSON.parse(savedCoupon));
     }
   }, []);
 
@@ -47,6 +64,15 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(cart));
   }, [cart]);
+
+  // Save coupon to localStorage whenever it changes
+  useEffect(() => {
+    if (coupon) {
+      localStorage.setItem('coupon', JSON.stringify(coupon));
+    } else {
+      localStorage.removeItem('coupon');
+    }
+  }, [coupon]);
 
   const addToCart = (product: Product) => {
     const existingItem = cart.find((item) => item.id === product.id);
@@ -102,6 +128,8 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
   const clearCart = () => {
     setCart([]);
+    setCoupon(null);
+    localStorage.removeItem('coupon');
     toast({
       title: 'Carrinho limpo',
       description: 'Todos os produtos foram removidos do carrinho',
@@ -112,16 +140,99 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     return cart.reduce((total, item) => total + item.price * item.quantity, 0);
   };
 
+  const applyCoupon = async (code: string): Promise<boolean> => {
+    try {
+      const cartTotal = getCartTotal();
+      
+      const { data, error } = await supabase.rpc('validate_coupon', {
+        p_code: code.toUpperCase(),
+        p_cart_total: cartTotal,
+      });
+
+      if (error) throw error;
+
+      if (data && data.length > 0) {
+        const result = data[0];
+        
+        if (result.valid) {
+          setCoupon({
+            code: code.toUpperCase(),
+            discount_type: result.discount_type,
+            discount_value: result.discount_value,
+          });
+          toast({
+            title: 'Cupom aplicado!',
+            description: result.message,
+          });
+          return true;
+        } else {
+          toast({
+            title: 'Erro ao aplicar cupom',
+            description: result.message,
+            variant: 'destructive',
+          });
+          return false;
+        }
+      }
+      
+      toast({
+        title: 'Erro',
+        description: 'Não foi possível validar o cupom',
+        variant: 'destructive',
+      });
+      return false;
+    } catch (error) {
+      console.error('Error applying coupon:', error);
+      toast({
+        title: 'Erro',
+        description: 'Erro ao aplicar cupom',
+        variant: 'destructive',
+      });
+      return false;
+    }
+  };
+
+  const removeCoupon = () => {
+    setCoupon(null);
+    toast({
+      title: 'Cupom removido',
+      description: 'O desconto foi removido do carrinho',
+    });
+  };
+
+  const getDiscount = () => {
+    if (!coupon) return 0;
+    
+    const cartTotal = getCartTotal();
+    
+    if (coupon.discount_type === 'percentage') {
+      return (cartTotal * coupon.discount_value) / 100;
+    } else {
+      return coupon.discount_value;
+    }
+  };
+
+  const getFinalTotal = () => {
+    const total = getCartTotal();
+    const discount = getDiscount();
+    return Math.max(0, total - discount);
+  };
+
   return (
     <CartContext.Provider
       value={{
         cart,
+        coupon,
         addToCart,
         removeFromCart,
         updateQuantity,
         clearCart,
         cartCount: cart.length,
         getCartTotal,
+        applyCoupon,
+        removeCoupon,
+        getDiscount,
+        getFinalTotal,
       }}
     >
       {children}

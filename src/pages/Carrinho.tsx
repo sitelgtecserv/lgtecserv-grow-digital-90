@@ -2,11 +2,13 @@ import { useNavigate } from 'react-router-dom';
 import { useCart } from '@/contexts/CartContext';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Trash2, Plus, Minus, ShoppingBag, ArrowLeft, MessageCircle } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Trash2, Plus, Minus, ShoppingBag, ArrowLeft, MessageCircle, Tag, X } from 'lucide-react';
 import SEOHead from '@/components/seo/SEOHead';
 import { EmptyState } from '@/components/shop/EmptyState';
 import { ShopHeader } from '@/components/layout/ShopHeader';
 import { BottomNav } from '@/components/shop/BottomNav';
+import { useState } from 'react';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -22,8 +24,19 @@ import {
 const WHATSAPP_NUMBER = '258869824047';
 
 const Carrinho = () => {
-  const { cart, removeFromCart, updateQuantity, clearCart, getCartTotal } = useCart();
+  const { cart, coupon, removeFromCart, updateQuantity, clearCart, getCartTotal, applyCoupon, removeCoupon, getDiscount, getFinalTotal } = useCart();
   const navigate = useNavigate();
+  const [couponCode, setCouponCode] = useState('');
+  const [isApplyingCoupon, setIsApplyingCoupon] = useState(false);
+
+  const handleApplyCoupon = async () => {
+    if (!couponCode.trim()) return;
+    
+    setIsApplyingCoupon(true);
+    await applyCoupon(couponCode.trim());
+    setIsApplyingCoupon(false);
+    setCouponCode('');
+  };
 
   const handleWhatsAppClick = () => {
     if (cart.length === 0) return;
@@ -39,7 +52,14 @@ const Carrinho = () => {
     });
 
     message += `------------------\n`;
-    message += `*Total: ${getCartTotal().toLocaleString('pt-MZ', { style: 'currency', currency: 'MZN' })}*\n\n`;
+    message += `*Subtotal: ${getCartTotal().toLocaleString('pt-MZ', { style: 'currency', currency: 'MZN' })}*\n`;
+    
+    if (coupon) {
+      const discount = getDiscount();
+      message += `*Desconto (${coupon.code}): -${discount.toLocaleString('pt-MZ', { style: 'currency', currency: 'MZN' })}*\n`;
+    }
+    
+    message += `*Total: ${getFinalTotal().toLocaleString('pt-MZ', { style: 'currency', currency: 'MZN' })}*\n\n`;
     message += `Aguardo retorno para confirmar o pedido.`;
 
     const encodedMessage = encodeURIComponent(message);
@@ -220,6 +240,49 @@ const Carrinho = () => {
                 <Card className="sticky top-24">
                   <CardContent className="p-6">
                     <h2 className="text-xl font-bold mb-4">Resumo do Pedido</h2>
+                    
+                    {/* Coupon Section */}
+                    <div className="mb-6 space-y-3">
+                      {!coupon ? (
+                        <div className="flex gap-2">
+                          <div className="relative flex-1">
+                            <Tag className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                            <Input
+                              placeholder="Código do cupom"
+                              value={couponCode}
+                              onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
+                              onKeyDown={(e) => e.key === 'Enter' && handleApplyCoupon()}
+                              className="pl-9"
+                            />
+                          </div>
+                          <Button
+                            variant="outline"
+                            onClick={handleApplyCoupon}
+                            disabled={isApplyingCoupon || !couponCode.trim()}
+                          >
+                            {isApplyingCoupon ? 'Aplicando...' : 'Aplicar'}
+                          </Button>
+                        </div>
+                      ) : (
+                        <div className="flex items-center justify-between p-3 bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-800 rounded-md">
+                          <div className="flex items-center gap-2">
+                            <Tag className="h-4 w-4 text-green-600 dark:text-green-400" />
+                            <span className="text-sm font-medium text-green-600 dark:text-green-400">
+                              {coupon.code}
+                            </span>
+                          </div>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={removeCoupon}
+                            className="h-6 w-6 p-0"
+                          >
+                            <X className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      )}
+                    </div>
+
                     <div className="space-y-3 mb-6">
                       <div className="flex justify-between text-sm">
                         <span className="text-muted-foreground">Subtotal</span>
@@ -230,6 +293,17 @@ const Carrinho = () => {
                           })}
                         </span>
                       </div>
+                      {coupon && (
+                        <div className="flex justify-between text-sm text-green-600 dark:text-green-400">
+                          <span>Desconto ({coupon.discount_type === 'percentage' ? `${coupon.discount_value}%` : 'Fixo'})</span>
+                          <span className="font-medium">
+                            -{getDiscount().toLocaleString('pt-MZ', {
+                              style: 'currency',
+                              currency: 'MZN',
+                            })}
+                          </span>
+                        </div>
+                      )}
                       <div className="flex justify-between text-sm">
                         <span className="text-muted-foreground">Itens</span>
                         <span className="font-medium">{cart.length}</span>
@@ -239,7 +313,7 @@ const Carrinho = () => {
                       <div className="flex justify-between text-lg font-bold">
                         <span>Total</span>
                         <span className="text-primary">
-                          {getCartTotal().toLocaleString('pt-MZ', {
+                          {getFinalTotal().toLocaleString('pt-MZ', {
                             style: 'currency',
                             currency: 'MZN',
                           })}

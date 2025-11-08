@@ -38,6 +38,90 @@ export type Database = {
         }
         Relationships: []
       }
+      coupon_usage: {
+        Row: {
+          coupon_id: string
+          id: string
+          order_id: string | null
+          used_at: string
+          user_id: string | null
+        }
+        Insert: {
+          coupon_id: string
+          id?: string
+          order_id?: string | null
+          used_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          coupon_id?: string
+          id?: string
+          order_id?: string | null
+          used_at?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "coupon_usage_coupon_id_fkey"
+            columns: ["coupon_id"]
+            isOneToOne: false
+            referencedRelation: "coupons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "coupon_usage_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      coupons: {
+        Row: {
+          code: string
+          created_at: string
+          created_by: string | null
+          discount_type: Database["public"]["Enums"]["discount_type"]
+          discount_value: number
+          id: string
+          is_active: boolean
+          max_uses: number | null
+          min_purchase: number | null
+          uses_count: number
+          valid_from: string
+          valid_until: string
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          created_by?: string | null
+          discount_type: Database["public"]["Enums"]["discount_type"]
+          discount_value: number
+          id?: string
+          is_active?: boolean
+          max_uses?: number | null
+          min_purchase?: number | null
+          uses_count?: number
+          valid_from?: string
+          valid_until: string
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          created_by?: string | null
+          discount_type?: Database["public"]["Enums"]["discount_type"]
+          discount_value?: number
+          id?: string
+          is_active?: boolean
+          max_uses?: number | null
+          min_purchase?: number | null
+          uses_count?: number
+          valid_from?: string
+          valid_until?: string
+        }
+        Relationships: []
+      }
       order_items: {
         Row: {
           created_at: string
@@ -267,9 +351,19 @@ export type Database = {
         }
         Returns: boolean
       }
+      validate_coupon: {
+        Args: { p_cart_total: number; p_code: string }
+        Returns: {
+          discount_type: Database["public"]["Enums"]["discount_type"]
+          discount_value: number
+          message: string
+          valid: boolean
+        }[]
+      }
     }
     Enums: {
       app_role: "admin" | "user"
+      discount_type: "percentage" | "fixed"
       order_status:
         | "pending"
         | "confirmed"
@@ -404,6 +498,7 @@ export const Constants = {
   public: {
     Enums: {
       app_role: ["admin", "user"],
+      discount_type: ["percentage", "fixed"],
       order_status: [
         "pending",
         "confirmed",

@@ -6,9 +6,10 @@ import { ProductForm } from '@/components/admin/ProductForm';
 import { ProductList } from '@/components/admin/ProductList';
 import { CategoryManager } from '@/components/admin/CategoryManager';
 import { OrderManager } from '@/components/admin/OrderManager';
+import { CouponManager } from '@/components/admin/CouponManager';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { ArrowLeft, Loader2, Shield, Package, Folder, ShoppingBag } from 'lucide-react';
+import { ArrowLeft, Loader2, Shield, Package, Folder, ShoppingBag, Tag } from 'lucide-react';
 import SEOHead from '@/components/seo/SEOHead';
 
 interface Product {
@@ -101,7 +102,7 @@ const Admin = () => {
         {/* Main Content */}
         <main className="container mx-auto px-4 py-8 max-w-7xl">
           <Tabs defaultValue="products" className="w-full">
-            <TabsList className="grid w-full max-w-2xl grid-cols-3">
+            <TabsList className="grid w-full max-w-3xl grid-cols-4">
               <TabsTrigger value="products" className="flex items-center gap-2">
                 <Package className="h-4 w-4" />
                 Produtos
@@ -109,6 +110,10 @@ const Admin = () => {
               <TabsTrigger value="categories" className="flex items-center gap-2">
                 <Folder className="h-4 w-4" />
                 Categorias
+              </TabsTrigger>
+              <TabsTrigger value="coupons" className="flex items-center gap-2">
+                <Tag className="h-4 w-4" />
+                Cupons
               </TabsTrigger>
               <TabsTrigger value="orders" className="flex items-center gap-2">
                 <ShoppingBag className="h-4 w-4" />
@@ -139,6 +144,10 @@ const Admin = () => {
 
             <TabsContent value="categories" className="mt-6">
               <CategoryManager />
+            </TabsContent>
+
+            <TabsContent value="coupons" className="mt-6">
+              <CouponManager />
             </TabsContent>
 
             <TabsContent value="orders" className="mt-6">
