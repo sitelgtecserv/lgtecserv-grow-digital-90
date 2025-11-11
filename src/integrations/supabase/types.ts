@@ -252,6 +252,7 @@ export type Database = {
           image_url: string | null
           name: string
           price: number
+          slug: string | null
           stock: number
           stock_alert_threshold: number | null
           updated_at: string
@@ -266,6 +267,7 @@ export type Database = {
           image_url?: string | null
           name: string
           price: number
+          slug?: string | null
           stock?: number
           stock_alert_threshold?: number | null
           updated_at?: string
@@ -280,6 +282,7 @@ export type Database = {
           image_url?: string | null
           name?: string
           price?: number
+          slug?: string | null
           stock?: number
           stock_alert_threshold?: number | null
           updated_at?: string
