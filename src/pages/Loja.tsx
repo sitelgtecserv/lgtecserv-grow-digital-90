@@ -31,6 +31,11 @@ interface Product {
   categories?: {
     name: string;
   } | null;
+  product_images?: Array<{
+    image_url: string;
+    is_primary: boolean;
+    display_order: number;
+  }>;
 }
 
 const Loja = () => {
@@ -85,12 +90,25 @@ const Loja = () => {
       setLoading(true);
       const { data, error } = await supabase
         .from('products')
-        .select('*, categories(name)')
+        .select(`
+          *,
+          categories(name),
+          product_images(image_url, is_primary, display_order)
+        `)
         .order('created_at', { ascending: false });
 
       if (error) throw error;
 
-      setProducts(data || []);
+      // Processar produtos para usar a imagem principal ou primeira disponível
+      const processedProducts = data?.map(product => ({
+        ...product,
+        image_url: product.image_url || 
+          product.product_images?.find(img => img.is_primary)?.image_url || 
+          product.product_images?.[0]?.image_url || 
+          null
+      })) || [];
+
+      setProducts(processedProducts);
     } catch (error) {
       console.error('Erro ao carregar produtos:', error);
     } finally {

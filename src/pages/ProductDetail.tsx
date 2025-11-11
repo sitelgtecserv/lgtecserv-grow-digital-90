@@ -26,6 +26,11 @@ interface Product {
   categories?: {
     name: string;
   } | null;
+  product_images?: Array<{
+    image_url: string;
+    is_primary: boolean;
+    display_order: number;
+  }>;
 }
 
 const ProductDetail = () => {
@@ -48,21 +53,27 @@ const ProductDetail = () => {
     try {
       const { data, error } = await supabase
         .from('products')
-        .select('*, categories(name)')
+        .select(`
+          *, 
+          categories(name),
+          product_images(image_url, is_primary, display_order, id)
+        `)
         .eq('id', id)
         .single();
 
       if (error) throw error;
-      setProduct(data);
 
-      // Fetch product images
-      const { data: imagesData } = await supabase
-        .from('product_images')
-        .select('*')
-        .eq('product_id', id)
-        .order('display_order');
+      // Processar produto para usar a imagem principal
+      const processedProduct = {
+        ...data,
+        image_url: data.image_url || 
+          data.product_images?.find(img => img.is_primary)?.image_url || 
+          data.product_images?.[0]?.image_url || 
+          null
+      };
 
-      setImages(imagesData || []);
+      setProduct(processedProduct);
+      setImages(data.product_images || []);
     } catch (error) {
       console.error('Erro ao carregar produto:', error);
       navigate('/loja');
