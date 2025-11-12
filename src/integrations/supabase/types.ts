@@ -392,6 +392,7 @@ export type Database = {
         }
         Returns: boolean
       }
+      unaccent: { Args: { "": string }; Returns: string }
       validate_coupon: {
         Args: { p_cart_total: number; p_code: string }
         Returns: {
