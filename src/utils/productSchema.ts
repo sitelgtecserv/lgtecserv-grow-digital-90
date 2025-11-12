@@ -10,6 +10,7 @@ interface Product {
   stock: number;
   categories?: {
     name: string;
+    slug: string;
   } | null;
 }
 
@@ -43,7 +44,9 @@ export const generateProductSchema = (
     "category": product.categories?.name || "Produtos",
     "offers": {
       "@type": "Offer",
-      "url": `${baseUrl}/produto/${product.slug}`,
+      "url": product.categories?.slug 
+        ? `${baseUrl}/loja/${product.categories.slug}/${product.slug}`
+        : `${baseUrl}/produto/${product.slug}`,
       "priceCurrency": "MZN",
       "price": product.price.toString(),
       "availability": product.stock > 0 
@@ -78,7 +81,9 @@ export const generateProductListSchema = (products: Product[], baseUrl: string) 
       "item": {
         "@type": "Product",
         "name": product.name,
-        "url": `${baseUrl}/produto/${product.slug}`,
+        "url": product.categories?.slug
+          ? `${baseUrl}/loja/${product.categories.slug}/${product.slug}`
+          : `${baseUrl}/produto/${product.slug}`,
         "image": product.image_url,
         "offers": {
           "@type": "Offer",

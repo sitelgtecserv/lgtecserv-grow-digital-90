@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { ProductCard } from '@/components/shop/ProductCard';
@@ -20,6 +20,8 @@ import { ShopHeader } from '@/components/layout/ShopHeader';
 import { BottomNav } from '@/components/shop/BottomNav';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import { CanonicalURL } from '@/components/seo/CanonicalURL';
+import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
 
 interface Product {
   id: string;
@@ -33,6 +35,7 @@ interface Product {
   created_at: string;
   categories?: {
     name: string;
+    slug: string;
   } | null;
   product_images?: Array<{
     image_url: string;
@@ -44,6 +47,7 @@ interface Product {
 const Loja = () => {
   const { isAdmin } = useAuth();
   const navigate = useNavigate();
+  const { categorySlug } = useParams<{ categorySlug?: string }>();
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [cartDrawerOpen, setCartDrawerOpen] = useState(false);
@@ -91,6 +95,18 @@ const Loja = () => {
     fetchCategories();
   }, []);
 
+  // Set selected category based on URL param
+  useEffect(() => {
+    if (categorySlug && allCategories.length > 0) {
+      const category = allCategories.find(c => c.slug === categorySlug);
+      if (category) {
+        setSelectedCategory(category.id);
+      }
+    } else if (!categorySlug) {
+      setSelectedCategory('all');
+    }
+  }, [categorySlug, allCategories]);
+
   const fetchCategories = async () => {
     try {
       const { data, error } = await supabase
@@ -112,7 +128,7 @@ const Loja = () => {
         .from('products')
         .select(`
           *,
-          categories(name),
+          categories(name, slug),
           product_images(image_url, is_primary, display_order)
         `)
         .order('created_at', { ascending: false });
@@ -145,8 +161,18 @@ const Loja = () => {
   // Gerar structured data para os produtos filtrados
   const productListSchema = generateProductListSchema(filteredProducts.slice(0, 20), baseUrl);
   
-  // Pegar nome da categoria selecionada
-  const selectedCategoryName = allCategories.find(c => c.id === selectedCategory)?.name;
+  // Pegar categoria selecionada
+  const selectedCategoryData = allCategories.find(c => c.id === selectedCategory);
+  const selectedCategoryName = selectedCategoryData?.name;
+  const canonicalPath = selectedCategoryData ? `/loja/${selectedCategoryData.slug}` : '/loja';
+
+  // Build breadcrumbs
+  const breadcrumbs = selectedCategoryName 
+    ? [
+        { label: 'Loja', href: '/loja' },
+        { label: selectedCategoryName }
+      ]
+    : [];
 
   return (
     <>
@@ -155,13 +181,20 @@ const Loja = () => {
         description={`${selectedCategoryName ? `${selectedCategoryName}: ` : ''}Descubra nossa loja online com produtos de qualidade e entrega em todo Moçambique. Pagamento seguro, preços competitivos e atendimento personalizado. ${filteredProducts.length} produtos disponíveis.`}
         keywords={`loja online moçambique, comprar online maputo, ${selectedCategoryName ? selectedCategoryName.toLowerCase() + ' moçambique,' : ''} produtos online moçambique, entrega maputo`}
         type="website"
-        url={`${baseUrl}/loja${selectedCategory !== 'all' ? '?categoria=' + selectedCategory : ''}`}
+        url={`${baseUrl}${canonicalPath}`}
         structuredData={productListSchema}
       />
+      <CanonicalURL baseUrl={baseUrl} canonicalPath={canonicalPath} />
       <div className="min-h-screen bg-background pb-20 md:pb-0">
         <ShopHeader onCartOpen={() => setCartDrawerOpen(true)} />
 
         <main className="container mx-auto px-4 py-8">
+          {/* Breadcrumbs */}
+          {breadcrumbs.length > 0 && (
+            <div className="mb-6">
+              <Breadcrumbs items={breadcrumbs} />
+            </div>
+          )}
           {/* Search & Filters Section */}
           <div className="mb-8 space-y-4">
             <div className="flex flex-col md:flex-row gap-4">

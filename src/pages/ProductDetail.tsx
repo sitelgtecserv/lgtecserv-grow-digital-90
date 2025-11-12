@@ -31,6 +31,7 @@ interface Product {
   slug: string;
   categories?: {
     name: string;
+    slug: string;
   } | null;
   product_images?: Array<{
     image_url: string;
@@ -40,7 +41,7 @@ interface Product {
 }
 
 const ProductDetail = () => {
-  const { slug } = useParams<{ slug: string }>();
+  const { slug, categorySlug } = useParams<{ slug: string; categorySlug?: string }>();
   const navigate = useNavigate();
   const { user } = useAuth();
   const { cart, addToCart, removeFromCart } = useCart();
@@ -65,7 +66,7 @@ const ProductDetail = () => {
         .from('products')
         .select(`
           *, 
-          categories(name),
+          categories(name, slug),
           product_images(image_url, is_primary, display_order, id)
         `)
         .eq('slug', slug)
@@ -142,12 +143,17 @@ const ProductDetail = () => {
   }
 
   // Gerar schemas estruturados
+  const productUrl = product.categories?.slug 
+    ? `/loja/${product.categories.slug}/${product.slug}`
+    : `/produto/${product.slug}`;
+  const categoryUrl = product.categories?.slug ? `/loja/${product.categories.slug}` : '/loja';
+  
   const productSchema = generateProductSchema(product, baseUrl, reviewData || undefined);
   const breadcrumbSchema = generateBreadcrumbData([
     { name: 'Home', url: baseUrl },
     { name: 'Loja', url: `${baseUrl}/loja` },
-    ...(product.categories?.name ? [{ name: product.categories.name, url: `${baseUrl}/loja?categoria=${product.category_id}` }] : []),
-    { name: product.name, url: `${baseUrl}/produto/${product.slug}` }
+    ...(product.categories?.name ? [{ name: product.categories.name, url: `${baseUrl}${categoryUrl}` }] : []),
+    { name: product.name, url: `${baseUrl}${productUrl}` }
   ]);
 
   // Combinar schemas
@@ -160,7 +166,7 @@ const ProductDetail = () => {
         description={`${product.description.substring(0, 150)}... Preço: ${product.price.toLocaleString('pt-MZ', { style: 'currency', currency: 'MZN' })}. ${product.stock > 0 ? 'Em estoque' : 'Sob consulta'}. Entrega rápida em Maputo. ${product.categories?.name || ''}`}
         keywords={`${product.name}, ${product.categories?.name || 'produtos'}, comprar ${product.name.toLowerCase()} moçambique, ${product.name.toLowerCase()} maputo, loja online moçambique`}
         image={product.image_url || undefined}
-        url={`${baseUrl}/produto/${product.slug}`}
+        url={`${baseUrl}${productUrl}`}
         type="website"
         structuredData={structuredData}
       />
@@ -172,7 +178,10 @@ const ProductDetail = () => {
           <Breadcrumbs
             items={[
               { label: 'Loja', href: '/loja' },
-              { label: product.categories?.name || 'Produto', href: `/loja` },
+              ...(product.categories?.name ? [{ 
+                label: product.categories.name, 
+                href: categoryUrl 
+              }] : []),
               { label: product.name }
             ]}
             className="mb-6"

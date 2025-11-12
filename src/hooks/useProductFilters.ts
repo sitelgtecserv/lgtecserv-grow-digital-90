@@ -12,6 +12,7 @@ interface Product {
   created_at: string;
   categories?: {
     name: string;
+    slug: string;
   } | null;
 }
 

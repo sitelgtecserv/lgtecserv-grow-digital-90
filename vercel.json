@@ -2,6 +2,19 @@
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ],
+  "redirects": [
+    {
+      "source": "/loja",
+      "has": [
+        {
+          "type": "query",
+          "key": "categoria"
+        }
+      ],
+      "destination": "/loja/:categoria",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)\\.(js|css|png|jpg|jpeg|svg|woff|woff2|ttf|webp)",

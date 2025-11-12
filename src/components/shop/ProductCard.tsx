@@ -18,6 +18,7 @@ interface Product {
   created_at?: string;
   categories?: {
     name: string;
+    slug: string;
   } | null;
 }
 
@@ -47,10 +48,14 @@ export const ProductCard = ({ product }: ProductCardProps) => {
     addToCart(product);
   };
 
+  const productUrl = product.categories?.slug 
+    ? `/loja/${product.categories.slug}/${product.slug}`
+    : `/produto/${product.slug}`;
+
   return (
     <Card 
       className="overflow-hidden hover:shadow-lg transition-all duration-300 cursor-pointer group"
-      onClick={() => navigate(`/produto/${product.slug}`)}
+      onClick={() => navigate(productUrl)}
     >
       <div className="aspect-square bg-muted relative overflow-hidden">
         {/* Badges */}

@@ -74,6 +74,8 @@ const AppContent = () => {
         {/* Loja Online Routes */}
         <Route path="/auth" element={<Auth />} />
         <Route path="/loja" element={<Loja />} />
+        <Route path="/loja/:categorySlug" element={<Loja />} />
+        <Route path="/loja/:categorySlug/:slug" element={<ProductDetail />} />
         <Route path="/produto/:slug" element={<ProductDetail />} />
         <Route path="/carrinho" element={<Carrinho />} />
         <Route path="/checkout" element={<Checkout />} />

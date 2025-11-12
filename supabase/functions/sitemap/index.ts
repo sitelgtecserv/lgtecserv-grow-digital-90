@@ -78,6 +78,26 @@ serve(async (req) => {
     <priority>0.8</priority>
   </url>
 
+  <!-- Categorias -->`
+
+    categories?.forEach((category: Category) => {
+      if (category.slug) {
+        const lastmod = category.updated_at 
+          ? new Date(category.updated_at).toISOString().split('T')[0]
+          : new Date().toISOString().split('T')[0]
+        
+        xml += `
+  <url>
+    <loc>${baseUrl}/loja/${category.slug}</loc>
+    <lastmod>${lastmod}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>`
+      }
+    })
+
+    xml += `
+
   <!-- Produtos -->`
 
     products?.forEach((product: Product) => {
@@ -102,23 +122,6 @@ serve(async (req) => {
         }
         
         xml += `
-  </url>`
-      }
-    })
-
-    // Categorias
-    categories?.forEach((category: Category) => {
-      if (category.slug) {
-        const lastmod = category.updated_at 
-          ? new Date(category.updated_at).toISOString().split('T')[0]
-          : new Date().toISOString().split('T')[0]
-        
-        xml += `
-  <url>
-    <loc>${baseUrl}/loja?categoria=${category.slug}</loc>
-    <lastmod>${lastmod}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
   </url>`
       }
     })

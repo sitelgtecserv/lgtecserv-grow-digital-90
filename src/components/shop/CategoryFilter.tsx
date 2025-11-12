@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Badge } from '@/components/ui/badge';
 import { motion } from 'framer-motion';
 import { supabase } from '@/integrations/supabase/client';
@@ -6,6 +7,7 @@ import { supabase } from '@/integrations/supabase/client';
 interface Category {
   id: string;
   name: string;
+  slug: string;
 }
 
 interface CategoryFilterProps {
@@ -14,6 +16,7 @@ interface CategoryFilterProps {
 }
 
 export const CategoryFilter = ({ selected, onSelect }: CategoryFilterProps) => {
+  const navigate = useNavigate();
   const [categories, setCategories] = useState<Category[]>([]);
 
   useEffect(() => {
@@ -24,13 +27,23 @@ export const CategoryFilter = ({ selected, onSelect }: CategoryFilterProps) => {
     try {
       const { data, error } = await supabase
         .from('categories')
-        .select('id, name')
+        .select('id, name, slug')
         .order('name');
 
       if (error) throw error;
       setCategories(data || []);
     } catch (error) {
       console.error('Erro ao carregar categorias:', error);
+    }
+  };
+
+  const handleCategoryClick = (category: Category | 'all') => {
+    if (category === 'all') {
+      onSelect('all');
+      navigate('/loja');
+    } else {
+      onSelect(category.id);
+      navigate(`/loja/${category.slug}`);
     }
   };
 
@@ -44,7 +57,7 @@ export const CategoryFilter = ({ selected, onSelect }: CategoryFilterProps) => {
         <Badge
           variant={selected === 'all' ? 'default' : 'outline'}
           className="cursor-pointer px-4 py-2 text-sm"
-          onClick={() => onSelect('all')}
+          onClick={() => handleCategoryClick('all')}
         >
           Todos
         </Badge>
@@ -58,7 +71,7 @@ export const CategoryFilter = ({ selected, onSelect }: CategoryFilterProps) => {
           <Badge
             variant={selected === category.id ? 'default' : 'outline'}
             className="cursor-pointer px-4 py-2 text-sm"
-            onClick={() => onSelect(category.id)}
+            onClick={() => handleCategoryClick(category)}
           >
             {category.name}
           </Badge>
