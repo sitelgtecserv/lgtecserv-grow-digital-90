@@ -30,3 +30,4 @@ export const Checkout = lazy(() => import('./pages/Checkout'));
 export const OrderConfirmation = lazy(() => import('./pages/OrderConfirmation'));
 export const MeusPedidos = lazy(() => import('./pages/MeusPedidos'));
 export const Admin = lazy(() => import('./pages/Admin'));
+export const GoogleSearchConsole = lazy(() => import('./pages/GoogleSearchConsole'));

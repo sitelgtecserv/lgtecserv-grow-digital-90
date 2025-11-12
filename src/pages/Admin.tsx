@@ -9,7 +9,7 @@ import { OrderManager } from '@/components/admin/OrderManager';
 import { CouponManager } from '@/components/admin/CouponManager';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { ArrowLeft, Loader2, Shield, Package, Folder, ShoppingBag, Tag } from 'lucide-react';
+import { ArrowLeft, Loader2, Shield, Package, Folder, ShoppingBag, Tag, Search } from 'lucide-react';
 import SEOHead from '@/components/seo/SEOHead';
 
 interface Product {
@@ -92,10 +92,21 @@ const Admin = () => {
                 </p>
               </div>
             </div>
-            <Button variant="outline" onClick={() => navigate('/loja')}>
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Voltar para loja
-            </Button>
+            <div className="flex items-center gap-2">
+              <Button 
+                variant="default" 
+                size="sm"
+                onClick={() => navigate('/google-search-console')}
+                className="hidden md:flex"
+              >
+                <Search className="mr-2 h-4 w-4" />
+                Configurar SEO
+              </Button>
+              <Button variant="outline" onClick={() => navigate('/loja')}>
+                <ArrowLeft className="mr-2 h-4 w-4" />
+                Voltar para loja
+              </Button>
+            </div>
           </div>
         </header>
 
