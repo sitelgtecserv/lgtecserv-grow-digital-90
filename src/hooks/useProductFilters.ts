@@ -8,6 +8,7 @@ interface Product {
   image_url: string | null;
   category_id: string | null;
   stock: number;
+  slug: string;
   created_at: string;
   categories?: {
     name: string;

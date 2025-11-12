@@ -14,6 +14,9 @@ import { ShopHeader } from '@/components/layout/ShopHeader';
 import { BottomNav } from '@/components/shop/BottomNav';
 import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
 import { ImageGallery } from '@/components/shop/ImageGallery';
+import { generateProductSchema } from '@/utils/productSchema';
+import { generateBreadcrumbData } from '@/utils/seoData';
+import { useSEO } from '@/hooks/useSEO';
 
 interface Product {
   id: string;
@@ -23,6 +26,7 @@ interface Product {
   image_url: string | null;
   category_id: string | null;
   stock: number;
+  slug: string;
   categories?: {
     name: string;
   } | null;
@@ -34,22 +38,25 @@ interface Product {
 }
 
 const ProductDetail = () => {
-  const { id } = useParams<{ id: string }>();
+  const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const { user } = useAuth();
   const { cart, addToCart, removeFromCart } = useCart();
   const { toast } = useToast();
+  const { baseUrl } = useSEO({ title: '', description: '' });
   const [product, setProduct] = useState<Product | null>(null);
   const [images, setImages] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (id) {
+    if (slug) {
       fetchProduct();
     }
-  }, [id]);
+  }, [slug]);
 
   const fetchProduct = async () => {
+    if (!slug) return;
+
     try {
       const { data, error } = await supabase
         .from('products')
@@ -58,7 +65,7 @@ const ProductDetail = () => {
           categories(name),
           product_images(image_url, is_primary, display_order, id)
         `)
-        .eq('id', id)
+        .eq('slug', slug)
         .single();
 
       if (error) throw error;
@@ -117,13 +124,28 @@ const ProductDetail = () => {
     return null;
   }
 
+  // Gerar schemas estruturados
+  const productSchema = generateProductSchema(product, baseUrl);
+  const breadcrumbSchema = generateBreadcrumbData([
+    { name: 'Home', url: baseUrl },
+    { name: 'Loja', url: `${baseUrl}/loja` },
+    ...(product.categories?.name ? [{ name: product.categories.name, url: `${baseUrl}/loja?categoria=${product.category_id}` }] : []),
+    { name: product.name, url: `${baseUrl}/produto/${product.slug}` }
+  ]);
+
+  // Combinar schemas
+  const structuredData = [productSchema, breadcrumbSchema];
+
   return (
     <>
-        <SEOHead
-        title={`${product.name} | Loja Online LG TecServ`}
-        description={product.description}
-        keywords={`${product.name}, ${product.categories?.name || 'produto'}, loja online, LG TecServ`}
-        url={`https://www.lgtecserv.com/produto/${product.id}`}
+      <SEOHead
+        title={`${product.name} - Comprar em Moçambique | LG TecServ`}
+        description={`${product.description.substring(0, 150)}... Preço: ${product.price.toLocaleString('pt-MZ', { style: 'currency', currency: 'MZN' })}. ${product.stock > 0 ? 'Em estoque' : 'Sob consulta'}. Entrega rápida em Maputo. ${product.categories?.name || ''}`}
+        keywords={`${product.name}, ${product.categories?.name || 'produtos'}, comprar ${product.name.toLowerCase()} moçambique, ${product.name.toLowerCase()} maputo, loja online moçambique`}
+        image={product.image_url || undefined}
+        url={`${baseUrl}/produto/${product.slug}`}
+        type="website"
+        structuredData={structuredData}
       />
       <div className="min-h-screen bg-background pb-20 md:pb-0">
         <ShopHeader />

@@ -1,7 +1,15 @@
 # Permitir todos os bots indexarem o site
 User-agent: *
 Allow: /
-Disallow: /admin/
+Allow: /loja
+Allow: /produto/*
+Disallow: /admin
+Disallow: /admin/*
+Disallow: /auth
+Disallow: /carrinho
+Disallow: /checkout
+Disallow: /meus-pedidos
+Disallow: /confirmacao-pedido
 Disallow: /private/
 Disallow: /login/
 Disallow: /cgi-bin/

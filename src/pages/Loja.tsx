@@ -7,6 +7,8 @@ import { Loader2 } from 'lucide-react';
 import SEOHead from '@/components/seo/SEOHead';
 import { useProductFilters } from '@/hooks/useProductFilters';
 import { useProductSearch } from '@/hooks/useProductSearch';
+import { generateProductListSchema } from '@/utils/productSchema';
+import { useSEO } from '@/hooks/useSEO';
 import { SearchBar } from '@/components/shop/SearchBar';
 import { CategoryFilter } from '@/components/shop/CategoryFilter';
 import { SortDropdown } from '@/components/shop/SortDropdown';
@@ -27,6 +29,7 @@ interface Product {
   image_url: string | null;
   category_id: string | null;
   stock: number;
+  slug: string;
   created_at: string;
   categories?: {
     name: string;
@@ -44,6 +47,8 @@ const Loja = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [cartDrawerOpen, setCartDrawerOpen] = useState(false);
+  const { baseUrl } = useSEO({ title: '', description: '' });
+  const [allCategories, setAllCategories] = useState<Array<{ id: string; name: string; slug: string }>>([]);
 
   // Search & Filters
   const { searchQuery, setSearchQuery, debouncedQuery } = useProductSearch();
@@ -83,7 +88,22 @@ const Loja = () => {
 
   useEffect(() => {
     fetchProducts();
+    fetchCategories();
   }, []);
+
+  const fetchCategories = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('categories')
+        .select('id, name, slug')
+        .order('name');
+      
+      if (error) throw error;
+      setAllCategories(data || []);
+    } catch (error) {
+      console.error('Erro ao carregar categorias:', error);
+    }
+  };
 
   const fetchProducts = async () => {
     try {
@@ -122,14 +142,21 @@ const Loja = () => {
     setSearchQuery('');
   };
 
+  // Gerar structured data para os produtos filtrados
+  const productListSchema = generateProductListSchema(filteredProducts.slice(0, 20), baseUrl);
+  
+  // Pegar nome da categoria selecionada
+  const selectedCategoryName = allCategories.find(c => c.id === selectedCategory)?.name;
 
   return (
     <>
       <SEOHead
-        title="Loja Online | LG TecServ - Produtos e Serviços"
-        description="Explore nossa loja online com produtos e serviços de qualidade. Criação de sites, design gráfico, marketing digital e muito mais."
-        keywords="loja online, produtos, serviços, LG TecServ, Moçambique"
-        url="https://www.lgtecserv.com/loja"
+        title={`Loja Online${selectedCategoryName ? ` - ${selectedCategoryName}` : ''} - Compre em Moçambique | LG TecServ`}
+        description={`${selectedCategoryName ? `${selectedCategoryName}: ` : ''}Descubra nossa loja online com produtos de qualidade e entrega em todo Moçambique. Pagamento seguro, preços competitivos e atendimento personalizado. ${filteredProducts.length} produtos disponíveis.`}
+        keywords={`loja online moçambique, comprar online maputo, ${selectedCategoryName ? selectedCategoryName.toLowerCase() + ' moçambique,' : ''} produtos online moçambique, entrega maputo`}
+        type="website"
+        url={`${baseUrl}/loja${selectedCategory !== 'all' ? '?categoria=' + selectedCategory : ''}`}
+        structuredData={productListSchema}
       />
       <div className="min-h-screen bg-background pb-20 md:pb-0">
         <ShopHeader onCartOpen={() => setCartDrawerOpen(true)} />

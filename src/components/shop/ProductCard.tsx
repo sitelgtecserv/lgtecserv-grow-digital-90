@@ -14,6 +14,7 @@ interface Product {
   image_url: string | null;
   category_id: string | null;
   stock: number;
+  slug: string;
   created_at?: string;
   categories?: {
     name: string;
@@ -49,7 +50,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
   return (
     <Card 
       className="overflow-hidden hover:shadow-lg transition-all duration-300 cursor-pointer group"
-      onClick={() => navigate(`/produto/${product.id}`)}
+      onClick={() => navigate(`/produto/${product.slug}`)}
     >
       <div className="aspect-square bg-muted relative overflow-hidden">
         {/* Badges */}
@@ -67,7 +68,10 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         {product.image_url ? (
           <img
             src={product.image_url}
-            alt={product.name}
+            alt={`${product.name} - ${product.categories?.name || 'produto'} - Comprar em Moçambique | LG TecServ`}
+            title={`${product.name} - ${product.price.toLocaleString('pt-MZ', { style: 'currency', currency: 'MZN' })}`}
+            width="400"
+            height="400"
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
             loading="lazy"
           />
