@@ -13,8 +13,17 @@ interface Product {
   } | null;
 }
 
-export const generateProductSchema = (product: Product, baseUrl: string) => {
-  return {
+interface ReviewData {
+  rating: number;
+  reviewCount: number;
+}
+
+export const generateProductSchema = (
+  product: Product, 
+  baseUrl: string, 
+  reviewData?: ReviewData
+) => {
+  const schema: any = {
     "@context": "https://schema.org",
     "@type": "Product",
     "name": product.name,
@@ -44,6 +53,19 @@ export const generateProductSchema = (product: Product, baseUrl: string) => {
       "priceValidUntil": new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
     }
   };
+
+  // Adicionar aggregateRating para Rich Snippets se houver avaliações
+  if (reviewData && reviewData.reviewCount > 0) {
+    schema.aggregateRating = {
+      "@type": "AggregateRating",
+      "ratingValue": reviewData.rating.toFixed(1),
+      "reviewCount": reviewData.reviewCount,
+      "bestRating": "5",
+      "worstRating": "1"
+    };
+  }
+
+  return schema;
 };
 
 export const generateProductListSchema = (products: Product[], baseUrl: string) => {

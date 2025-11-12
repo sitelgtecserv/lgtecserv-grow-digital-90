@@ -14,6 +14,8 @@ import { ShopHeader } from '@/components/layout/ShopHeader';
 import { BottomNav } from '@/components/shop/BottomNav';
 import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
 import { ImageGallery } from '@/components/shop/ImageGallery';
+import { ProductReviews } from '@/components/shop/ProductReviews';
+import { StarRating } from '@/components/shop/StarRating';
 import { generateProductSchema } from '@/utils/productSchema';
 import { generateBreadcrumbData } from '@/utils/seoData';
 import { useSEO } from '@/hooks/useSEO';
@@ -47,6 +49,7 @@ const ProductDetail = () => {
   const [product, setProduct] = useState<Product | null>(null);
   const [images, setImages] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [reviewData, setReviewData] = useState<{ rating: number; reviewCount: number } | null>(null);
 
   useEffect(() => {
     if (slug) {
@@ -81,6 +84,20 @@ const ProductDetail = () => {
 
       setProduct(processedProduct);
       setImages(data.product_images || []);
+
+      // Buscar avaliações para Rich Snippets
+      const { data: reviews } = await supabase
+        .from("product_reviews")
+        .select("rating")
+        .eq("product_id", data.id);
+
+      if (reviews && reviews.length > 0) {
+        const avgRating = reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length;
+        setReviewData({
+          rating: avgRating,
+          reviewCount: reviews.length,
+        });
+      }
     } catch (error) {
       console.error('Erro ao carregar produto:', error);
       navigate('/loja');
@@ -125,7 +142,7 @@ const ProductDetail = () => {
   }
 
   // Gerar schemas estruturados
-  const productSchema = generateProductSchema(product, baseUrl);
+  const productSchema = generateProductSchema(product, baseUrl, reviewData || undefined);
   const breadcrumbSchema = generateBreadcrumbData([
     { name: 'Home', url: baseUrl },
     { name: 'Loja', url: `${baseUrl}/loja` },
@@ -170,6 +187,14 @@ const ProductDetail = () => {
             <div className="space-y-6">
               <div className="space-y-2">
                 <h1 className="text-3xl font-bold">{product.name}</h1>
+                {reviewData && (
+                  <div className="flex items-center gap-2 mb-2">
+                    <StarRating rating={reviewData.rating} showValue size={20} />
+                    <span className="text-sm text-muted-foreground">
+                      ({reviewData.reviewCount} {reviewData.reviewCount === 1 ? 'avaliação' : 'avaliações'})
+                    </span>
+                  </div>
+                )}
                 <div className="flex items-center gap-2">
                   {product.categories?.name && (
                     <Badge variant="secondary">{product.categories.name}</Badge>
@@ -260,6 +285,11 @@ const ProductDetail = () => {
                 </p>
               )}
             </div>
+          </div>
+
+          {/* Seção de Avaliações */}
+          <div className="mt-12">
+            <ProductReviews productId={product.id} />
           </div>
         </main>
         <BottomNav />
