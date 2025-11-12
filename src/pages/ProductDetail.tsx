@@ -19,6 +19,7 @@ import { StarRating } from '@/components/shop/StarRating';
 import { generateProductSchema } from '@/utils/productSchema';
 import { generateBreadcrumbData } from '@/utils/seoData';
 import { useSEO } from '@/hooks/useSEO';
+import { metaPixel } from '@/utils/metaPixel';
 
 interface Product {
   id: string;
@@ -85,6 +86,14 @@ const ProductDetail = () => {
 
       setProduct(processedProduct);
       setImages(data.product_images || []);
+
+      // 🎯 TRACKING: ViewContent
+      metaPixel.viewContent({
+        id: data.id,
+        name: data.name,
+        price: data.price,
+        category: data.categories?.name,
+      });
 
       // Buscar avaliações para Rich Snippets
       const { data: reviews } = await supabase

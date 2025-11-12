@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import { toast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
+import { metaPixel } from '@/utils/metaPixel';
 
 interface Product {
   id: string;
@@ -85,6 +86,16 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
             : item
         )
       );
+      
+      // 🎯 TRACKING: AddToCart (quantidade aumentada)
+      metaPixel.addToCart({
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        quantity: 1,
+        category: product.categories?.name,
+      });
+      
       toast({
         title: 'Quantidade atualizada',
         description: `${product.name} - Quantidade aumentada no carrinho`,
@@ -96,6 +107,16 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         cartItemId: `${product.id}-${Date.now()}`,
       };
       setCart([...cart, newItem]);
+      
+      // 🎯 TRACKING: AddToCart (novo item)
+      metaPixel.addToCart({
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        quantity: 1,
+        category: product.categories?.name,
+      });
+      
       toast({
         title: 'Adicionado ao carrinho',
         description: `${product.name} foi adicionado ao seu carrinho`,

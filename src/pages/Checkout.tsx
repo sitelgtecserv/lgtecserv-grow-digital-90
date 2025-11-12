@@ -15,6 +15,7 @@ import { ShopHeader } from '@/components/layout/ShopHeader';
 import { BottomNav } from '@/components/shop/BottomNav';
 import { useToast } from '@/hooks/use-toast';
 import { z } from 'zod';
+import { metaPixel } from '@/utils/metaPixel';
 
 const checkoutSchema = z.object({
   customer_name: z.string().trim().min(3, 'Nome deve ter pelo menos 3 caracteres').max(100),
@@ -52,6 +53,22 @@ const Checkout = () => {
       }
     }
   }, [user]);
+
+  // 🎯 TRACKING: InitiateCheckout quando a página carrega
+  useEffect(() => {
+    if (cart.length > 0) {
+      metaPixel.initiateCheckout(
+        cart.map(item => ({
+          id: item.id,
+          name: item.name,
+          price: item.price,
+          quantity: item.quantity,
+          category: item.categories?.name,
+        })),
+        getCartTotal()
+      );
+    }
+  }, []);
 
   const validateForm = () => {
     try {
@@ -177,6 +194,19 @@ const Checkout = () => {
             .eq('id', item.id);
         }
       }
+
+      // 🎯 TRACKING: Purchase (CONVERSÃO PRINCIPAL!)
+      metaPixel.purchase(
+        cart.map(item => ({
+          id: item.id,
+          name: item.name,
+          price: item.price,
+          quantity: item.quantity,
+          category: item.categories?.name,
+        })),
+        getCartTotal(),
+        order.id
+      );
 
       // Limpar carrinho
       clearCart();
