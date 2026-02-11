@@ -30,36 +30,11 @@ const About = () => {
   ];
 
   const team = [
-    {
-      name: "Luis Matsenjua",
-      role: "Director Geral",
-      description: "Líder estratégico com ampla experiência em gestão empresarial e desenvolvimento de negócios.",
-      image: "/lovable-uploads/luis-matsenjua.png"
-    },
-    {
-      name: "Inácio Langa",
-      role: "CEO & Fundador",
-      description: "Líder visionário com vasta experiência em gestão empresarial e estratégia de negócios.",
-      image: "/lovable-uploads/66f9605c-90e0-4c1d-8691-d378145507c4.png"
-    },
-    {
-      name: "Lemos Sabado",
-      role: "Agente de Campo e Coordenador Geral",
-      description: "Responsável pela coordenação das operações de campo e gestão geral dos projectos.",
-      image: "/lovable-uploads/lemos-sabado.png"
-    },
-    {
-      name: "Félex Lourindo",
-      role: "Técnico Sénior",
-      description: "Profissional especializado em desenvolvimento web e soluções tecnológicas avançadas.",
-      image: "/lovable-uploads/felex-lourindo.jpeg"
-    },
-    {
-      name: "Cláudia Armando",
-      role: "Assistente Administrativa",
-      description: "Responsável pela coordenação administrativa e suporte operacional da empresa.",
-      image: "/lovable-uploads/fe69f3f8-90ce-42e0-bb62-d81679a9ba6c.png"
-    }
+    { name: "Luís Martins", role: "Director Geral", slug: "luis-martins", description: "Líder estratégico com ampla experiência em gestão empresarial e desenvolvimento de negócios.", image: "/lovable-uploads/luis-matsenjua.png" },
+    { name: "Inácio Langa", role: "CEO & Fundador", slug: "inacio-langa", description: "Líder visionário com vasta experiência em gestão empresarial e estratégia de negócios.", image: "/lovable-uploads/66f9605c-90e0-4c1d-8691-d378145507c4.png" },
+    { name: "Félix Florindo", role: "Técnico Sénior – Marketing Digital", slug: "felix-florindo", description: "Especialista em produção audiovisual e campanhas de marketing digital.", image: "/lovable-uploads/felex-lourindo.jpeg" },
+    { name: "Lemos Sábado", role: "Coordenador Geral & Técnico Operacional", slug: "lemos-sabado", description: "Responsável pela coordenação operacional e execução de serviços técnicos.", image: "/lovable-uploads/lemos-sabado.png" },
+    { name: "Cláudia Muale", role: "Assistente Administrativa", slug: "claudia-muale", description: "Responsável pela gestão administrativa e assuntos legais da empresa.", image: "/lovable-uploads/fe69f3f8-90ce-42e0-bb62-d81679a9ba6c.png" }
   ];
 
   const achievements = [
@@ -191,28 +166,31 @@ const About = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
             {team.map((member, index) => (
-              <Card key={index} className="bg-gradient-card border-0 shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden">
-                <div className="aspect-square overflow-hidden">
-                  <img 
-                    src={member.image} 
-                    alt={member.name}
-                    className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-                  />
-                </div>
-                <CardHeader className="text-center">
-                  <CardTitle className="text-xl">{member.name}</CardTitle>
-                  <CardDescription className="text-primary font-medium">
-                    {member.role}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-center text-muted-foreground text-sm">
-                    {member.description}
-                  </p>
-                </CardContent>
-              </Card>
+              <Link key={index} to={`/equipe/${member.slug}`} className="group">
+                <Card className="bg-gradient-card border-0 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden h-full">
+                  <div className="aspect-square overflow-hidden">
+                    <img 
+                      src={member.image} 
+                      alt={member.name}
+                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                  </div>
+                  <CardHeader className="text-center pb-2">
+                    <CardTitle className="text-xl">{member.name}</CardTitle>
+                    <CardDescription className="text-primary font-medium">
+                      {member.role}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="text-center">
+                    <p className="text-muted-foreground text-sm mb-4">{member.description}</p>
+                    <span className="inline-flex items-center text-sm font-medium text-primary group-hover:underline">
+                      Ver Perfil Completo <ArrowRight className="w-4 h-4 ml-1" />
+                    </span>
+                  </CardContent>
+                </Card>
+              </Link>
             ))}
           </div>
         </div>

@@ -39,7 +39,8 @@ import {
   OrderConfirmation,
   MeusPedidos,
   Admin,
-  GoogleSearchConsole
+  GoogleSearchConsole,
+  MemberProfile
 } from "./App.lazy";
 
 const queryClient = new QueryClient();
@@ -83,6 +84,7 @@ const AppContent = () => {
         <Route path="/meus-pedidos" element={<MeusPedidos />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/google-search-console" element={<GoogleSearchConsole />} />
+        <Route path="/equipe/:slug" element={<MemberProfile />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
       </Routes>
