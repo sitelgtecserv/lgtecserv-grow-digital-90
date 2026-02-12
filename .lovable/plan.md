@@ -1,71 +1,98 @@
 
-# Paginas de Portfolio Profissional para Membros da Equipa
 
-## Resumo
-Criar 5 paginas individuais de portfolio profissional para cada membro da empresa, com design corporativo moderno, acessiveis a partir da secao "A Nossa Equipa" na pagina Sobre.
+# Correcao de Portfolios e Actualizacao de Emails
 
-## Estrutura de Ficheiros
+## Problema 1: URLs dos Portfolios
 
-### Novos ficheiros a criar:
-1. `src/data/teamMembers.ts` - Dados centralizados de todos os membros
-2. `src/pages/team/MemberProfile.tsx` - Componente reutilizavel para pagina de perfil
-3. Actualizacao de `src/App.lazy.tsx` - Lazy load da pagina
-4. Actualizacao de `src/App.tsx` - Nova rota `/equipe/:slug`
-5. Actualizacao de `src/pages/About.tsx` - Adicionar botao "Ver Perfil Completo" e link na foto
+As URLs actuais usam o formato `/equipe/luis-martins`. O formato solicitado e raiz directa sem prefixo, com nomes diferentes.
 
-## URLs individuais
-- `/equipe/luis-martins`
-- `/equipe/inacio-langa`
-- `/equipe/felix-florindo`
-- `/equipe/lemos-sabado`
-- `/equipe/claudia-muale`
+### Mapeamento de URLs
 
-## Design de cada pagina
+| Membro | URL Actual | URL Solicitada |
+|--------|-----------|----------------|
+| Luis Martins | /equipe/luis-martins | /luismatsenjua |
+| Inacio Langa | /equipe/inacio-langa | /inaciolanga |
+| Felix Florindo | /equipe/felix-florindo | /felexlourindo |
+| Lemos Sabado | /equipe/lemos-sabado | /lemossabado |
+| Claudia Muale | /equipe/claudia-muale | /claudiaarmando |
 
-Cada pagina tera as seguintes secoes:
+### Alteracoes necessarias
 
-1. **Banner Hero** - Foto profissional, nome, cargo, frase de impacto, fundo com gradiente da marca
-2. **Sobre o Profissional** - Biografia, historico, experiencia, especializacoes
-3. **Funcao na Empresa** - Responsabilidades, contribuicao estrategica, impacto
-4. **Competencias** - Hard skills, soft skills e ferramentas (com badges visuais)
-5. **Valores Profissionais** - Etica, compromisso, inovacao, lideranca, foco em resultados (com icones)
-6. **Projectos e Resultados** - Exemplos praticos, resultados, participacao estrategica
-7. **CTA** - Botao "Entrar em Contacto" com link para email/formulario
+**1. `src/data/teamMembers.ts`** - Actualizar slugs:
+- `luis-martins` -> `luismatsenjua`
+- `inacio-langa` -> `inaciolanga`
+- `felix-florindo` -> `felexlourindo`
+- `lemos-sabado` -> `lemossabado`
+- `claudia-muale` -> `claudiaarmando`
+- Actualizar todos os emails de `geral@lgtecserv.com` para `contato@lgtecserv.com`
+
+**2. `src/App.tsx`** - Mudar a rota de `/equipe/:slug` para `/:slug` com rotas explicitas para cada membro (para evitar conflitos com outras rotas):
+- Adicionar 5 rotas individuais: `/luismatsenjua`, `/inaciolanga`, etc.
+- Manter a rota `/equipe/:slug` como redirecionamento para compatibilidade
+
+**3. `src/pages/About.tsx`** - Actualizar links dos membros de `/equipe/${member.slug}` para `/${member.slug}`
+
+**4. `src/pages/team/MemberProfile.tsx`** - Actualizar URLs nos schemas SEO e links internos
+
+---
+
+## Problema 2: Actualizacao dos Emails
+
+### Emails a substituir em todo o site
+
+| Email Actual | Novo Email | Contexto |
+|-------------|-----------|----------|
+| lgtecserv@gmail.com | contato@lgtecserv.com | Email geral do site |
+| info@lgtecserv.com | contato@lgtecserv.com | Dados estruturados SEO |
+| geral@lgtecserv.com | contato@lgtecserv.com | Portfolios dos membros |
+
+### Ficheiros a editar
+
+1. **`src/components/layout/Footer.tsx`** (linha 202) - `lgtecserv@gmail.com` -> `contato@lgtecserv.com`
+2. **`src/pages/Contact.tsx`** (linhas 28-29, 320) - `lgtecserv@gmail.com` -> `contato@lgtecserv.com`
+3. **`src/pages/Documentacao.tsx`** (linhas 510-511) - `lgtecserv@gmail.com` -> `contato@lgtecserv.com`
+4. **`src/pages/TermosCondicoes.tsx`** (linhas 129-130) - `lgtecserv@gmail.com` -> `contato@lgtecserv.com`
+5. **`src/pages/PoliticaPrivacidade.tsx`** (linha 305) - `lgtecserv@gmail.com` -> `contato@lgtecserv.com`
+6. **`src/pages/FAQ.tsx`** (linhas 29, 125) - `lgtecserv@gmail.com` -> `contato@lgtecserv.com`
+7. **`src/utils/seoData.ts`** (linhas 11, 46) - `info@lgtecserv.com` -> `contato@lgtecserv.com`
+8. **`src/data/teamMembers.ts`** (5 ocorrencias) - `geral@lgtecserv.com` -> `contato@lgtecserv.com`
+
+### Email especifico da topografia
+9. **`src/pages/services/Topografia.tsx`** - Verificar e adicionar referencia a `topografia@lgtecserv.com` nos CTAs
+
+### Email especifico da loja
+10. **`src/pages/Checkout.tsx`** e **`src/components/layout/ShopHeader.tsx`** - Se existirem referencias de email, usar `loja@lgtecserv.com`
+
+---
 
 ## Detalhes Tecnicos
 
-### `src/data/teamMembers.ts`
-- Interface TypeScript `TeamMember` com todos os campos necessarios (bio, skills, values, projects, etc.)
-- Array com dados dos 5 membros conforme conteudo fornecido
-- Funcao `getTeamMemberBySlug(slug)` para lookup
+### Estrategia de rotas para evitar conflitos
+Em vez de usar `/:slug` generico (que conflitaria com rotas como `/loja`, `/faq`, etc.), sera criada uma rota explicita para cada membro:
 
-### `src/pages/team/MemberProfile.tsx`
-- Usa `useParams()` para obter o slug da URL
-- Busca dados do membro pelo slug
-- Redireciona para 404 se membro nao encontrado
-- Componentes: Header, SEOHead, Breadcrumbs, Footer, WhatsAppButton
-- SEO optimizado com structured data (Person schema)
-- Design responsivo (mobile-first)
-- Secoes com animacoes suaves (hover, transicoes)
+```text
+<Route path="/luismatsenjua" element={<MemberProfile />} />
+<Route path="/inaciolanga" element={<MemberProfile />} />
+<Route path="/felexlourindo" element={<MemberProfile />} />
+<Route path="/lemossabado" element={<MemberProfile />} />
+<Route path="/claudiaarmando" element={<MemberProfile />} />
+```
 
-### Actualizacao de `About.tsx`
-- Adicionar `Link` a volta de cada card de membro
-- Adicionar botao "Ver Perfil Completo" em cada card
-- Manter o grid actual (adaptar para 5 membros com layout responsivo)
-- Actualizar nomes/cargos conforme dados fornecidos
+O componente `MemberProfile` sera adaptado para extrair o slug do `pathname` quando nao houver parametro `:slug`.
 
-### Rotas
-- Rota dinamica: `/equipe/:slug` -> `MemberProfile`
+### SEO e Indexacao
+- Actualizar canonical URLs nos schemas Person para usar novo formato
+- Actualizar `sitemap.xml` com as novas URLs
+- Manter `/equipe/:slug` com redirecionamento 301 para as novas URLs (no `vercel.json`)
 
-### SEO
-- Titulo: `{Nome} - {Cargo} | LG TecServ`
-- Meta description personalizada por membro
-- Schema.org Person structured data
-- Canonical URL individual
-- Open Graph tags
+### Redirecionamentos (vercel.json)
+Adicionar redirecionamentos permanentes das URLs antigas:
 
-### Componentes visuais utilizados
-- Card, Badge (para skills)
-- Icones Lucide: Briefcase, Award, Target, Heart, Lightbulb, Shield, Users, Mail, ArrowRight, Star, CheckCircle
-- Gradientes da marca existente
-- Classes utilitarias ja existentes: `gradient-text`, `bg-gradient-card`, `shadow-elegant`
+```text
+/equipe/luis-martins -> /luismatsenjua (301)
+/equipe/inacio-langa -> /inaciolanga (301)
+/equipe/felix-florindo -> /felexlourindo (301)
+/equipe/lemos-sabado -> /lemossabado (301)
+/equipe/claudia-muale -> /claudiaarmando (301)
+```
+
