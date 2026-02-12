@@ -199,7 +199,7 @@ const Footer = () => {
                 </div>
                 <div>
                   <p className="text-sm font-medium text-white">Email</p>
-                  <p className="text-xs text-white/80">lgtecserv@gmail.com</p>
+                  <p className="text-xs text-white/80">contato@lgtecserv.com</p>
                 </div>
               </div>
               <div className="flex items-start space-x-3 p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors duration-300">

@@ -25,7 +25,9 @@ const iconMap: Record<string, React.ReactNode> = {
 
 const MemberProfile = () => {
   const { slug } = useParams<{ slug: string }>();
-  const member = slug ? getTeamMemberBySlug(slug) : undefined;
+  const location = window.location.pathname;
+  const resolvedSlug = slug || location.replace('/', '');
+  const member = resolvedSlug ? getTeamMemberBySlug(resolvedSlug) : undefined;
 
   if (!member) return <Navigate to="/404" replace />;
 
@@ -35,7 +37,7 @@ const MemberProfile = () => {
     name: member.name,
     jobTitle: member.role,
     worksFor: { "@type": "Organization", name: "LG TecServ" },
-    url: `https://www.lgtecserv.com/equipe/${member.slug}`,
+    url: `https://www.lgtecserv.com/${member.slug}`,
     image: `https://www.lgtecserv.com${member.image}`,
   };
 
@@ -44,7 +46,7 @@ const MemberProfile = () => {
       <SEOHead
         title={`${member.name} - ${member.role} | LG TecServ`}
         description={member.metaDescription}
-        url={`https://www.lgtecserv.com/equipe/${member.slug}`}
+        url={`https://www.lgtecserv.com/${member.slug}`}
         image={`https://www.lgtecserv.com${member.image}`}
         structuredData={[personSchema]}
       />

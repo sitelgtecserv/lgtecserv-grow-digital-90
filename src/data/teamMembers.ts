@@ -31,7 +31,7 @@ export interface TeamMember {
 
 export const teamMembers: TeamMember[] = [
   {
-    slug: "luis-martins",
+    slug: "luismatsenjua",
     name: "Luís Martins",
     role: "Director Geral",
     image: "/lovable-uploads/luis-matsenjua.png",
@@ -66,10 +66,10 @@ export const teamMembers: TeamMember[] = [
       { title: "Expansão da Carteira de Clientes", description: "Desenvolvimento de estratégias comerciais para captação de novos clientes corporativos.", result: "Aumento de 40% na carteira de clientes em dois anos." },
       { title: "Parcerias Estratégicas", description: "Estabelecimento de parcerias com empresas de referência no sector de construção e infraestruturas.", result: "Consolidação de 5 parcerias estratégicas de longo prazo." }
     ],
-    email: "geral@lgtecserv.com"
+    email: "contato@lgtecserv.com"
   },
   {
-    slug: "inacio-langa",
+    slug: "inaciolanga",
     name: "Inácio Langa",
     role: "CEO & Fundador",
     image: "/lovable-uploads/66f9605c-90e0-4c1d-8691-d378145507c4.png",
@@ -104,10 +104,10 @@ export const teamMembers: TeamMember[] = [
       { title: "Transformação Digital de PMEs", description: "Implementação de estratégias digitais para pequenas e médias empresas moçambicanas.", result: "Mais de 500 projetos digitais concluídos com sucesso." },
       { title: "Expansão de Serviços", description: "Diversificação do portfólio de serviços para incluir áreas técnicas como eletricidade e topografia.", result: "Aumento de 60% na receita através de novos serviços." }
     ],
-    email: "geral@lgtecserv.com"
+    email: "contato@lgtecserv.com"
   },
   {
-    slug: "felix-florindo",
+    slug: "felexlourindo",
     name: "Félix Florindo",
     role: "Técnico Sénior – Marketing Digital",
     image: "/lovable-uploads/felex-lourindo.jpeg",
@@ -142,10 +142,10 @@ export const teamMembers: TeamMember[] = [
       { title: "Estratégia de Conteúdo Digital", description: "Desenvolvimento de calendários editoriais e estratégias de conteúdo para redes sociais.", result: "Crescimento orgânico de 200% nos seguidores dos clientes." },
       { title: "Branding Visual Corporativo", description: "Criação de identidades visuais completas para empresas em diversos sectores.", result: "Mais de 50 marcas criadas e posicionadas no mercado." }
     ],
-    email: "geral@lgtecserv.com"
+    email: "contato@lgtecserv.com"
   },
   {
-    slug: "lemos-sabado",
+    slug: "lemossabado",
     name: "Lemos Sábado",
     role: "Coordenador Geral & Técnico Operacional",
     image: "/lovable-uploads/lemos-sabado.png",
@@ -180,10 +180,10 @@ export const teamMembers: TeamMember[] = [
       { title: "Apoio a Projetos Topográficos", description: "Suporte operacional em levantamentos topográficos para projetos de construção.", result: "Participação em 30+ projetos topográficos com precisão exemplar." },
       { title: "Optimização de Processos Operacionais", description: "Implementação de melhorias nos processos de execução de serviços técnicos.", result: "Redução de 25% no tempo médio de execução de projetos." }
     ],
-    email: "geral@lgtecserv.com"
+    email: "contato@lgtecserv.com"
   },
   {
-    slug: "claudia-muale",
+    slug: "claudiaarmando",
     name: "Cláudia Muale",
     role: "Assistente Administrativa",
     image: "/lovable-uploads/fe69f3f8-90ce-42e0-bb62-d81679a9ba6c.png",
@@ -218,7 +218,7 @@ export const teamMembers: TeamMember[] = [
       { title: "Conformidade Legal", description: "Revisão e actualização de toda a documentação legal da empresa.", result: "100% de conformidade com os requisitos legais vigentes." },
       { title: "Empresa Corsa Boot", description: "Gestão empresarial própria na área de cofretarismo, demonstrando capacidade empreendedora.", result: "Experiência empresarial diversificada que enriquece a gestão da LG TecServ." }
     ],
-    email: "geral@lgtecserv.com"
+    email: "contato@lgtecserv.com"
   }
 ];
 

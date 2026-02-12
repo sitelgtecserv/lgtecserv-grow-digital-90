@@ -26,7 +26,7 @@ const FAQ = () => {
         "name": "Como posso solicitar um orçamento?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Pode solicitar um orçamento através do nosso formulário de contacto no website, enviando um email para lgtecserv@gmail.com ou ligando para +258 84 1524 822 / +258 869 824 047. Responderemos em até 24 horas úteis."
+          "text": "Pode solicitar um orçamento através do nosso formulário de contacto no website, enviando um email para contato@lgtecserv.com ou ligando para +258 84 1524 822 / +258 869 824 047. Responderemos em até 24 horas úteis."
         }
       },
       {
@@ -122,7 +122,7 @@ const FAQ = () => {
                         Pode solicitar um orçamento de várias formas:
                         <ul className="list-disc pl-6 mt-2 space-y-1">
                           <li>Preenchendo o formulário de contacto no nosso website</li>
-                          <li>Enviando um email para lgtecserv@gmail.com</li>
+                          <li>Enviando um email para contato@lgtecserv.com</li>
                           <li>Ligando para +258 84 1524 822 ou +258 869 824 047</li>
                           <li>Através do WhatsApp (botão no canto inferior direito)</li>
                         </ul>

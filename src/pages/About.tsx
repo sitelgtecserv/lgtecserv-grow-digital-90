@@ -30,11 +30,11 @@ const About = () => {
   ];
 
   const team = [
-    { name: "Luís Martins", role: "Director Geral", slug: "luis-martins", description: "Líder estratégico com ampla experiência em gestão empresarial e desenvolvimento de negócios.", image: "/lovable-uploads/luis-matsenjua.png" },
-    { name: "Inácio Langa", role: "CEO & Fundador", slug: "inacio-langa", description: "Líder visionário com vasta experiência em gestão empresarial e estratégia de negócios.", image: "/lovable-uploads/66f9605c-90e0-4c1d-8691-d378145507c4.png" },
-    { name: "Félix Florindo", role: "Técnico Sénior – Marketing Digital", slug: "felix-florindo", description: "Especialista em produção audiovisual e campanhas de marketing digital.", image: "/lovable-uploads/felex-lourindo.jpeg" },
-    { name: "Lemos Sábado", role: "Coordenador Geral & Técnico Operacional", slug: "lemos-sabado", description: "Responsável pela coordenação operacional e execução de serviços técnicos.", image: "/lovable-uploads/lemos-sabado.png" },
-    { name: "Cláudia Muale", role: "Assistente Administrativa", slug: "claudia-muale", description: "Responsável pela gestão administrativa e assuntos legais da empresa.", image: "/lovable-uploads/fe69f3f8-90ce-42e0-bb62-d81679a9ba6c.png" }
+    { name: "Luís Martins", role: "Director Geral", slug: "luismatsenjua", description: "Líder estratégico com ampla experiência em gestão empresarial e desenvolvimento de negócios.", image: "/lovable-uploads/luis-matsenjua.png" },
+    { name: "Inácio Langa", role: "CEO & Fundador", slug: "inaciolanga", description: "Líder visionário com vasta experiência em gestão empresarial e estratégia de negócios.", image: "/lovable-uploads/66f9605c-90e0-4c1d-8691-d378145507c4.png" },
+    { name: "Félix Florindo", role: "Técnico Sénior – Marketing Digital", slug: "felexlourindo", description: "Especialista em produção audiovisual e campanhas de marketing digital.", image: "/lovable-uploads/felex-lourindo.jpeg" },
+    { name: "Lemos Sábado", role: "Coordenador Geral & Técnico Operacional", slug: "lemossabado", description: "Responsável pela coordenação operacional e execução de serviços técnicos.", image: "/lovable-uploads/lemos-sabado.png" },
+    { name: "Cláudia Muale", role: "Assistente Administrativa", slug: "claudiaarmando", description: "Responsável pela gestão administrativa e assuntos legais da empresa.", image: "/lovable-uploads/fe69f3f8-90ce-42e0-bb62-d81679a9ba6c.png" }
   ];
 
   const achievements = [
@@ -168,7 +168,7 @@ const About = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
             {team.map((member, index) => (
-              <Link key={index} to={`/equipe/${member.slug}`} className="group">
+              <Link key={index} to={`/${member.slug}`} className="group">
                 <Card className="bg-gradient-card border-0 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden h-full">
                   <div className="aspect-square overflow-hidden">
                     <img 
