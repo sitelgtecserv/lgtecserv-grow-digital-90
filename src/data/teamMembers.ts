@@ -15,6 +15,7 @@ export interface TeamMember {
   name: string;
   role: string;
   image: string;
+  bannerImage?: string;
   impactPhrase: string;
   metaDescription: string;
   bio: string[];
@@ -35,6 +36,7 @@ export const teamMembers: TeamMember[] = [
     name: "Luís Martins",
     role: "Director Geral",
     image: "/lovable-uploads/luis-matsenjua.png",
+    bannerImage: "luismatsenjua",
     impactPhrase: "Liderança estratégica com visão de futuro e compromisso com a excelência operacional.",
     metaDescription: "Luís Martins é o Director Geral da LG TecServ, responsável pela liderança estratégica, gestão de contratos e coordenação de projetos em Moçambique.",
     bio: [
@@ -73,6 +75,7 @@ export const teamMembers: TeamMember[] = [
     name: "Inácio Langa",
     role: "CEO & Fundador",
     image: "/lovable-uploads/66f9605c-90e0-4c1d-8691-d378145507c4.png",
+    bannerImage: "inaciolanga",
     impactPhrase: "Visão empreendedora que transforma ideias em soluções digitais de impacto.",
     metaDescription: "Inácio Langa é o CEO e Fundador da LG TecServ, pioneiro em soluções digitais e marketing em Moçambique, com vasta experiência em gestão empresarial.",
     bio: [
@@ -111,6 +114,7 @@ export const teamMembers: TeamMember[] = [
     name: "Félix Florindo",
     role: "Técnico Sénior – Marketing Digital",
     image: "/lovable-uploads/felex-lourindo.jpeg",
+    bannerImage: "felexlourindo",
     impactPhrase: "Criatividade e técnica ao serviço do marketing digital de excelência.",
     metaDescription: "Félix Florindo é o Técnico Sénior de Marketing Digital da LG TecServ, especialista em produção audiovisual e campanhas digitais em Moçambique.",
     bio: [
@@ -149,6 +153,7 @@ export const teamMembers: TeamMember[] = [
     name: "Lemos Sábado",
     role: "Coordenador Geral & Técnico Operacional",
     image: "/lovable-uploads/lemos-sabado.png",
+    bannerImage: "lemossabado",
     impactPhrase: "Excelência operacional com compromisso inabalável com qualidade e segurança.",
     metaDescription: "Lemos Sábado é o Coordenador Geral e Técnico Operacional da LG TecServ, garantindo qualidade e eficiência em serviços de eletricidade e topografia.",
     bio: [
@@ -187,6 +192,7 @@ export const teamMembers: TeamMember[] = [
     name: "Cláudia Muale",
     role: "Assistente Administrativa",
     image: "/lovable-uploads/fe69f3f8-90ce-42e0-bb62-d81679a9ba6c.png",
+    bannerImage: "claudiaarmando",
     impactPhrase: "Organização e eficiência administrativa como base para o sucesso empresarial.",
     metaDescription: "Cláudia Muale é a Assistente Administrativa da LG TecServ, responsável pela gestão administrativa, assuntos legais e conformidade documental.",
     bio: [
