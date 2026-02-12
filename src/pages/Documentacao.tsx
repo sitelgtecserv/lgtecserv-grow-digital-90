@@ -507,8 +507,8 @@ const Documentacao = () => {
                       <Mail className="w-5 h-5 text-primary" />
                       <div>
                         <p className="font-medium text-foreground">Email</p>
-                        <a href="mailto:lgtecserv@gmail.com" className="text-sm text-primary hover:underline">
-                          lgtecserv@gmail.com
+                        <a href="mailto:contato@lgtecserv.com" className="text-sm text-primary hover:underline">
+                          contato@lgtecserv.com
                         </a>
                       </div>
                     </div>

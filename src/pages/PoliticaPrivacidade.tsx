@@ -302,7 +302,7 @@ const PoliticaPrivacidade = () => {
                     
                     <div className="bg-background p-6 rounded-lg space-y-2 border">
                       <p><strong className="text-foreground">LG TecServ - Soluções Tecnológicas</strong></p>
-                      <p>Email: <a href="mailto:lgtecserv@gmail.com" className="text-primary hover:underline">lgtecserv@gmail.com</a></p>
+                      <p>Email: <a href="mailto:contato@lgtecserv.com" className="text-primary hover:underline">contato@lgtecserv.com</a></p>
                       <p>Telefone: +258 84 1524 822 / +258 869 824 047</p>
                       <p>Endereço: Maputo, Moçambique</p>
                     </div>

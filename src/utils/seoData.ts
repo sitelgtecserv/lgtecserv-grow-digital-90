@@ -8,7 +8,7 @@ export const organizationData = {
   "logo": "https://www.lgtecserv.com/lovable-uploads/cf635400-84f4-488e-9657-e75e01a40cb9.png",
   "image": "https://www.lgtecserv.com/lovable-uploads/cf635400-84f4-488e-9657-e75e01a40cb9.png",
   "telephone": "+258869824047",
-  "email": "info@lgtecserv.com",
+  "email": "contato@lgtecserv.com",
   "address": {
     "@type": "PostalAddress",
     "addressCountry": "MZ",
@@ -43,7 +43,7 @@ export const localBusinessData = {
   "description": "Soluções digitais completas em Moçambique",
   "url": "https://www.lgtecserv.com",
   "telephone": "+258869824047",
-  "email": "info@lgtecserv.com",
+  "email": "contato@lgtecserv.com",
   "address": {
     "@type": "PostalAddress",
     "addressCountry": "MZ",

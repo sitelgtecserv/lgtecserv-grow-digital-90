@@ -25,8 +25,8 @@ const Contact = () => {
       icon: <Mail className="w-8 h-8" />,
       title: "Email",
       subtitle: "Envie-nos um email",
-      details: ["lgtecserv@gmail.com"],
-      action: "mailto:lgtecserv@gmail.com",
+      details: ["contato@lgtecserv.com"],
+      action: "mailto:contato@lgtecserv.com",
       color: "text-green-500"
     },
     {
@@ -317,7 +317,7 @@ const Contact = () => {
                     size="sm"
                     className="border-purple-500/30 text-purple-600 hover:bg-purple-50 hover:border-purple-500"
                   >
-                    <a href="mailto:lgtecserv@gmail.com?subject=Novo%20Projeto%20Digital">
+                    <a href="mailto:contato@lgtecserv.com?subject=Novo%20Projeto%20Digital">
                       Enviar Email
                     </a>
                   </Button>

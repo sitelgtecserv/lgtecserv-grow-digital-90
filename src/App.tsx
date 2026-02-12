@@ -84,6 +84,11 @@ const AppContent = () => {
         <Route path="/meus-pedidos" element={<MeusPedidos />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/google-search-console" element={<GoogleSearchConsole />} />
+        <Route path="/luismatsenjua" element={<MemberProfile />} />
+        <Route path="/inaciolanga" element={<MemberProfile />} />
+        <Route path="/felexlourindo" element={<MemberProfile />} />
+        <Route path="/lemossabado" element={<MemberProfile />} />
+        <Route path="/claudiaarmando" element={<MemberProfile />} />
         <Route path="/equipe/:slug" element={<MemberProfile />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />

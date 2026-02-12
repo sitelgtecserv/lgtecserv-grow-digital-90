@@ -126,8 +126,8 @@ const TermosCondicoes = () => {
                     <p>
                       Para questões sobre estes termos ou a nossa política de privacidade, 
                       entre em contacto connosco através do email{" "}
-                      <a href="mailto:lgtecserv@gmail.com" className="text-primary hover:underline">
-                        lgtecserv@gmail.com
+                      <a href="mailto:contato@lgtecserv.com" className="text-primary hover:underline">
+                        contato@lgtecserv.com
                       </a>{" "}
                       ou pelos telefones +258 84 1524 822 / +258 869 824 047.
                     </p>
