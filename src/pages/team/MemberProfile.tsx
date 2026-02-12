@@ -13,6 +13,21 @@ import {
   Mail, ArrowRight, Star, CheckCircle, ArrowLeft
 } from "lucide-react";
 
+// Banner images
+import bannerLuis from "@/assets/banners/banner-luismatsenjua.jpg";
+import bannerInacio from "@/assets/banners/banner-inaciolanga.jpg";
+import bannerFelex from "@/assets/banners/banner-felexlourindo.jpg";
+import bannerLemos from "@/assets/banners/banner-lemossabado.jpg";
+import bannerClaudia from "@/assets/banners/banner-claudiaarmando.jpg";
+
+const bannerMap: Record<string, string> = {
+  luismatsenjua: bannerLuis,
+  inaciolanga: bannerInacio,
+  felexlourindo: bannerFelex,
+  lemossabado: bannerLemos,
+  claudiaarmando: bannerClaudia,
+};
+
 const iconMap: Record<string, React.ReactNode> = {
   Shield: <Shield className="w-6 h-6" />,
   Target: <Target className="w-6 h-6" />,
@@ -55,23 +70,31 @@ const MemberProfile = () => {
         <Breadcrumbs />
 
         {/* Hero Banner */}
-        <section className="relative py-20 bg-gradient-to-br from-primary via-primary/90 to-primary/70 text-primary-foreground overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(255,255,255,0.08),transparent_60%)]" />
+        <section className="relative py-20 text-white overflow-hidden">
+          {/* Banner Background Image */}
+          <div className="absolute inset-0">
+            <img
+              src={member.bannerImage ? bannerMap[member.bannerImage] : undefined}
+              alt=""
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-black/40" />
+          </div>
           <div className="container mx-auto px-4 relative z-10">
-            <Button variant="ghost" size="sm" asChild className="mb-8 text-primary-foreground/80 hover:text-primary-foreground hover:bg-primary-foreground/10">
+            <Button variant="ghost" size="sm" asChild className="mb-8 text-white/80 hover:text-white hover:bg-white/10">
               <Link to="/sobre-nos-lg-tecserv-mocambique">
                 <ArrowLeft className="w-4 h-4 mr-2" /> Voltar à Equipa
               </Link>
             </Button>
             <div className="flex flex-col md:flex-row items-center gap-10 max-w-5xl mx-auto">
-              <div className="w-40 h-40 md:w-52 md:h-52 rounded-full overflow-hidden border-4 border-primary-foreground/20 shadow-2xl flex-shrink-0">
-                <img src={member.image} alt={member.name} className="w-full h-full object-cover" />
+              <div className="w-40 h-40 md:w-52 md:h-52 rounded-full overflow-hidden border-4 border-white/30 shadow-2xl flex-shrink-0">
+                <img src={member.image} alt={member.name} className="w-full h-full object-cover bg-white/10" />
               </div>
               <div className="text-center md:text-left">
-                <p className="text-sm font-medium uppercase tracking-widest text-primary-foreground/70 mb-2">LG TecServ</p>
+                <p className="text-sm font-medium uppercase tracking-widest text-white/70 mb-2">LG TecServ</p>
                 <h1 className="text-4xl md:text-5xl font-bold mb-3">{member.name}</h1>
-                <p className="text-xl md:text-2xl font-medium text-primary-foreground/90 mb-4">{member.role}</p>
-                <p className="text-lg text-primary-foreground/80 italic max-w-xl">"{member.impactPhrase}"</p>
+                <p className="text-xl md:text-2xl font-medium text-white/90 mb-4">{member.role}</p>
+                <p className="text-lg text-white/80 italic max-w-xl">"{member.impactPhrase}"</p>
               </div>
             </div>
           </div>
