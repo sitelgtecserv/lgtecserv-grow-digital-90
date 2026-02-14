@@ -10,6 +10,24 @@ export interface TeamMemberValue {
   description: string;
 }
 
+export interface TeamMemberStat {
+  label: string;
+  value: number;
+  suffix?: string;
+  icon: string;
+}
+
+export interface TeamMemberTimeline {
+  year: string;
+  title: string;
+  description: string;
+}
+
+export interface TeamMemberSkillLevel {
+  skill: string;
+  level: number;
+}
+
 export interface TeamMember {
   slug: string;
   name: string;
@@ -28,6 +46,9 @@ export interface TeamMember {
   values: TeamMemberValue[];
   projects: TeamMemberProject[];
   email: string;
+  stats: TeamMemberStat[];
+  timeline: TeamMemberTimeline[];
+  skillLevels: TeamMemberSkillLevel[];
 }
 
 export const teamMembers: TeamMember[] = [
@@ -68,7 +89,26 @@ export const teamMembers: TeamMember[] = [
       { title: "Expansão da Carteira de Clientes", description: "Desenvolvimento de estratégias comerciais para captação de novos clientes corporativos.", result: "Aumento de 40% na carteira de clientes em dois anos." },
       { title: "Parcerias Estratégicas", description: "Estabelecimento de parcerias com empresas de referência no sector de construção e infraestruturas.", result: "Consolidação de 5 parcerias estratégicas de longo prazo." }
     ],
-    email: "contato@lgtecserv.com"
+    email: "contato@lgtecserv.com",
+    stats: [
+      { label: "Projectos Coordenados", value: 150, suffix: "+", icon: "Briefcase" },
+      { label: "Contratos Negociados", value: 80, suffix: "+", icon: "Target" },
+      { label: "Parcerias Activas", value: 5, icon: "Users" },
+      { label: "Precisão Técnica", value: 99, suffix: "%", icon: "Award" }
+    ],
+    timeline: [
+      { year: "2019", title: "Início na LG TecServ", description: "Integrou a equipa como responsável de topografia e gestão de projectos." },
+      { year: "2020", title: "Promoção a Director Geral", description: "Assumiu a direcção geral, liderando operações e estratégia empresarial." },
+      { year: "2022", title: "Expansão de Serviços", description: "Liderou a diversificação para novos mercados e serviços técnicos." },
+      { year: "2024", title: "Consolidação de Parcerias", description: "Estabeleceu parcerias estratégicas com empresas de referência." }
+    ],
+    skillLevels: [
+      { skill: "Gestão Empresarial", level: 90 },
+      { skill: "Topografia", level: 95 },
+      { skill: "Gestão de Contratos", level: 88 },
+      { skill: "Planeamento Estratégico", level: 85 },
+      { skill: "Gestão de Projetos", level: 92 }
+    ]
   },
   {
     slug: "inaciolanga",
@@ -107,7 +147,26 @@ export const teamMembers: TeamMember[] = [
       { title: "Transformação Digital de PMEs", description: "Implementação de estratégias digitais para pequenas e médias empresas moçambicanas.", result: "Mais de 500 projetos digitais concluídos com sucesso." },
       { title: "Expansão de Serviços", description: "Diversificação do portfólio de serviços para incluir áreas técnicas como eletricidade e topografia.", result: "Aumento de 60% na receita através de novos serviços." }
     ],
-    email: "contato@lgtecserv.com"
+    email: "contato@lgtecserv.com",
+    stats: [
+      { label: "Clientes Satisfeitos", value: 200, suffix: "+", icon: "Users" },
+      { label: "Projectos Digitais", value: 500, suffix: "+", icon: "Briefcase" },
+      { label: "Crescimento Receita", value: 60, suffix: "%", icon: "Target" },
+      { label: "Anos de Experiência", value: 8, suffix: "+", icon: "Award" }
+    ],
+    timeline: [
+      { year: "2017", title: "Fundação da LG TecServ", description: "Criou a empresa com foco em soluções digitais para o mercado moçambicano." },
+      { year: "2019", title: "Expansão Digital", description: "Ampliou os serviços para marketing digital e gestão de redes sociais." },
+      { year: "2021", title: "Diversificação", description: "Integrou serviços técnicos como eletricidade e topografia ao portfólio." },
+      { year: "2024", title: "Liderança de Mercado", description: "Consolidou a LG TecServ como referência em soluções integradas." }
+    ],
+    skillLevels: [
+      { skill: "Marketing Digital", level: 95 },
+      { skill: "Gestão Empresarial", level: 92 },
+      { skill: "Estratégia de Negócios", level: 90 },
+      { skill: "Branding", level: 88 },
+      { skill: "Análise de Mercado", level: 85 }
+    ]
   },
   {
     slug: "felexlourindo",
@@ -146,7 +205,26 @@ export const teamMembers: TeamMember[] = [
       { title: "Estratégia de Conteúdo Digital", description: "Desenvolvimento de calendários editoriais e estratégias de conteúdo para redes sociais.", result: "Crescimento orgânico de 200% nos seguidores dos clientes." },
       { title: "Branding Visual Corporativo", description: "Criação de identidades visuais completas para empresas em diversos sectores.", result: "Mais de 50 marcas criadas e posicionadas no mercado." }
     ],
-    email: "contato@lgtecserv.com"
+    email: "contato@lgtecserv.com",
+    stats: [
+      { label: "Marcas Criadas", value: 50, suffix: "+", icon: "Award" },
+      { label: "Engagement Médio", value: 150, suffix: "%", icon: "Target" },
+      { label: "Vídeos Produzidos", value: 300, suffix: "+", icon: "Briefcase" },
+      { label: "Clientes Atendidos", value: 80, suffix: "+", icon: "Users" }
+    ],
+    timeline: [
+      { year: "2019", title: "Início em Marketing Digital", description: "Começou a trabalhar com produção de conteúdo e campanhas digitais." },
+      { year: "2020", title: "Integração na LG TecServ", description: "Juntou-se à equipa como técnico de marketing digital." },
+      { year: "2022", title: "Promoção a Técnico Sénior", description: "Reconhecido pela excelência criativa e resultados consistentes." },
+      { year: "2024", title: "Referência Criativa", description: "Tornou-se líder criativo da equipa de marketing." }
+    ],
+    skillLevels: [
+      { skill: "Produção Audiovisual", level: 95 },
+      { skill: "Marketing Digital", level: 90 },
+      { skill: "Edição de Vídeo", level: 93 },
+      { skill: "Design Gráfico", level: 88 },
+      { skill: "Gestão de Redes Sociais", level: 85 }
+    ]
   },
   {
     slug: "lemossabado",
@@ -185,7 +263,26 @@ export const teamMembers: TeamMember[] = [
       { title: "Apoio a Projetos Topográficos", description: "Suporte operacional em levantamentos topográficos para projetos de construção.", result: "Participação em 30+ projetos topográficos com precisão exemplar." },
       { title: "Optimização de Processos Operacionais", description: "Implementação de melhorias nos processos de execução de serviços técnicos.", result: "Redução de 25% no tempo médio de execução de projetos." }
     ],
-    email: "contato@lgtecserv.com"
+    email: "contato@lgtecserv.com",
+    stats: [
+      { label: "Instalações Concluídas", value: 100, suffix: "+", icon: "Briefcase" },
+      { label: "Satisfação Cliente", value: 98, suffix: "%", icon: "Award" },
+      { label: "Acidentes de Trabalho", value: 0, icon: "Shield" },
+      { label: "Projectos Topográficos", value: 30, suffix: "+", icon: "Target" }
+    ],
+    timeline: [
+      { year: "2018", title: "Início como Técnico", description: "Começou na área de instalações elétricas residenciais." },
+      { year: "2019", title: "Integração na LG TecServ", description: "Juntou-se à equipa como técnico operacional." },
+      { year: "2021", title: "Coordenador de Campo", description: "Passou a coordenar equipas de campo em múltiplos projectos." },
+      { year: "2023", title: "Coordenador Geral", description: "Promovido a coordenador geral de operações técnicas." }
+    ],
+    skillLevels: [
+      { skill: "Instalações Elétricas", level: 95 },
+      { skill: "Topografia", level: 80 },
+      { skill: "Gestão Operacional", level: 88 },
+      { skill: "Segurança no Trabalho", level: 96 },
+      { skill: "Manutenção Técnica", level: 90 }
+    ]
   },
   {
     slug: "claudiaarmando",
@@ -224,7 +321,26 @@ export const teamMembers: TeamMember[] = [
       { title: "Conformidade Legal", description: "Revisão e actualização de toda a documentação legal da empresa.", result: "100% de conformidade com os requisitos legais vigentes." },
       { title: "Empresa Corsa Boot", description: "Gestão empresarial própria na área de cofretarismo, demonstrando capacidade empreendedora.", result: "Experiência empresarial diversificada que enriquece a gestão da LG TecServ." }
     ],
-    email: "contato@lgtecserv.com"
+    email: "contato@lgtecserv.com",
+    stats: [
+      { label: "Redução de Custos", value: 30, suffix: "%", icon: "Target" },
+      { label: "Conformidade Legal", value: 100, suffix: "%", icon: "Shield" },
+      { label: "Processos Optimizados", value: 50, suffix: "+", icon: "Briefcase" },
+      { label: "Anos de Experiência", value: 5, suffix: "+", icon: "Award" }
+    ],
+    timeline: [
+      { year: "2018", title: "Início em Administração", description: "Começou a carreira em gestão administrativa e documental." },
+      { year: "2020", title: "Fundação da Corsa Boot", description: "Lançou a sua própria empresa na área de cofretarismo." },
+      { year: "2021", title: "Integração na LG TecServ", description: "Juntou-se à equipa como assistente administrativa." },
+      { year: "2023", title: "Gestão de Conformidade", description: "Assumiu a responsabilidade pela conformidade legal da empresa." }
+    ],
+    skillLevels: [
+      { skill: "Gestão Administrativa", level: 92 },
+      { skill: "Conformidade Legal", level: 88 },
+      { skill: "Gestão Documental", level: 95 },
+      { skill: "Contabilidade Básica", level: 80 },
+      { skill: "Cofretarismo", level: 85 }
+    ]
   }
 ];
 
