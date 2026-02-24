@@ -281,9 +281,9 @@ export const CouponManager = () => {
       <div className="grid gap-4">
         {coupons.map((coupon) => (
           <Card key={coupon.id}>
-            <CardContent className="p-6">
-              <div className="flex items-start justify-between">
-                <div className="flex-1">
+            <CardContent className="p-4 md:p-6">
+              <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
+                <div className="flex-1 w-full">
                   <div className="flex items-center gap-3 mb-2">
                     <h3 className="text-xl font-bold">{coupon.code}</h3>
                     <Badge variant={coupon.is_active ? 'default' : 'secondary'}>
@@ -293,7 +293,7 @@ export const CouponManager = () => {
                       <Badge variant="destructive">Expirado</Badge>
                     )}
                   </div>
-                  
+
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 text-sm">
                     <div className="flex items-center gap-2">
                       {coupon.discount_type === 'percentage' ? (
@@ -307,36 +307,37 @@ export const CouponManager = () => {
                           : `${coupon.discount_value.toLocaleString('pt-MZ', { style: 'currency', currency: 'MZN' })} de desconto`}
                       </span>
                     </div>
-                    
+
                     {coupon.min_purchase > 0 && (
                       <div className="text-muted-foreground">
                         Mín: {coupon.min_purchase.toLocaleString('pt-MZ', { style: 'currency', currency: 'MZN' })}
                       </div>
                     )}
-                    
+
                     <div className="text-muted-foreground">
                       Usos: {coupon.uses_count}
                       {coupon.max_uses ? ` / ${coupon.max_uses}` : ' / Ilimitado'}
                     </div>
-                    
+
                     <div className="text-muted-foreground">
                       Validade: {new Date(coupon.valid_until).toLocaleDateString('pt-MZ')}
                     </div>
                   </div>
                 </div>
 
-                <div className="flex gap-2">
+                <div className="flex gap-2 w-full md:w-auto mt-4 md:mt-0 pt-4 border-t md:pt-0 md:border-t-0 justify-end">
                   <Button
                     variant="outline"
                     size="sm"
+                    className="flex-1 md:flex-none"
                     onClick={() => toggleActive(coupon.id, coupon.is_active)}
                   >
                     {coupon.is_active ? 'Desativar' : 'Ativar'}
                   </Button>
-                  
+
                   <AlertDialog>
                     <AlertDialogTrigger asChild>
-                      <Button variant="destructive" size="sm">
+                      <Button variant="destructive" size="sm" className="flex-1 md:flex-none">
                         <Trash2 className="h-4 w-4" />
                       </Button>
                     </AlertDialogTrigger>

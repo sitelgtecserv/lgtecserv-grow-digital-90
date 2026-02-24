@@ -43,11 +43,12 @@ export const ImageGallery = ({ images, productName }: ImageGalleryProps) => {
       <div className="relative w-full aspect-square bg-muted rounded-lg overflow-hidden group">
         <img
           src={currentImage.image_url}
-          alt={`${productName} - Imagem ${selectedIndex + 1}`}
+          alt={`${productName} - Comprar online em Moçambique - Imagem ${selectedIndex + 1}`}
+          title={`${productName} - Ver miniatura ampliada`}
           className="w-full h-full object-cover cursor-zoom-in"
           onClick={() => setIsZoomed(true)}
         />
-        
+
         {images.length > 1 && (
           <>
             <Button
@@ -58,7 +59,7 @@ export const ImageGallery = ({ images, productName }: ImageGalleryProps) => {
             >
               <ChevronLeft className="h-4 w-4" />
             </Button>
-            
+
             <Button
               size="icon"
               variant="secondary"
@@ -67,17 +68,16 @@ export const ImageGallery = ({ images, productName }: ImageGalleryProps) => {
             >
               <ChevronRight className="h-4 w-4" />
             </Button>
-            
+
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
               {images.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setSelectedIndex(index)}
-                  className={`w-2 h-2 rounded-full transition-all ${
-                    index === selectedIndex
+                  className={`w-2 h-2 rounded-full transition-all ${index === selectedIndex
                       ? 'bg-white w-8'
                       : 'bg-white/50 hover:bg-white/75'
-                  }`}
+                    }`}
                   aria-label={`Ver imagem ${index + 1}`}
                 />
               ))}
@@ -93,16 +93,17 @@ export const ImageGallery = ({ images, productName }: ImageGalleryProps) => {
             <button
               key={image.id}
               onClick={() => setSelectedIndex(index)}
-              className={`flex-shrink-0 w-20 h-20 rounded-md overflow-hidden border-2 transition-all ${
-                index === selectedIndex
+              className={`flex-shrink-0 w-20 h-20 rounded-md overflow-hidden border-2 transition-all ${index === selectedIndex
                   ? 'border-primary'
                   : 'border-transparent hover:border-muted-foreground/50'
-              }`}
+                }`}
             >
               <img
                 src={image.image_url}
-                alt={`Miniatura ${index + 1}`}
+                alt={`Miniatura ${index + 1} de ${productName}`}
+                title={`Visualizar miniatura ${index + 1} de ${productName}`}
                 className="w-full h-full object-cover"
+                loading="lazy"
               />
             </button>
           ))}
@@ -118,7 +119,7 @@ export const ImageGallery = ({ images, productName }: ImageGalleryProps) => {
               alt={`${productName} - Zoom`}
               className="max-w-full max-h-full object-contain"
             />
-            
+
             <Button
               size="icon"
               variant="ghost"
@@ -127,7 +128,7 @@ export const ImageGallery = ({ images, productName }: ImageGalleryProps) => {
             >
               <X className="h-6 w-6" />
             </Button>
-            
+
             {images.length > 1 && (
               <>
                 <Button
@@ -138,7 +139,7 @@ export const ImageGallery = ({ images, productName }: ImageGalleryProps) => {
                 >
                   <ChevronLeft className="h-8 w-8" />
                 </Button>
-                
+
                 <Button
                   size="icon"
                   variant="ghost"

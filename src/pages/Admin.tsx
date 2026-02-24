@@ -52,11 +52,24 @@ const Admin = () => {
     try {
       const { data, error } = await supabase
         .from('products')
-        .select('*, categories(name)')
+        .select(`
+          *, 
+          categories(name),
+          product_images(image_url, is_primary)
+        `)
         .order('created_at', { ascending: false });
 
       if (error) throw error;
-      setProducts(data || []);
+
+      const processedProducts = data?.map(product => ({
+        ...product,
+        image_url: product.image_url ||
+          product.product_images?.find((img: any) => img.is_primary)?.image_url ||
+          product.product_images?.[0]?.image_url ||
+          null
+      })) || [];
+
+      setProducts(processedProducts);
     } catch (error) {
       console.error('Erro ao carregar produtos:', error);
     } finally {
@@ -93,8 +106,8 @@ const Admin = () => {
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <Button 
-                variant="default" 
+              <Button
+                variant="default"
                 size="sm"
                 onClick={() => navigate('/google-search-console')}
                 className="hidden md:flex"
@@ -113,24 +126,26 @@ const Admin = () => {
         {/* Main Content */}
         <main className="container mx-auto px-4 py-8 max-w-7xl">
           <Tabs defaultValue="products" className="w-full">
-            <TabsList className="grid w-full max-w-3xl grid-cols-4">
-              <TabsTrigger value="products" className="flex items-center gap-2">
-                <Package className="h-4 w-4" />
-                Produtos
-              </TabsTrigger>
-              <TabsTrigger value="categories" className="flex items-center gap-2">
-                <Folder className="h-4 w-4" />
-                Categorias
-              </TabsTrigger>
-              <TabsTrigger value="coupons" className="flex items-center gap-2">
-                <Tag className="h-4 w-4" />
-                Cupons
-              </TabsTrigger>
-              <TabsTrigger value="orders" className="flex items-center gap-2">
-                <ShoppingBag className="h-4 w-4" />
-                Pedidos
-              </TabsTrigger>
-            </TabsList>
+            <div className="w-full overflow-x-auto pb-2">
+              <TabsList className="inline-flex w-max min-w-full grid-cols-4 md:grid md:w-full md:max-w-3xl">
+                <TabsTrigger value="products" className="flex items-center gap-2">
+                  <Package className="h-4 w-4" />
+                  <span className="whitespace-nowrap">Produtos</span>
+                </TabsTrigger>
+                <TabsTrigger value="categories" className="flex items-center gap-2">
+                  <Folder className="h-4 w-4" />
+                  <span className="whitespace-nowrap">Categorias</span>
+                </TabsTrigger>
+                <TabsTrigger value="coupons" className="flex items-center gap-2">
+                  <Tag className="h-4 w-4" />
+                  <span className="whitespace-nowrap">Cupons</span>
+                </TabsTrigger>
+                <TabsTrigger value="orders" className="flex items-center gap-2">
+                  <ShoppingBag className="h-4 w-4" />
+                  <span className="whitespace-nowrap">Pedidos</span>
+                </TabsTrigger>
+              </TabsList>
+            </div>
 
             <TabsContent value="products" className="mt-6">
               <div className="grid lg:grid-cols-2 gap-8">

@@ -75,7 +75,7 @@ export const ProductForm = ({ mode = 'create', product, onSuccess }: ProductForm
 
   const fetchProductImages = async () => {
     if (!product?.id) return;
-    
+
     try {
       const { data, error } = await supabase
         .from('product_images')
@@ -92,7 +92,7 @@ export const ProductForm = ({ mode = 'create', product, onSuccess }: ProductForm
 
   const uploadImages = async (productId: string) => {
     const newImages = images.filter(img => img.file);
-    
+
     for (const image of newImages) {
       try {
         const fileExt = image.file.name.split('.').pop();
@@ -227,7 +227,7 @@ export const ProductForm = ({ mode = 'create', product, onSuccess }: ProductForm
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="price">Preço (MZN) *</Label>
               <Input
@@ -259,7 +259,7 @@ export const ProductForm = ({ mode = 'create', product, onSuccess }: ProductForm
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="stock">Estoque *</Label>
               <Input

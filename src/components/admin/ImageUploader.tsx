@@ -32,7 +32,7 @@ export const ImageUploader = ({ productId, images, onImagesChange }: ImageUpload
     const validFiles = files.filter(file => {
       const isImage = file.type.startsWith('image/');
       const isUnder5MB = file.size <= 5 * 1024 * 1024;
-      
+
       if (!isImage) {
         toast({
           title: 'Formato inválido',
@@ -47,7 +47,7 @@ export const ImageUploader = ({ productId, images, onImagesChange }: ImageUpload
           variant: 'destructive',
         });
       }
-      
+
       return isImage && isUnder5MB;
     });
 
@@ -69,13 +69,13 @@ export const ImageUploader = ({ productId, images, onImagesChange }: ImageUpload
 
   const removeImage = async (index: number) => {
     const image = images[index];
-    
+
     if (image.id && productId) {
       const { error } = await supabase
         .from('product_images')
         .delete()
         .eq('id', image.id);
-      
+
       if (error) {
         toast({
           title: 'Erro ao remover imagem',
@@ -87,17 +87,17 @@ export const ImageUploader = ({ productId, images, onImagesChange }: ImageUpload
     }
 
     const newImages = images.filter((_, i) => i !== index);
-    
+
     // Reajustar display_order
     newImages.forEach((img, i) => {
       img.display_order = i;
     });
-    
+
     // Se removeu a primária, tornar a primeira como primária
     if (image.is_primary && newImages.length > 0) {
       newImages[0].is_primary = true;
     }
-    
+
     onImagesChange(newImages);
   };
 
@@ -113,12 +113,12 @@ export const ImageUploader = ({ productId, images, onImagesChange }: ImageUpload
     const newImages = [...images];
     const [moved] = newImages.splice(fromIndex, 1);
     newImages.splice(toIndex, 0, moved);
-    
+
     // Atualizar display_order
     newImages.forEach((img, i) => {
       img.display_order = i;
     });
-    
+
     onImagesChange(newImages);
   };
 
@@ -127,7 +127,7 @@ export const ImageUploader = ({ productId, images, onImagesChange }: ImageUpload
       <div
         onDrop={handleDrop}
         onDragOver={(e) => e.preventDefault()}
-        className="border-2 border-dashed border-muted-foreground/25 rounded-lg p-8 text-center hover:border-primary/50 transition-colors cursor-pointer"
+        className="border-2 border-dashed border-muted-foreground/25 rounded-lg text-center hover:border-primary/50 transition-colors cursor-pointer relative"
       >
         <input
           type="file"
@@ -137,7 +137,7 @@ export const ImageUploader = ({ productId, images, onImagesChange }: ImageUpload
           className="hidden"
           id="image-upload"
         />
-        <label htmlFor="image-upload" className="cursor-pointer">
+        <label htmlFor="image-upload" className="cursor-pointer block w-full h-full p-8">
           <Upload className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
           <p className="text-sm text-muted-foreground mb-1">
             Arraste imagens aqui ou clique para selecionar
@@ -159,7 +159,7 @@ export const ImageUploader = ({ productId, images, onImagesChange }: ImageUpload
                   className="w-full h-full object-cover"
                 />
               </div>
-              
+
               <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
                 <Button
                   size="icon"
@@ -170,7 +170,7 @@ export const ImageUploader = ({ productId, images, onImagesChange }: ImageUpload
                 >
                   <Star className={`h-4 w-4 ${image.is_primary ? 'fill-yellow-400 text-yellow-400' : ''}`} />
                 </Button>
-                
+
                 <Button
                   size="icon"
                   variant="secondary"
@@ -179,7 +179,7 @@ export const ImageUploader = ({ productId, images, onImagesChange }: ImageUpload
                 >
                   <X className="h-4 w-4" />
                 </Button>
-                
+
                 {index > 0 && (
                   <Button
                     size="icon"
@@ -191,14 +191,14 @@ export const ImageUploader = ({ productId, images, onImagesChange }: ImageUpload
                   </Button>
                 )}
               </div>
-              
+
               {image.is_primary && (
                 <div className="absolute top-2 left-2 bg-yellow-500 text-white text-xs px-2 py-1 rounded-full flex items-center gap-1">
                   <Star className="h-3 w-3 fill-white" />
                   Principal
                 </div>
               )}
-              
+
               <div className="absolute bottom-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded">
                 {index + 1}
               </div>

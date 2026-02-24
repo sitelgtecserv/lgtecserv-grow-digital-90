@@ -52,7 +52,7 @@ export const OrderManager = () => {
 
   const fetchOrders = async () => {
     setLoading(true);
-    
+
     let query = supabase
       .from('orders')
       .select('*')
@@ -257,12 +257,12 @@ export const OrderManager = () => {
                     </div>
                   </div>
 
-                  <div className="flex flex-col gap-2">
+                  <div className="flex flex-col md:flex-row gap-2 md:items-center">
                     <Select
                       value={order.status}
                       onValueChange={(value) => updateOrderStatus(order.id, value)}
                     >
-                      <SelectTrigger className="w-[180px]">
+                      <SelectTrigger className="w-full md:w-[180px]">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
@@ -277,6 +277,7 @@ export const OrderManager = () => {
                     <Button
                       variant="outline"
                       size="sm"
+                      className="w-full md:w-auto mt-2 md:mt-0"
                       onClick={() => viewOrderDetails(order)}
                     >
                       <Eye className="h-4 w-4 mr-2" />
@@ -317,12 +318,12 @@ export const OrderManager = () => {
                 <h3 className="font-semibold mb-2">Itens do Pedido</h3>
                 <div className="space-y-2">
                   {orderItems.map((item) => (
-                    <div key={item.id} className="flex justify-between items-center p-3 bg-muted rounded-lg">
+                    <div key={item.id} className="flex flex-col sm:flex-row sm:justify-between sm:items-center p-3 bg-muted rounded-lg gap-2">
                       <div>
-                        <p className="font-medium">{item.product_name}</p>
+                        <p className="font-medium text-sm md:text-base">{item.product_name}</p>
                         <p className="text-sm text-muted-foreground">Quantidade: {item.quantity}</p>
                       </div>
-                      <p className="font-semibold">
+                      <p className="font-semibold text-right sm:text-left">
                         {(item.price_at_purchase * item.quantity).toLocaleString('pt-MZ', {
                           style: 'currency',
                           currency: 'MZN',

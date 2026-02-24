@@ -12,6 +12,7 @@ import SEOHead from '@/components/seo/SEOHead';
 import { useToast } from '@/hooks/use-toast';
 import { ShopHeader } from '@/components/layout/ShopHeader';
 import { BottomNav } from '@/components/shop/BottomNav';
+import { motion } from 'framer-motion';
 import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
 import { ImageGallery } from '@/components/shop/ImageGallery';
 import { ProductReviews } from '@/components/shop/ProductReviews';
@@ -78,9 +79,9 @@ const ProductDetail = () => {
       // Processar produto para usar a imagem principal
       const processedProduct = {
         ...data,
-        image_url: data.image_url || 
-          data.product_images?.find(img => img.is_primary)?.image_url || 
-          data.product_images?.[0]?.image_url || 
+        image_url: data.image_url ||
+          data.product_images?.find(img => img.is_primary)?.image_url ||
+          data.product_images?.[0]?.image_url ||
           null
       };
 
@@ -120,7 +121,7 @@ const ProductDetail = () => {
     if (!product) return;
 
     addToCart(product);
-    
+
     toast({
       title: 'Produto adicionado',
       description: 'O produto foi adicionado ao carrinho com sucesso.',
@@ -152,11 +153,11 @@ const ProductDetail = () => {
   }
 
   // Gerar schemas estruturados
-  const productUrl = product.categories?.slug 
+  const productUrl = product.categories?.slug
     ? `/loja/${product.categories.slug}/${product.slug}`
     : `/produto/${product.slug}`;
   const categoryUrl = product.categories?.slug ? `/loja/${product.categories.slug}` : '/loja';
-  
+
   const productSchema = generateProductSchema(product, baseUrl, reviewData || undefined);
   const breadcrumbSchema = generateBreadcrumbData([
     { name: 'Home', url: baseUrl },
@@ -187,46 +188,62 @@ const ProductDetail = () => {
           <Breadcrumbs
             items={[
               { label: 'Loja', href: '/loja' },
-              ...(product.categories?.name ? [{ 
-                label: product.categories.name, 
-                href: categoryUrl 
+              ...(product.categories?.name ? [{
+                label: product.categories.name,
+                href: categoryUrl
               }] : []),
               { label: product.name }
             ]}
             className="mb-6"
           />
-          <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="grid md:grid-cols-2 gap-8 lg:gap-12 max-w-6xl mx-auto"
+          >
             {/* Image Gallery */}
-            <div>
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
+            >
               <ImageGallery images={images} productName={product.name} />
-            </div>
+            </motion.div>
 
             {/* Info */}
-            <div className="space-y-6">
-              <div className="space-y-2">
-                <h1 className="text-3xl font-bold">{product.name}</h1>
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+              className="space-y-6 lg:space-y-8 flex flex-col"
+            >
+              <div className="space-y-3">
+                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight lg:leading-tight">
+                  {product.name}
+                </h1>
                 {reviewData && (
                   <div className="flex items-center gap-2 mb-2">
                     <StarRating rating={reviewData.rating} showValue size={20} />
-                    <span className="text-sm text-muted-foreground">
+                    <span className="text-sm font-medium text-muted-foreground">
                       ({reviewData.reviewCount} {reviewData.reviewCount === 1 ? 'avaliação' : 'avaliações'})
                     </span>
                   </div>
                 )}
-                <div className="flex items-center gap-2">
+                <div className="flex items-center flex-wrap gap-2 pt-1 pb-2">
                   {product.categories?.name && (
-                    <Badge variant="secondary">{product.categories.name}</Badge>
+                    <Badge variant="secondary" className="px-3 py-1 bg-secondary/60">{product.categories.name}</Badge>
                   )}
                   {product.stock === 0 && (
-                    <Badge variant="destructive">Esgotado</Badge>
+                    <Badge variant="destructive" className="px-3 py-1 shadow-sm">Vendido</Badge>
                   )}
                   {product.stock > 0 && product.stock < 5 && (
-                    <Badge className="bg-yellow-500 text-white">
+                    <Badge className="bg-orange-500/90 text-white shadow-sm border-0 px-3 py-1">
                       Últimas {product.stock} unidades
                     </Badge>
                   )}
                 </div>
-                <p className="text-3xl font-bold text-primary mb-4">
+                <p className="text-4xl sm:text-5xl font-black text-primary mb-6 drop-shadow-sm">
                   {product.price.toLocaleString('pt-MZ', {
                     style: 'currency',
                     currency: 'MZN',
@@ -273,12 +290,12 @@ const ProductDetail = () => {
               {!productInCart ? (
                 <Button
                   size="lg"
-                  className="w-full"
+                  className="w-full h-14 text-lg font-semibold shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
                   onClick={handleAddToCart}
                   disabled={product.stock === 0}
                 >
-                  <ShoppingCart className="mr-2 h-5 w-5" />
-                  {product.stock === 0 ? 'Produto Indisponível' : 'Adicionar ao Carrinho'}
+                  <ShoppingCart className="mr-3 h-6 w-6" />
+                  {product.stock === 0 ? 'Produto Vendido' : 'Adicionar ao Carrinho'}
                 </Button>
               ) : (
                 <Button
@@ -292,8 +309,8 @@ const ProductDetail = () => {
               )}
 
               {product.stock === 0 ? (
-                <p className="text-sm text-destructive text-center">
-                  Este produto está temporariamente esgotado.
+                <p className="text-sm text-destructive text-center font-medium">
+                  Este produto já foi vendido.
                 </p>
               ) : (
                 <p className="text-sm text-muted-foreground text-center">
@@ -302,8 +319,8 @@ const ProductDetail = () => {
                     : 'Adicione o produto ao carrinho para finalizar seu pedido.'}
                 </p>
               )}
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
           {/* Seção de Avaliações */}
           <div className="mt-12">

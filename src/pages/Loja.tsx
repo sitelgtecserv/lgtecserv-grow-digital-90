@@ -58,15 +58,15 @@ const Loja = () => {
   const { searchQuery, setSearchQuery, debouncedQuery } = useProductSearch();
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [sortBy, setSortBy] = useState<'name' | 'price-asc' | 'price-desc' | 'newest'>('newest');
-  
+
   // Get price range from products
-  const productPriceRange = products.length > 0 
+  const productPriceRange = products.length > 0
     ? {
-        min: Math.floor(Math.min(...products.map(p => p.price))),
-        max: Math.ceil(Math.max(...products.map(p => p.price)))
-      }
+      min: Math.floor(Math.min(...products.map(p => p.price))),
+      max: Math.ceil(Math.max(...products.map(p => p.price)))
+    }
     : { min: 0, max: 10000 };
-  
+
   const [priceRange, setPriceRange] = useState<[number, number]>([
     productPriceRange.min,
     productPriceRange.max
@@ -86,7 +86,7 @@ const Loja = () => {
     sortBy,
   });
 
-  const activeFiltersCount = 
+  const activeFiltersCount =
     (selectedCategory !== 'all' ? 1 : 0) +
     (priceRange[0] !== productPriceRange.min || priceRange[1] !== productPriceRange.max ? 1 : 0);
 
@@ -113,7 +113,7 @@ const Loja = () => {
         .from('categories')
         .select('id, name, slug')
         .order('name');
-      
+
       if (error) throw error;
       setAllCategories(data || []);
     } catch (error) {
@@ -138,9 +138,9 @@ const Loja = () => {
       // Processar produtos para usar a imagem principal ou primeira disponível
       const processedProducts = data?.map(product => ({
         ...product,
-        image_url: product.image_url || 
-          product.product_images?.find(img => img.is_primary)?.image_url || 
-          product.product_images?.[0]?.image_url || 
+        image_url: product.image_url ||
+          product.product_images?.find(img => img.is_primary)?.image_url ||
+          product.product_images?.[0]?.image_url ||
           null
       })) || [];
 
@@ -160,18 +160,18 @@ const Loja = () => {
 
   // Gerar structured data para os produtos filtrados
   const productListSchema = generateProductListSchema(filteredProducts.slice(0, 20), baseUrl);
-  
+
   // Pegar categoria selecionada
   const selectedCategoryData = allCategories.find(c => c.id === selectedCategory);
   const selectedCategoryName = selectedCategoryData?.name;
   const canonicalPath = selectedCategoryData ? `/loja/${selectedCategoryData.slug}` : '/loja';
 
   // Build breadcrumbs
-  const breadcrumbs = selectedCategoryName 
+  const breadcrumbs = selectedCategoryName
     ? [
-        { label: 'Loja', href: '/loja' },
-        { label: selectedCategoryName }
-      ]
+      { label: 'Loja', href: '/loja' },
+      { label: selectedCategoryName }
+    ]
     : [];
 
   return (
@@ -233,7 +233,7 @@ const Loja = () => {
 
           {/* Products Grid */}
           {loading ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
               {[...Array(8)].map((_, i) => (
                 <SkeletonProductCard key={i} />
               ))}
@@ -246,12 +246,15 @@ const Loja = () => {
             />
           ) : (
             <>
-              <div className="mb-4 flex items-center justify-between">
-                <p className="text-sm text-muted-foreground">
-                  Mostrando {filteredProducts.length} {filteredProducts.length === 1 ? 'produto' : 'produtos'}
+              <div className="mb-6 flex flex-col md:flex-row md:items-center justify-between border-b pb-4">
+                <h2 className="text-2xl font-semibold tracking-tight">
+                  {selectedCategoryName || 'Todos os Produtos'}
+                </h2>
+                <p className="text-sm text-muted-foreground mt-1 md:mt-0 font-medium">
+                  {filteredProducts.length} {filteredProducts.length === 1 ? 'resultado encontrado' : 'resultados encontrados'}
                 </p>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
                 {filteredProducts.map((product, index) => (
                   <AnimatedProductCard key={product.id} product={product} index={index} />
                 ))}
@@ -277,9 +280,10 @@ const AnimatedProductCard = ({ product, index }: { product: Product; index: numb
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 20 }}
-      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-      transition={{ duration: 0.4, delay: index * 0.05 }}
+      initial={{ opacity: 0, y: 40, scale: 0.95 }}
+      animate={inView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 40, scale: 0.95 }}
+      transition={{ duration: 0.6, delay: (index % 8) * 0.08, ease: [0.25, 0.1, 0.25, 1] }}
+      className="h-full"
     >
       <ProductCard product={product} />
     </motion.div>
