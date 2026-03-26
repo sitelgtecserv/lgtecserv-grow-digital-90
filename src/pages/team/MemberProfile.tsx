@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { useParams, Navigate, Link } from "react-router-dom";
 import { getTeamMemberBySlug, teamMembers } from "@/data/teamMembers";
 import Header from "@/components/layout/Header";
@@ -9,7 +10,27 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import AnimatedCounter from "@/components/ui/animated-counter";
+
+// Simple auto-animating counter (no IntersectionObserver dependency)
+const AutoCounter = ({ end, suffix = "", duration = 1500, delay = 0 }: { end: number; suffix?: string; duration?: number; delay?: number }) => {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      let startTime: number;
+      const animate = (currentTime: number) => {
+        if (!startTime) startTime = currentTime;
+        const progress = Math.min((currentTime - startTime) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 4);
+        setCount(Math.floor(eased * end));
+        if (progress < 1) requestAnimationFrame(animate);
+        else setCount(end);
+      };
+      requestAnimationFrame(animate);
+    }, delay);
+    return () => clearTimeout(timeout);
+  }, [end, duration, delay]);
+  return <>{count}{suffix}</>;
+};
 import {
   Briefcase, Award, Target, Heart, Lightbulb, Shield, Users,
   Mail, ArrowRight, Star, CheckCircle, ArrowLeft, Calendar, Wrench
@@ -165,7 +186,7 @@ const MemberProfile = () => {
                         {iconMapSmall[stat.icon] || <Star className="w-5 h-5" />}
                       </div>
                       <div className="text-2xl md:text-3xl font-bold text-foreground">
-                        <AnimatedCounter end={stat.value} suffix={stat.suffix || ""} duration={1500} />
+                        <AutoCounter end={stat.value} suffix={stat.suffix || ""} duration={1500} delay={300 + i * 200} />
                       </div>
                       <p className="text-xs text-muted-foreground mt-1 font-medium uppercase tracking-wide">{stat.label}</p>
                     </CardContent>
