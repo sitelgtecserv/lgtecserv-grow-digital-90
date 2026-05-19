@@ -11,6 +11,7 @@ import NotFound from "./pages/NotFound";
 import Sitemap from "./pages/Sitemap";
 import { CookiesBanner } from "./components/layout/CookiesBanner";
 import BackToTop from "./components/ui/back-to-top";
+import { AiAssistant } from "./components/shop/AiAssistant";
 import ScrollProgress from "./components/ui/scroll-progress";
 import AccessibilityEnhancer from "./components/accessibility/accessibility-enhancer";
 import { 
@@ -108,6 +109,7 @@ const App = () => (
             <Toaster />
             <Sonner />
             <AppContent />
+            <AiAssistant />
             <BackToTop />
             <CookiesBanner />
           </CartProvider>

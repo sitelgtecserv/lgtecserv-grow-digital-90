@@ -3,12 +3,13 @@ import { useCart } from '@/contexts/CartContext';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { Trash2, Plus, Minus, ShoppingBag, ArrowLeft, MessageCircle, Tag, X } from 'lucide-react';
+import { Trash2, Plus, Minus, ShoppingBag, ArrowLeft, MessageCircle, Tag, X, Gift } from 'lucide-react';
 import SEOHead from '@/components/seo/SEOHead';
 import { EmptyState } from '@/components/shop/EmptyState';
 import { ShopHeader } from '@/components/layout/ShopHeader';
 import { BottomNav } from '@/components/shop/BottomNav';
 import { useState } from 'react';
+import { useAuth } from '@/contexts/AuthContext';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -25,13 +26,13 @@ const WHATSAPP_NUMBER = '258869824047';
 
 const Carrinho = () => {
   const { cart, coupon, removeFromCart, updateQuantity, clearCart, getCartTotal, applyCoupon, removeCoupon, getDiscount, getFinalTotal } = useCart();
+  const { user } = useAuth();
   const navigate = useNavigate();
   const [couponCode, setCouponCode] = useState('');
   const [isApplyingCoupon, setIsApplyingCoupon] = useState(false);
 
   const handleApplyCoupon = async () => {
     if (!couponCode.trim()) return;
-    
     setIsApplyingCoupon(true);
     await applyCoupon(couponCode.trim());
     setIsApplyingCoupon(false);
@@ -40,9 +41,7 @@ const Carrinho = () => {
 
   const handleWhatsAppClick = () => {
     if (cart.length === 0) return;
-
     let message = `Olá! Gostaria de solicitar os seguintes produtos:\n\n`;
-    
     cart.forEach((item, index) => {
       const subtotal = item.price * item.quantity;
       message += `*${index + 1}. ${item.name}*\n`;
@@ -50,22 +49,16 @@ const Carrinho = () => {
       message += `Preço unitário: ${item.price.toLocaleString('pt-MZ', { style: 'currency', currency: 'MZN' })}\n`;
       message += `Subtotal: ${subtotal.toLocaleString('pt-MZ', { style: 'currency', currency: 'MZN' })}\n\n`;
     });
-
     message += `------------------\n`;
     message += `*Subtotal: ${getCartTotal().toLocaleString('pt-MZ', { style: 'currency', currency: 'MZN' })}*\n`;
-    
     if (coupon) {
       const discount = getDiscount();
       message += `*Desconto (${coupon.code}): -${discount.toLocaleString('pt-MZ', { style: 'currency', currency: 'MZN' })}*\n`;
     }
-    
     message += `*Total: ${getFinalTotal().toLocaleString('pt-MZ', { style: 'currency', currency: 'MZN' })}*\n\n`;
     message += `Aguardo retorno para confirmar o pedido.`;
-
     const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodedMessage}`;
-    
-    window.open(whatsappUrl, '_blank');
+    window.open(`https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodedMessage}`, '_blank');
   };
 
   return (
@@ -81,11 +74,7 @@ const Carrinho = () => {
 
         <main className="container mx-auto px-4 py-8">
           <div className="flex items-center gap-4 mb-6">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => navigate('/loja')}
-            >
+            <Button variant="ghost" size="icon" onClick={() => navigate('/loja')}>
               <ArrowLeft className="h-5 w-5" />
             </Button>
             <div className="flex-1">
@@ -139,94 +128,53 @@ const Carrinho = () => {
                           onClick={() => navigate(`/produto/${item.id}`)}
                         >
                           {item.image_url ? (
-                            <img
-                              src={item.image_url}
-                              alt={item.name}
-                              className="w-full h-full object-cover"
-                            />
+                            <img src={item.image_url} alt={item.name} className="w-full h-full object-cover" />
                           ) : (
-                            <div className="w-full h-full flex items-center justify-center text-muted-foreground text-xs">
-                              Sem imagem
-                            </div>
+                            <div className="w-full h-full flex items-center justify-center text-muted-foreground text-xs">Sem imagem</div>
                           )}
                         </div>
-
                         <div className="flex-1 min-w-0">
-                          <h3
-                            className="font-semibold text-lg line-clamp-1 cursor-pointer hover:text-primary"
-                            onClick={() => navigate(`/produto/${item.id}`)}
-                          >
-                          {item.name}
+                          <h3 className="font-semibold text-lg line-clamp-1 cursor-pointer hover:text-primary" onClick={() => navigate(`/produto/${item.id}`)}>
+                            {item.name}
                           </h3>
                           {item.categories?.name && (
-                            <p className="text-sm text-muted-foreground">
-                              {item.categories.name}
-                            </p>
+                            <p className="text-sm text-muted-foreground">{item.categories.name}</p>
                           )}
                           <p className="font-bold text-primary mt-2">
-                            {item.price.toLocaleString('pt-MZ', {
-                              style: 'currency',
-                              currency: 'MZN',
-                            })}
+                            {item.price.toLocaleString('pt-MZ', { style: 'currency', currency: 'MZN' })}
                           </p>
-
                           <div className="flex items-center gap-4 mt-3">
                             <div className="flex items-center gap-2">
-                              <Button
-                                variant="outline"
-                                size="icon"
-                                className="h-8 w-8"
-                                onClick={() =>
-                                  updateQuantity(item.cartItemId, item.quantity - 1)
-                                }
-                              >
+                              <Button variant="outline" size="icon" className="h-8 w-8" onClick={() => updateQuantity(item.cartItemId, item.quantity - 1)}>
                                 <Minus className="h-4 w-4" />
                               </Button>
-                              <span className="w-8 text-center font-medium">
-                                {item.quantity}
-                              </span>
-                              <Button
-                                variant="outline"
-                                size="icon"
-                                className="h-8 w-8"
-                                onClick={() =>
-                                  updateQuantity(item.cartItemId, item.quantity + 1)
-                                }
-                              >
+                              <span className="w-8 text-center font-medium">{item.quantity}</span>
+                              <Button variant="outline" size="icon" className="h-8 w-8" onClick={() => updateQuantity(item.cartItemId, item.quantity + 1)}>
                                 <Plus className="h-4 w-4" />
                               </Button>
                             </div>
                             <AlertDialog>
                               <AlertDialogTrigger asChild>
                                 <Button variant="ghost" size="sm">
-                                  <Trash2 className="h-4 w-4 mr-1" />
-                                  Remover
+                                  <Trash2 className="h-4 w-4 mr-1" />Remover
                                 </Button>
                               </AlertDialogTrigger>
                               <AlertDialogContent>
                                 <AlertDialogHeader>
                                   <AlertDialogTitle>Remover produto?</AlertDialogTitle>
-                                  <AlertDialogDescription>
-                                    Tem certeza que deseja remover "{item.name}" do carrinho?
-                                  </AlertDialogDescription>
+                                  <AlertDialogDescription>Tem certeza que deseja remover "{item.name}" do carrinho?</AlertDialogDescription>
                                 </AlertDialogHeader>
                                 <AlertDialogFooter>
                                   <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                                  <AlertDialogAction onClick={() => removeFromCart(item.cartItemId)}>
-                                    Sim, remover
-                                  </AlertDialogAction>
+                                  <AlertDialogAction onClick={() => removeFromCart(item.cartItemId)}>Sim, remover</AlertDialogAction>
                                 </AlertDialogFooter>
                               </AlertDialogContent>
                             </AlertDialog>
                           </div>
                         </div>
-
                         <div className="text-right">
                           <p className="font-bold text-lg">
-                            {(item.price * item.quantity).toLocaleString('pt-MZ', {
-                              style: 'currency',
-                              currency: 'MZN',
-                            })}
+                            {(item.price * item.quantity).toLocaleString('pt-MZ', { style: 'currency', currency: 'MZN' })}
                           </p>
                         </div>
                       </div>
@@ -247,19 +195,9 @@ const Carrinho = () => {
                         <div className="flex gap-2">
                           <div className="relative flex-1">
                             <Tag className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                            <Input
-                              placeholder="Código do cupom"
-                              value={couponCode}
-                              onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
-                              onKeyDown={(e) => e.key === 'Enter' && handleApplyCoupon()}
-                              className="pl-9"
-                            />
+                            <Input placeholder="Código do cupom" value={couponCode} onChange={(e) => setCouponCode(e.target.value.toUpperCase())} onKeyDown={(e) => e.key === 'Enter' && handleApplyCoupon()} className="pl-9" />
                           </div>
-                          <Button
-                            variant="outline"
-                            onClick={handleApplyCoupon}
-                            disabled={isApplyingCoupon || !couponCode.trim()}
-                          >
+                          <Button variant="outline" onClick={handleApplyCoupon} disabled={isApplyingCoupon || !couponCode.trim()}>
                             {isApplyingCoupon ? 'Aplicando...' : 'Aplicar'}
                           </Button>
                         </div>
@@ -267,16 +205,9 @@ const Carrinho = () => {
                         <div className="flex items-center justify-between p-3 bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-800 rounded-md">
                           <div className="flex items-center gap-2">
                             <Tag className="h-4 w-4 text-green-600 dark:text-green-400" />
-                            <span className="text-sm font-medium text-green-600 dark:text-green-400">
-                              {coupon.code}
-                            </span>
+                            <span className="text-sm font-medium text-green-600 dark:text-green-400">{coupon.code}</span>
                           </div>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={removeCoupon}
-                            className="h-6 w-6 p-0"
-                          >
+                          <Button variant="ghost" size="sm" onClick={removeCoupon} className="h-6 w-6 p-0">
                             <X className="h-4 w-4" />
                           </Button>
                         </div>
@@ -286,22 +217,12 @@ const Carrinho = () => {
                     <div className="space-y-3 mb-6">
                       <div className="flex justify-between text-sm">
                         <span className="text-muted-foreground">Subtotal</span>
-                        <span className="font-medium">
-                          {getCartTotal().toLocaleString('pt-MZ', {
-                            style: 'currency',
-                            currency: 'MZN',
-                          })}
-                        </span>
+                        <span className="font-medium">{getCartTotal().toLocaleString('pt-MZ', { style: 'currency', currency: 'MZN' })}</span>
                       </div>
                       {coupon && (
                         <div className="flex justify-between text-sm text-green-600 dark:text-green-400">
                           <span>Desconto ({coupon.discount_type === 'percentage' ? `${coupon.discount_value}%` : 'Fixo'})</span>
-                          <span className="font-medium">
-                            -{getDiscount().toLocaleString('pt-MZ', {
-                              style: 'currency',
-                              currency: 'MZN',
-                            })}
-                          </span>
+                          <span className="font-medium">-{getDiscount().toLocaleString('pt-MZ', { style: 'currency', currency: 'MZN' })}</span>
                         </div>
                       )}
                       <div className="flex justify-between text-sm">
@@ -312,31 +233,33 @@ const Carrinho = () => {
                     <div className="border-t pt-4 mb-6">
                       <div className="flex justify-between text-lg font-bold">
                         <span>Total</span>
-                        <span className="text-primary">
-                          {getFinalTotal().toLocaleString('pt-MZ', {
-                            style: 'currency',
-                            currency: 'MZN',
-                          })}
-                        </span>
+                        <span className="text-primary">{getFinalTotal().toLocaleString('pt-MZ', { style: 'currency', currency: 'MZN' })}</span>
                       </div>
                     </div>
-                    <Button
-                      size="lg"
-                      variant="whatsapp"
-                      className="w-full"
-                      onClick={handleWhatsAppClick}
-                    >
+
+                    {/* WhatsApp como principal */}
+                    <Button size="lg" variant="whatsapp" className="w-full" onClick={handleWhatsAppClick}>
                       <MessageCircle className="mr-2 h-4 w-4" />
                       Solicitar via WhatsApp
                     </Button>
-                    <Button
-                      size="lg"
-                      className="w-full mt-2"
-                      onClick={() => navigate('/checkout')}
-                    >
+
+                    <Button size="lg" variant="outline" className="w-full mt-2" onClick={() => navigate('/checkout')}>
                       <ShoppingBag className="mr-2 h-4 w-4" />
                       Finalizar com Formulário
                     </Button>
+
+                    {/* Incentivo ao login */}
+                    {!user && (
+                      <div className="mt-4 p-3 bg-primary/5 border border-primary/10 rounded-lg">
+                        <div className="flex items-center gap-2 mb-1">
+                          <Gift className="h-4 w-4 text-primary" />
+                          <span className="text-xs font-semibold text-primary">Programa de Fidelidade</span>
+                        </div>
+                        <p className="text-xs text-muted-foreground">
+                          Crie uma conta para acumular compras e ganhar um brinde após 3 pedidos!
+                        </p>
+                      </div>
+                    )}
                   </CardContent>
                 </Card>
               </div>

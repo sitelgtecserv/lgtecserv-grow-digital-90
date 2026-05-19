@@ -1,8 +1,19 @@
 {
   "rewrites": [
+    { "source": "/sitemap.xml", "destination": "/api/sitemap" },
     { "source": "/(.*)", "destination": "/index.html" }
   ],
   "redirects": [
+    {
+      "source": "/servicos/eletricidade-industrial",
+      "destination": "/servicos/eletricidade-industrial-instalacoes-empresariais-mocambique",
+      "permanent": true
+    },
+    {
+      "source": "/servicos/ensaios-fotograficos",
+      "destination": "/servicos/ensaios-fotograficos-profissionais-sem-studio-mocambique",
+      "permanent": true
+    },
     {
       "source": "/loja",
       "has": [
@@ -36,7 +47,14 @@
     {
       "source": "/sitemap.xml",
       "headers": [
-        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
+        { "key": "Content-Type", "value": "application/xml; charset=utf-8" },
+        { "key": "Cache-Control", "value": "public, s-maxage=3600, stale-while-revalidate=86400" }
+      ]
+    },
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex" }
       ]
     }
   ]

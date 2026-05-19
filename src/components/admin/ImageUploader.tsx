@@ -23,16 +23,65 @@ export const ImageUploader = ({ productId, images, onImagesChange }: ImageUpload
   const [uploading, setUploading] = useState(false);
   const { toast } = useToast();
 
+  const compressImageToWebP = (file: File): Promise<File> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (event) => {
+        const img = new Image();
+        img.src = event.target?.result as string;
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          const MAX_WIDTH = 1200;
+          const MAX_HEIGHT = 1200;
+          let width = img.width;
+          let height = img.height;
+
+          if (width > height) {
+            if (width > MAX_WIDTH) {
+              height *= MAX_WIDTH / width;
+              width = MAX_WIDTH;
+            }
+          } else {
+            if (height > MAX_HEIGHT) {
+              width *= MAX_HEIGHT / height;
+              height = MAX_HEIGHT;
+            }
+          }
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          if (ctx) {
+            ctx.drawImage(img, 0, 0, width, height);
+            canvas.toBlob((blob) => {
+              if (blob) {
+                const newFile = new File([blob], file.name.replace(/\.[^/.]+$/, "") + ".webp", {
+                  type: 'image/webp',
+                  lastModified: Date.now()
+                });
+                resolve(newFile);
+              } else {
+                reject(new Error("Erro ao converter imagem"));
+              }
+            }, 'image/webp', 0.85); // 85% de qualidade
+          } else {
+            reject(new Error("Erro de renderização 2D"));
+          }
+        };
+        img.onerror = (error) => reject(error);
+      };
+      reader.onerror = (error) => reject(error);
+    });
+  };
+
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
     handleFiles(files);
   };
 
-  const handleFiles = (files: File[]) => {
+  const handleFiles = async (files: File[]) => {
     const validFiles = files.filter(file => {
       const isImage = file.type.startsWith('image/');
-      const isUnder5MB = file.size <= 5 * 1024 * 1024;
-
       if (!isImage) {
         toast({
           title: 'Formato inválido',
@@ -40,25 +89,39 @@ export const ImageUploader = ({ productId, images, onImagesChange }: ImageUpload
           variant: 'destructive',
         });
       }
-      if (!isUnder5MB) {
-        toast({
-          title: 'Arquivo muito grande',
-          description: `${file.name} excede 5MB`,
-          variant: 'destructive',
-        });
-      }
-
-      return isImage && isUnder5MB;
+      return isImage;
     });
 
-    const newImages: ProductImage[] = validFiles.map((file, index) => ({
-      image_url: URL.createObjectURL(file),
-      display_order: images.length + index,
-      is_primary: images.length === 0 && index === 0,
-      file,
-    }));
+    if (validFiles.length === 0) return;
 
-    onImagesChange([...images, ...newImages]);
+    setUploading(true);
+    try {
+      toast({
+        title: 'Otimizando imagens...',
+        description: 'A converter para WebP para máxima velocidade.',
+      });
+
+      const compressedFiles = await Promise.all(
+        validFiles.map(file => compressImageToWebP(file))
+      );
+
+      const newImages: ProductImage[] = compressedFiles.map((file, index) => ({
+        image_url: URL.createObjectURL(file),
+        display_order: images.length + index,
+        is_primary: images.length === 0 && index === 0,
+        file,
+      }));
+
+      onImagesChange([...images, ...newImages]);
+    } catch (error) {
+      toast({
+        title: 'Erro de compressão',
+        description: 'Não foi possível otimizar algumas imagens.',
+        variant: 'destructive',
+      });
+    } finally {
+      setUploading(false);
+    }
   };
 
   const handleDrop = (e: React.DragEvent) => {
@@ -137,14 +200,23 @@ export const ImageUploader = ({ productId, images, onImagesChange }: ImageUpload
           className="hidden"
           id="image-upload"
         />
-        <label htmlFor="image-upload" className="cursor-pointer block w-full h-full p-8">
-          <Upload className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
-          <p className="text-sm text-muted-foreground mb-1">
-            Arraste imagens aqui ou clique para selecionar
-          </p>
-          <p className="text-xs text-muted-foreground">
-            Máximo 5MB por imagem • JPG, PNG, WEBP
-          </p>
+        <label htmlFor="image-upload" className="cursor-pointer block w-full h-full p-8 relative">
+          {uploading ? (
+             <div className="flex flex-col items-center justify-center">
+               <Upload className="h-12 w-12 mx-auto mb-4 text-primary animate-pulse" />
+               <p className="text-sm font-medium text-primary">Comprimindo imagens...</p>
+             </div>
+          ) : (
+            <>
+              <Upload className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
+              <p className="text-sm text-muted-foreground mb-1">
+                Arraste imagens aqui ou clique para selecionar
+              </p>
+              <p className="text-xs text-green-600 dark:text-green-400 font-medium mt-2">
+                ✨ Compressão WebP Automática ativada
+              </p>
+            </>
+          )}
         </label>
       </div>
 

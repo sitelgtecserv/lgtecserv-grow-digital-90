@@ -12,9 +12,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Loader2 } from 'lucide-react';
+import { Loader2, Sparkles } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { ImageUploader } from './ImageUploader';
+import { pingProductIndexNow } from '@/utils/indexNow';
+import { smartSlugify } from '@/utils/slugify';
 
 interface Category {
   id: string;
@@ -50,6 +52,7 @@ export const ProductForm = ({ mode = 'create', product, onSuccess }: ProductForm
   const [categories, setCategories] = useState<Category[]>([]);
   const [images, setImages] = useState<any[]>([]);
   const [uploading, setUploading] = useState(false);
+  const [aiGenerating, setAiGenerating] = useState(false);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -151,12 +154,27 @@ export const ProductForm = ({ mode = 'create', product, onSuccess }: ProductForm
           title: 'Produto atualizado!',
           description: 'O produto foi atualizado com sucesso.',
         });
+
+        // 🔍 SEO: Pingar IndexNow para indexação instantânea no Bing
+        const { data: updatedProduct } = await supabase
+          .from('products')
+          .select('slug, categories(slug)')
+          .eq('id', product.id)
+          .single();
+        if (updatedProduct) {
+          pingProductIndexNow(updatedProduct.slug, updatedProduct.categories?.slug)
+            .then(() => console.log('[SEO] IndexNow pingado para produto atualizado'))
+            .catch(() => {});
+        }
       } else {
         // Insert product
+        const newSlug = smartSlugify(name);
+        const productDataWithSlug = { ...productData, slug: newSlug };
+
         const { data, error } = await supabase
           .from('products')
-          .insert(productData)
-          .select()
+          .insert(productDataWithSlug)
+          .select('*, categories(slug)')
           .single();
 
         if (error) throw error;
@@ -164,6 +182,11 @@ export const ProductForm = ({ mode = 'create', product, onSuccess }: ProductForm
         // Upload images for new product
         if (data) {
           await uploadImages(data.id);
+
+          // 🔍 SEO: Pingar IndexNow para indexação instantânea no Bing
+          pingProductIndexNow(data.slug, data.categories?.slug)
+            .then(() => console.log('[SEO] IndexNow pingado para novo produto'))
+            .catch(() => {});
         }
 
         toast({
@@ -216,12 +239,38 @@ export const ProductForm = ({ mode = 'create', product, onSuccess }: ProductForm
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="description">Descrição *</Label>
+            <div className="flex items-center justify-between">
+              <Label htmlFor="description">Descrição *</Label>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                disabled={!name.trim() || aiGenerating}
+                onClick={async () => {
+                  setAiGenerating(true);
+                  try {
+                    const { data, error } = await supabase.functions.invoke('ia-loja', {
+                      body: { action: 'generate-description', prompt: `${name}${categoryId ? ' (categoria: ' + categories.find(c => c.id === categoryId)?.name + ')' : ''}` },
+                    });
+                    if (error) throw error;
+                    if (data?.description) setDescription(data.description);
+                  } catch (err: any) {
+                    toast({ title: 'Erro IA', description: err.message, variant: 'destructive' });
+                  } finally {
+                    setAiGenerating(false);
+                  }
+                }}
+                className="text-xs h-7 gap-1"
+              >
+                {aiGenerating ? <Loader2 className="h-3 w-3 animate-spin" /> : <Sparkles className="h-3 w-3" />}
+                {aiGenerating ? 'Gerando...' : 'Gerar com IA (SEO)'}
+              </Button>
+            </div>
             <Textarea
               id="description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              placeholder="Descreva o produto..."
+              placeholder="Descreva o produto ou clique em 'Gerar com IA' para criar automaticamente..."
               rows={4}
               required
             />

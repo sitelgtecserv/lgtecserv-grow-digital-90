@@ -2,7 +2,8 @@
 User-agent: *
 Allow: /
 Allow: /loja
-Allow: /produto/*
+Allow: /loja/*
+Allow: /servicos/*
 Disallow: /admin
 Disallow: /admin/*
 Disallow: /auth
@@ -32,6 +33,3 @@ Allow: /
 
 # Preferência de host (para evitar duplicação entre www e não-www)
 Host: www.lgtecserv.com
-
-# Crawl-delay opcional (Bing e Yandex respeitam, Google ignora)
-Crawl-delay: 1

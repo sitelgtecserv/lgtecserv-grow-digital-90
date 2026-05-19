@@ -52,6 +52,10 @@ function escapeXml(unsafe) {
     });
 }
 
+function stripEmojis(text) {
+    return text.replace(/[\u{1F600}-\u{1F9FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]|[\u{1F300}-\u{1F5FF}]|[\u{1F680}-\u{1F6FF}]|[\u{1F1E0}-\u{1F1FF}]|[\u{FE00}-\u{FE0F}]|[\u{1F900}-\u{1F9FF}]|[\u200D]|[\u{20E3}]|[\u{E0020}-\u{E007F}]|[\u2728\u{1F525}\u{1F4E6}\u{1F4F1}\u26A1\uFE0F\u00AE\u2122]/gu, '').replace(/\s+/g, ' ').trim();
+}
+
 function createUrlNode(page) {
     let xml = `  <url>\n`;
     xml += `    <loc>${BASE_URL}${page.url}</loc>\n`;
@@ -73,22 +77,16 @@ function createUrlNode(page) {
 }
 
 async function generateSitemap() {
-    console.log('🔄 A obter produtos da base de dados Supabase...');
+    console.log('\ud83d\udd04 A obter produtos da base de dados Supabase...');
 
     try {
-        const { data: products, error } = await supabase
-            .from('products')
-            .select('*, categories(slug), product_images(image_url, is_primary)')
-            .eq('stock_alert_threshold', 5); // Just making sure we fetch cleanly
-
-        // Wait, let's just fetch all without where clause to get everything in shop
         const { data: allProducts, error: allErr } = await supabase
             .from('products')
             .select('id, name, slug, updated_at, categories(slug), product_images(image_url, is_primary)');
 
         if (allErr) throw allErr;
 
-        console.log(`✅ Foram encontrados ${allProducts?.length || 0} produtos!`);
+        console.log(`\u2705 Foram encontrados ${allProducts?.length || 0} produtos!`);
 
         let xmlContent = `<?xml version="1.0" encoding="UTF-8"?>\n`;
         xmlContent += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"\n`;
@@ -120,7 +118,7 @@ async function generateSitemap() {
                     changefreq: 'weekly',
                     lastmod: product.updated_at ? product.updated_at.split('T')[0] : new Date().toISOString().split('T')[0],
                     img: mainImage,
-                    title: `${product.name} - Comprar em Moçambique`
+                    title: `${stripEmojis(product.name)} - Comprar em Mo\u00e7ambique`
                 };
 
                 xmlContent += createUrlNode(pageData);

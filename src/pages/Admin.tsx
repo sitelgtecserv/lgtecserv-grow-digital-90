@@ -7,9 +7,10 @@ import { ProductList } from '@/components/admin/ProductList';
 import { CategoryManager } from '@/components/admin/CategoryManager';
 import { OrderManager } from '@/components/admin/OrderManager';
 import { CouponManager } from '@/components/admin/CouponManager';
+import { AiAdminPanel } from '@/components/admin/AiAdminPanel';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { ArrowLeft, Loader2, Shield, Package, Folder, ShoppingBag, Tag, Search } from 'lucide-react';
+import { ArrowLeft, Loader2, Shield, Package, Folder, ShoppingBag, Tag, Search, Sparkles } from 'lucide-react';
 import SEOHead from '@/components/seo/SEOHead';
 
 interface Product {
@@ -127,7 +128,7 @@ const Admin = () => {
         <main className="container mx-auto px-4 py-8 max-w-7xl">
           <Tabs defaultValue="products" className="w-full">
             <div className="w-full overflow-x-auto pb-2">
-              <TabsList className="inline-flex w-max min-w-full grid-cols-4 md:grid md:w-full md:max-w-3xl">
+              <TabsList className="inline-flex w-max min-w-full grid-cols-5 md:grid md:w-full md:max-w-4xl">
                 <TabsTrigger value="products" className="flex items-center gap-2">
                   <Package className="h-4 w-4" />
                   <span className="whitespace-nowrap">Produtos</span>
@@ -143,6 +144,10 @@ const Admin = () => {
                 <TabsTrigger value="orders" className="flex items-center gap-2">
                   <ShoppingBag className="h-4 w-4" />
                   <span className="whitespace-nowrap">Pedidos</span>
+                </TabsTrigger>
+                <TabsTrigger value="ia" className="flex items-center gap-2">
+                  <Sparkles className="h-4 w-4" />
+                  <span className="whitespace-nowrap">IA</span>
                 </TabsTrigger>
               </TabsList>
             </div>
@@ -178,6 +183,10 @@ const Admin = () => {
 
             <TabsContent value="orders" className="mt-6">
               <OrderManager />
+            </TabsContent>
+
+            <TabsContent value="ia" className="mt-6">
+              <AiAdminPanel />
             </TabsContent>
           </Tabs>
         </main>

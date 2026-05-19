@@ -1,19 +1,25 @@
-import { Home, ShoppingBag, User, Grid3x3 } from 'lucide-react';
+import { Home, ShoppingBag, User, Grid3x3, Gift } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Badge } from '@/components/ui/badge';
 import { useCart } from '@/contexts/CartContext';
+import { useAuth } from '@/contexts/AuthContext';
 import { cn } from '@/lib/utils';
 
 export const BottomNav = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { cartCount } = useCart();
+  const { user } = useAuth();
 
   const items = [
     { icon: Home, label: 'Início', path: '/' },
     { icon: Grid3x3, label: 'Loja', path: '/loja' },
     { icon: ShoppingBag, label: 'Carrinho', path: '/carrinho', badge: cartCount },
-    { icon: User, label: 'Perfil', path: '/auth' },
+    {
+      icon: User,
+      label: user ? 'Conta' : 'Entrar',
+      path: user ? '/meus-pedidos' : '/auth',
+    },
   ];
 
   return (

@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, ShoppingBag } from 'lucide-react';
+import { Loader2, ShoppingBag, Gift, History, Star, ArrowLeft } from 'lucide-react';
 import SEOHead from '@/components/seo/SEOHead';
 
 const Auth = () => {
@@ -90,11 +90,11 @@ const Auth = () => {
     <>
       <SEOHead
         title="Entrar ou Criar Conta | LG TecServ Loja Online"
-        description="Acesse sua conta na loja online da LG TecServ ou crie uma nova conta para começar a comprar nossos produtos e serviços."
-        keywords="login, criar conta, registrar, loja online, LG TecServ"
+        description="Crie sua conta na loja online da LG TecServ para acompanhar pedidos e participar do programa de fidelidade. Ganhe brindes após 3 compras!"
+        keywords="login, criar conta, registrar, loja online, LG TecServ, programa fidelidade"
         url="https://www.lgtecserv.com/auth"
       />
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-background to-primary/5 p-4">
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-background via-background to-primary/5 p-4">
         <Card className="w-full max-w-md">
           <CardHeader className="text-center">
             <div className="flex justify-center mb-4">
@@ -102,10 +102,31 @@ const Auth = () => {
                 <ShoppingBag className="w-8 h-8 text-primary" />
               </div>
             </div>
-            <CardTitle className="text-2xl">Loja Online LG TecServ</CardTitle>
-            <CardDescription>Entre ou crie sua conta para acessar nossa loja</CardDescription>
+            <CardTitle className="text-2xl">Minha Conta</CardTitle>
+            <CardDescription>
+              Crie uma conta para acompanhar pedidos e participar do programa de fidelidade
+            </CardDescription>
           </CardHeader>
           <CardContent>
+            {/* Benefícios do cadastro */}
+            <div className="mb-6 p-4 bg-gradient-to-r from-primary/5 to-primary/10 rounded-lg border border-primary/20">
+              <p className="text-sm font-semibold text-primary mb-3">Benefícios da conta:</p>
+              <div className="space-y-2">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <History className="h-4 w-4 text-primary flex-shrink-0" />
+                  <span>Histórico completo de pedidos</span>
+                </div>
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Gift className="h-4 w-4 text-primary flex-shrink-0" />
+                  <span>Brinde grátis após 3 compras</span>
+                </div>
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Star className="h-4 w-4 text-primary flex-shrink-0" />
+                  <span>Promoções exclusivas para membros</span>
+                </div>
+              </div>
+            </div>
+
             <Tabs defaultValue="login" className="w-full">
               <TabsList className="grid w-full grid-cols-2">
                 <TabsTrigger value="login">Entrar</TabsTrigger>
@@ -198,6 +219,24 @@ const Auth = () => {
                 </form>
               </TabsContent>
             </Tabs>
+
+            {/* Botão para continuar sem conta */}
+            <div className="mt-6 pt-4 border-t">
+              <Button
+                variant="ghost"
+                className="w-full text-muted-foreground hover:text-foreground"
+                onClick={() => {
+                  const redirect = searchParams.get('redirect');
+                  navigate(redirect || '/loja');
+                }}
+              >
+                <ArrowLeft className="mr-2 h-4 w-4" />
+                Continuar sem conta
+              </Button>
+              <p className="text-xs text-center text-muted-foreground mt-2">
+                Pode comprar sem conta — o login é opcional
+              </p>
+            </div>
           </CardContent>
         </Card>
       </div>

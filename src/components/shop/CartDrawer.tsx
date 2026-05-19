@@ -2,8 +2,10 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sh
 import { Button } from '@/components/ui/button';
 import { useCart } from '@/contexts/CartContext';
 import { useNavigate } from 'react-router-dom';
-import { ShoppingBag, Trash2 } from 'lucide-react';
+import { ShoppingBag, Trash2, MessageCircle } from 'lucide-react';
 import { EmptyState } from './EmptyState';
+
+const WHATSAPP_NUMBER = '258869824047';
 
 interface CartDrawerProps {
   open: boolean;
@@ -11,7 +13,7 @@ interface CartDrawerProps {
 }
 
 export const CartDrawer = ({ open, onOpenChange }: CartDrawerProps) => {
-  const { cart, removeFromCart, clearCart, getCartTotal } = useCart();
+  const { cart, removeFromCart, clearCart, getCartTotal, getFinalTotal, coupon, getDiscount } = useCart();
   const navigate = useNavigate();
 
   const handleViewCart = () => {
@@ -22,6 +24,27 @@ export const CartDrawer = ({ open, onOpenChange }: CartDrawerProps) => {
   const handleCheckout = () => {
     onOpenChange(false);
     navigate('/checkout');
+  };
+
+  const handleWhatsAppClick = () => {
+    if (cart.length === 0) return;
+    let message = `Olá! Gostaria de solicitar os seguintes produtos:\n\n`;
+    cart.forEach((item, index) => {
+      const subtotal = item.price * item.quantity;
+      message += `*${index + 1}. ${item.name}*\n`;
+      message += `Quantidade: ${item.quantity}\n`;
+      message += `Preço: ${item.price.toLocaleString('pt-MZ', { style: 'currency', currency: 'MZN' })}\n`;
+      message += `Subtotal: ${subtotal.toLocaleString('pt-MZ', { style: 'currency', currency: 'MZN' })}\n\n`;
+    });
+    message += `------------------\n`;
+    message += `*Total: ${getFinalTotal().toLocaleString('pt-MZ', { style: 'currency', currency: 'MZN' })}*\n\n`;
+    if (coupon) {
+      message += `*Desconto (${coupon.code}): -${getDiscount().toLocaleString('pt-MZ', { style: 'currency', currency: 'MZN' })}*\n`;
+    }
+    message += `Aguardo retorno para confirmar o pedido.`;
+    const encodedMessage = encodeURIComponent(message);
+    window.open(`https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodedMessage}`, '_blank');
+    onOpenChange(false);
   };
 
   return (
@@ -88,22 +111,29 @@ export const CartDrawer = ({ open, onOpenChange }: CartDrawerProps) => {
               ))}
             </div>
 
-            <div className="border-t pt-4 space-y-4">
+            <div className="border-t pt-4 space-y-3">
               <div className="flex items-center justify-between text-lg font-bold">
                 <span>Total:</span>
                 <span className="text-primary">
-                  {getCartTotal().toLocaleString('pt-MZ', {
+                  {getFinalTotal().toLocaleString('pt-MZ', {
                     style: 'currency',
                     currency: 'MZN',
                   })}
                 </span>
               </div>
+
+              {/* WhatsApp como principal */}
+              <Button variant="whatsapp" className="w-full" onClick={handleWhatsAppClick}>
+                <MessageCircle className="mr-2 h-4 w-4" />
+                Solicitar via WhatsApp
+              </Button>
+
               <div className="grid grid-cols-2 gap-2">
                 <Button variant="outline" onClick={handleViewCart}>
                   Ver Carrinho
                 </Button>
-                <Button onClick={handleCheckout}>
-                  Finalizar
+                <Button variant="outline" onClick={handleCheckout}>
+                  Formulário
                 </Button>
               </div>
             </div>

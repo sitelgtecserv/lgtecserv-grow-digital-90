@@ -4,7 +4,6 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ShoppingCart } from 'lucide-react';
 import { useCart } from '@/contexts/CartContext';
-import { useAuth } from '@/contexts/AuthContext';
 
 interface Product {
   id: string;
@@ -29,7 +28,6 @@ interface ProductCardProps {
 export const ProductCard = ({ product }: ProductCardProps) => {
   const navigate = useNavigate();
   const { addToCart } = useCart();
-  const { user } = useAuth();
 
   const isNew = () => {
     if (!product.created_at) return false;
@@ -41,10 +39,6 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (!user) {
-      navigate('/auth');
-      return;
-    }
     addToCart(product);
   };
 
@@ -57,6 +51,8 @@ export const ProductCard = ({ product }: ProductCardProps) => {
       className="overflow-hidden bg-background border-border/40 hover:border-primary/20 hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] dark:hover:shadow-[0_8px_30px_rgb(255,255,255,0.05)] transition-all duration-500 cursor-pointer group flex flex-col h-full"
       onClick={() => navigate(productUrl)}
     >
+      <article itemScope itemType="https://schema.org/Product" className="flex flex-col h-full">
+        <meta itemProp="url" content={`https://www.lgtecserv.com${productUrl}`} />
       <div className="aspect-square bg-muted relative overflow-hidden">
         {/* Badges */}
         <div className="absolute top-3 right-3 flex flex-col gap-2 z-10">
@@ -72,13 +68,15 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         </div>
         {product.image_url ? (
           <img
+            itemProp="image"
             src={product.image_url}
-            alt={`${product.name} - ${product.categories?.name || 'produto'} - Comprar em Moçambique | LG TecServ`}
+            alt={`Comprar ${product.name} - ${product.categories?.name || 'Loja'} em Maputo, Moçambique | LG TecServ`}
             title={`${product.name} - ${product.price.toLocaleString('pt-MZ', { style: 'currency', currency: 'MZN' })}`}
             width="400"
             height="400"
             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
             loading="lazy"
+            decoding="async"
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center text-muted-foreground">
@@ -86,39 +84,42 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           </div>
         )}
       </div>
-      <CardContent className="p-4 sm:p-5 flex-grow flex flex-col">
-        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2 mb-3">
-          <h3 className="font-semibold text-base sm:text-lg tracking-tight group-hover:text-primary transition-colors line-clamp-1 sm:line-clamp-2">
+      <CardContent className="p-2.5 sm:p-4 md:p-5 flex-grow flex flex-col">
+        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-1 sm:gap-2 mb-1 sm:mb-3">
+          <h3 itemProp="name" className="font-semibold text-[11px] sm:text-base md:text-lg tracking-tight group-hover:text-primary transition-colors line-clamp-1 sm:line-clamp-2">
             {product.name}
           </h3>
           {product.categories?.name && (
-            <Badge variant="secondary" className="flex-shrink-0 bg-secondary/50">
-              {product.categories.name}
+            <Badge variant="secondary" className="flex-shrink-0 bg-secondary/50 text-[9px] sm:text-xs hidden sm:inline-flex">
+              <span itemProp="category">{product.categories.name}</span>
             </Badge>
           )}
         </div>
-        <p className="text-xs sm:text-sm text-muted-foreground line-clamp-2 mb-4">
-          {product.description}
-        </p>
-        <div className="mt-auto pt-2">
-          <p className="text-xl sm:text-2xl font-bold text-primary">
-            {product.price.toLocaleString('pt-MZ', {
-              style: 'currency',
-              currency: 'MZN',
-            })}
+        {/* Description hidden on card - only shown on product detail page */}
+        <div className="mt-auto pt-1 sm:pt-2" itemProp="offers" itemScope itemType="https://schema.org/Offer">
+          <meta itemProp="priceCurrency" content="MZN" />
+          <meta itemProp="availability" content={product.stock > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock"} />
+          <p className="text-sm sm:text-xl md:text-2xl font-bold text-primary font-price">
+            <span itemProp="price" content={product.price.toString()}>
+              {product.price.toLocaleString('pt-MZ', {
+                style: 'currency',
+                currency: 'MZN',
+              })}
+            </span>
           </p>
         </div>
       </CardContent>
-      <CardFooter className="p-4 pt-0 sm:p-5 sm:pt-0 transform md:opacity-0 md:translate-y-4 md:group-hover:opacity-100 md:group-hover:translate-y-0 transition-all duration-500 ease-out">
+      <CardFooter className="p-2.5 pt-0 sm:p-4 sm:pt-0 md:p-5 md:pt-0 transform md:opacity-0 md:translate-y-4 md:group-hover:opacity-100 md:group-hover:translate-y-0 transition-all duration-500 ease-out">
         <Button
           onClick={handleAddToCart}
-          className="w-full h-9 sm:h-11 text-xs sm:text-sm shadow-md hover:shadow-lg transition-all"
+          className="w-full h-7 sm:h-9 md:h-11 text-[10px] sm:text-xs md:text-sm shadow-md hover:shadow-lg transition-all"
           disabled={product.stock === 0}
         >
-          <ShoppingCart className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
+          <ShoppingCart className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4" />
           {product.stock === 0 ? 'Vendido' : 'Adicionar'}
         </Button>
       </CardFooter>
+      </article>
     </Card>
   );
 };

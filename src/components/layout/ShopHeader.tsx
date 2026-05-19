@@ -1,4 +1,6 @@
-import { ShoppingBag, LogOut, Shield, Menu, Search } from 'lucide-react';
+import { ShoppingBag, LogOut, Shield, Menu, Search, History, Gift, LogIn } from 'lucide-react';
+
+const LOGO_URL = '/lovable-uploads/7c383221-e93f-4908-a3ab-03f2194a4b5b.png';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
 import { useCart } from '@/contexts/CartContext';
@@ -28,7 +30,7 @@ export const ShopHeader = ({ onCartOpen, onSearchOpen }: ShopHeaderProps) => {
 
   const handleSignOut = async () => {
     await signOut();
-    navigate('/auth');
+    navigate('/loja');
   };
 
   return (
@@ -37,9 +39,7 @@ export const ShopHeader = ({ onCartOpen, onSearchOpen }: ShopHeaderProps) => {
         {/* Desktop Header */}
         <div className="hidden md:flex items-center justify-between">
           <div className="flex items-center gap-3 cursor-pointer" onClick={() => navigate('/loja')}>
-            <div className="bg-gradient-primary p-2 rounded-lg">
-              <ShoppingBag className="h-6 w-6 text-white" />
-            </div>
+            <img src={LOGO_URL} alt="LG TecServ" className="h-9 w-9 rounded-lg object-contain" />
             <div>
               <h1 className="text-xl font-bold">LG TecServ</h1>
               <p className="text-xs text-muted-foreground">Loja Online</p>
@@ -71,13 +71,20 @@ export const ShopHeader = ({ onCartOpen, onSearchOpen }: ShopHeaderProps) => {
               </Button>
             )}
             {user ? (
-              <Button variant="outline" onClick={handleSignOut}>
-                <LogOut className="mr-2 h-4 w-4" />
-                Sair
-              </Button>
+              <>
+                <Button variant="outline" onClick={() => navigate('/meus-pedidos')}>
+                  <History className="mr-2 h-4 w-4" />
+                  Meus Pedidos
+                </Button>
+                <Button variant="outline" onClick={handleSignOut}>
+                  <LogOut className="mr-2 h-4 w-4" />
+                  Sair
+                </Button>
+              </>
             ) : (
               <Button variant="outline" onClick={() => navigate('/auth')}>
-                Entrar
+                <LogIn className="mr-2 h-4 w-4" />
+                Entrar / Criar Conta
               </Button>
             )}
           </div>
@@ -94,9 +101,7 @@ export const ShopHeader = ({ onCartOpen, onSearchOpen }: ShopHeaderProps) => {
             <SheetContent side="left">
               <div className="flex flex-col gap-4 mt-8">
                 <div className="flex items-center gap-3 pb-4 border-b">
-                  <div className="bg-gradient-primary p-2 rounded-lg">
-                    <ShoppingBag className="h-5 w-5 text-white" />
-                  </div>
+                  <img src={LOGO_URL} alt="LG TecServ" className="h-8 w-8 rounded-lg object-contain" />
                   {user ? (
                     <div>
                       <p className="font-semibold">{user.email}</p>
@@ -122,6 +127,19 @@ export const ShopHeader = ({ onCartOpen, onSearchOpen }: ShopHeaderProps) => {
                   <ShoppingBag className="mr-2 h-4 w-4" />
                   Loja
                 </Button>
+                {user && (
+                  <Button
+                    variant="outline"
+                    className="justify-start"
+                    onClick={() => {
+                      navigate('/meus-pedidos');
+                      setMobileMenuOpen(false);
+                    }}
+                  >
+                    <History className="mr-2 h-4 w-4" />
+                    Meus Pedidos
+                  </Button>
+                )}
                 {user && isAdmin && (
                   <Button
                     variant="outline"
@@ -135,6 +153,22 @@ export const ShopHeader = ({ onCartOpen, onSearchOpen }: ShopHeaderProps) => {
                     Admin
                   </Button>
                 )}
+
+                {/* Benefícios para visitantes */}
+                {!user && (
+                  <div className="my-2 p-3 bg-primary/5 rounded-lg border border-primary/10">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Gift className="h-4 w-4 text-primary" />
+                      <span className="text-xs font-semibold text-primary">Benefícios da conta</span>
+                    </div>
+                    <ul className="text-xs text-muted-foreground space-y-1 ml-6 list-disc">
+                      <li>Histórico de pedidos</li>
+                      <li>Brinde após 3 compras</li>
+                      <li>Promoções exclusivas</li>
+                    </ul>
+                  </div>
+                )}
+
                 {user ? (
                   <Button
                     variant="outline"
@@ -153,8 +187,8 @@ export const ShopHeader = ({ onCartOpen, onSearchOpen }: ShopHeaderProps) => {
                       setMobileMenuOpen(false);
                     }}
                   >
-                    <LogOut className="mr-2 h-4 w-4" />
-                    Entrar
+                    <LogIn className="mr-2 h-4 w-4" />
+                    Entrar / Criar Conta
                   </Button>
                 )}
               </div>
@@ -162,9 +196,7 @@ export const ShopHeader = ({ onCartOpen, onSearchOpen }: ShopHeaderProps) => {
           </Sheet>
 
           <div className="flex items-center gap-2" onClick={() => navigate('/loja')}>
-            <div className="bg-gradient-primary p-1.5 rounded-lg">
-              <ShoppingBag className="h-4 w-4 text-white" />
-            </div>
+            <img src={LOGO_URL} alt="LG TecServ" className="h-7 w-7 rounded-lg object-contain" />
             <h1 className="text-lg font-bold">LG TecServ</h1>
           </div>
 

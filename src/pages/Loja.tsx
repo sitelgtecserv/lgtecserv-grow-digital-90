@@ -18,6 +18,7 @@ import { SkeletonProductCard } from '@/components/shop/SkeletonProductCard';
 import { CartDrawer } from '@/components/shop/CartDrawer';
 import { ShopHeader } from '@/components/layout/ShopHeader';
 import { BottomNav } from '@/components/shop/BottomNav';
+import { AiAssistant } from '@/components/shop/AiAssistant';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { CanonicalURL } from '@/components/seo/CanonicalURL';
@@ -174,6 +175,11 @@ const Loja = () => {
     ]
     : [];
 
+  // Generate SEO Category text for UI
+  const seoDescriptionText = selectedCategoryName 
+    ? `Explore a nossa gama de ${selectedCategoryName} aos melhores preços em Maputo, Moçambique. Compre na LG TecServ com total segurança, garantia e entrega rápida. Descubra as últimas novidades de ${selectedCategoryName} agora!`
+    : 'Descubra a nossa loja online com produtos de alta tecnologia e serviços especializados. Garantimos os melhores preços de Moçambique com entrega rápida em Maputo e províncias.';
+
   return (
     <>
       <SEOHead
@@ -233,7 +239,7 @@ const Loja = () => {
 
           {/* Products Grid */}
           {loading ? (
-            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
+              <div className="grid grid-cols-3 gap-2 sm:gap-4 md:gap-6">
               {[...Array(8)].map((_, i) => (
                 <SkeletonProductCard key={i} />
               ))}
@@ -246,15 +252,20 @@ const Loja = () => {
             />
           ) : (
             <>
-              <div className="mb-6 flex flex-col md:flex-row md:items-center justify-between border-b pb-4">
-                <h2 className="text-2xl font-semibold tracking-tight">
-                  {selectedCategoryName || 'Todos os Produtos'}
-                </h2>
-                <p className="text-sm text-muted-foreground mt-1 md:mt-0 font-medium">
-                  {filteredProducts.length} {filteredProducts.length === 1 ? 'resultado encontrado' : 'resultados encontrados'}
+              <div className="mb-6 border-b pb-4">
+                <div className="flex flex-col md:flex-row md:items-center justify-between mb-3">
+                  <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">
+                    {selectedCategoryName || 'Todos os Produtos'}
+                  </h1>
+                  <p className="text-sm text-muted-foreground mt-1 md:mt-0 font-medium whitespace-nowrap">
+                    {filteredProducts.length} {filteredProducts.length === 1 ? 'produto' : 'produtos'}
+                  </p>
+                </div>
+                <p className="text-sm md:text-base text-muted-foreground max-w-4xl leading-relaxed">
+                  {seoDescriptionText}
                 </p>
               </div>
-              <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
+              <div className="grid grid-cols-3 gap-2 sm:gap-4 md:gap-6">
                 {filteredProducts.map((product, index) => (
                   <AnimatedProductCard key={product.id} product={product} index={index} />
                 ))}
@@ -264,6 +275,7 @@ const Loja = () => {
         </main>
 
         <CartDrawer open={cartDrawerOpen} onOpenChange={setCartDrawerOpen} />
+        <AiAssistant />
         <BottomNav />
       </div>
     </>
