@@ -2,3 +2,6 @@ project_id = "cswrwxkjsfxcaoboihdy"
 
 [functions.sitemap]
 verify_jwt = false
+
+[functions.ia-loja]
+verify_jwt = false
