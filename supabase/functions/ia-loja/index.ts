@@ -4,33 +4,113 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Methods": "POST, OPTIONS",
 };
 
 const WHATSAPP_LINK = "https://wa.me/258869824047";
 
-const SYSTEM_PROMPT = `Você é a assistente virtual inteligente da LG TecServ, uma empresa moçambicana de soluções digitais e tecnologia.
+const COMPANY_CONTEXT = `SOBRE A LG TECSERV:
+Empresa moçambicana de soluções digitais e tecnologia, sediada em Maputo, Moçambique. Fundada em 2019.
 
-SOBRE A EMPRESA:
-- Nome: LG TecServ
-- Localização: Moçambique
-- WhatsApp: +258 86 982 4047
+CONTACTOS OFICIAIS:
+- Email geral: contato@lgtecserv.com
+- Email loja/pedidos: loja@lgtecserv.com
+- Email topografia: topografia@lgtecserv.com
+- Telefone 1: +258 84 1524 822
+- Telefone 2: +258 86 982 4047
+- WhatsApp: +258 86 982 4047 (link directo: ${WHATSAPP_LINK})
 - Website: www.lgtecserv.com
-- Serviços: Criação de Sites, Design Gráfico, Tráfego Pago, Gestão de Redes Sociais, Consultoria de Marketing, Instalações Elétricas, Topografia, Ensaios Fotográficos
-- Loja Online: vende produtos tecnológicos (celulares, laptops, computadores, acessórios)
-- Moeda: MTn (Meticais moçambicanos)
 
-REGRAS OBRIGATÓRIAS:
-1. Responda SEMPRE em português de Moçambique, de forma simpática e profissional
+REDES SOCIAIS:
+- Facebook: facebook.com/lgtecserv
+- Instagram: instagram.com/lgtecserv
+- WhatsApp Business: wa.me/258869824047
+
+NOSSOS 8 SERVIÇOS:
+1. Criação de Sites — sites profissionais, responsivos, optimizados SEO (/servicos/criacao-de-sites)
+2. Design Gráfico — logotipos, cartões, flyers, identidade visual (/servicos/design-grafico)
+3. Tráfego Pago — campanhas Google Ads, Meta Ads, conversão (/servicos/trafego-pago)
+4. Gestão de Redes Sociais — conteúdo, calendário editorial, engagement (/servicos/redes-sociais)
+5. Consultoria de Marketing — estratégia digital, branding (/servicos/consultoria-marketing)
+6. Instalações Eléctricas — Residencial e Industrial (/servicos/eletricidade-residencial e /servicos/eletricidade-industrial)
+7. Topografia — levantamentos topográficos profissionais (/servicos/topografia)
+8. Ensaios Fotográficos — fotografia profissional (/servicos/ensaios-fotograficos)
+
+PÁGINAS DO SITE:
+- Home: /
+- Loja Online: /loja
+- Sobre Nós: /sobre
+- Serviços: /servicos
+- Contacto: /contacto
+- FAQ: /faq
+- Documentação: /documentacao
+- Carrinho: /carrinho
+- Meus Pedidos: /meus-pedidos
+
+LOJA ONLINE:
+Vendemos produtos tecnológicos: celulares, laptops, computadores, acessórios. Moeda: MTn (Meticais moçambicanos).`;
+
+const NO_MARKDOWN_RULE = `REGRA CRÍTICA DE FORMATAÇÃO:
+NUNCA use markdown nas suas respostas. Proibido absolutamente:
+- Asteriscos para negrito ou itálico (** ou *)
+- Cardinais para títulos (#, ##, ###)
+- Traços ou bullets para listas (-, *, +)
+- Blocos de código (\`\`\`)
+- Underscores para ênfase (_)
+Escreva sempre em texto corrido natural, fluido e conversacional. Para enumerar use frases ou números seguidos de ponto (1. 2. 3.).`;
+
+const SYSTEM_PROMPT = `Você é a assistente virtual inteligente da LG TecServ.
+
+${COMPANY_CONTEXT}
+
+REGRAS DE ATENDIMENTO:
+1. Responda SEMPRE em português de Moçambique, simpática e profissional
 2. Recomende produtos baseados nas necessidades do cliente
 3. Mencione preços em MTn
 4. Nunca invente produtos que não estão no catálogo
-5. Se não souber a resposta ou não tiver o produto, responda:
-   "Não tenho essa informação no momento. 😊 Mas a nossa equipa pode ajudar! Fale connosco directamente pelo WhatsApp: ${WHATSAPP_LINK} ou ligue para +258 86 982 4047"
+5. Se não souber a resposta, responda: "Não tenho essa informação no momento. A nossa equipa pode ajudar! Fale connosco pelo WhatsApp ${WHATSAPP_LINK} ou ligue +258 86 982 4047"
 6. Incentive o cliente a adicionar ao carrinho ou contactar via WhatsApp
 7. Mantenha respostas curtas (máx 3 parágrafos)
-8. Quando o cliente perguntar sobre serviços (sites, design, etc), explique brevemente e redirecione para o WhatsApp
-9. Seja proactiva: sugira produtos relacionados, pergunte o orçamento do cliente
-10. Use emojis com moderação para ser mais amigável`;
+8. Para serviços, explique brevemente e redirecione ao WhatsApp ou página do serviço
+9. Seja proactiva: sugira produtos relacionados, pergunte orçamento
+
+${NO_MARKDOWN_RULE}`;
+
+function stripMarkdown(text: string): string {
+  return text
+    .replace(/```[\s\S]*?```/g, "")
+    .replace(/`([^`]+)`/g, "$1")
+    .replace(/\*\*([^*]+)\*\*/g, "$1")
+    .replace(/__([^_]+)__/g, "$1")
+    .replace(/\*([^*]+)\*/g, "$1")
+    .replace(/_([^_]+)_/g, "$1")
+    .replace(/^#{1,6}\s+/gm, "")
+    .replace(/^\s*[-*+]\s+/gm, "")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+}
+
+async function callOpenAI(apiKey: string, messages: any[], maxTokens: number) {
+  const response = await fetch("https://api.openai.com/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      model: "gpt-4o-mini",
+      messages,
+      max_tokens: maxTokens,
+      temperature: 0.7,
+    }),
+  });
+  const data = await response.json();
+  if (!response.ok) {
+    console.error("OpenAI error:", data);
+    throw new Error(data.error?.message || "Erro OpenAI");
+  }
+  return data.choices?.[0]?.message?.content || "";
+}
 
 Deno.serve(async (req: Request) => {
   if (req.method === "OPTIONS") {
@@ -46,9 +126,10 @@ Deno.serve(async (req: Request) => {
       );
     }
 
-    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
-    const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
-    const supabase = createClient(supabaseUrl, supabaseKey);
+    const supabase = createClient(
+      Deno.env.get("SUPABASE_URL")!,
+      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
+    );
 
     const { action, messages, prompt } = await req.json();
 
@@ -59,14 +140,14 @@ Deno.serve(async (req: Request) => {
         .select("name, description, price, stock, categories(name)")
         .order("created_at", { ascending: false });
 
-      let catalog = "CATÁLOGO ACTUAL:\n";
-      if (products) {
+      let catalog = "CATÁLOGO ACTUAL DA LOJA:\n";
+      if (products && products.length > 0) {
         const available = products.filter((p: any) => p.stock > 0);
         const soldOut = products.filter((p: any) => p.stock === 0);
 
         catalog += available
           .map((p: any) =>
-            `• ${p.name} — ${p.price} MTn | Stock: ${p.stock} | Cat: ${p.categories?.name || "Geral"} | ${(p.description || "").substring(0, 80)}`
+            `• ${p.name} — ${p.price} MTn | Stock: ${p.stock} | Categoria: ${p.categories?.name || "Geral"} | ${(p.description || "").substring(0, 80)}`
           )
           .join("\n");
 
@@ -74,6 +155,8 @@ Deno.serve(async (req: Request) => {
           catalog += "\n\nEsgotados (não recomendar):\n";
           catalog += soldOut.map((p: any) => `• ${p.name} (VENDIDO)`).join("\n");
         }
+      } else {
+        catalog += "Sem produtos no momento.";
       }
 
       const apiMessages = [
@@ -81,27 +164,9 @@ Deno.serve(async (req: Request) => {
         ...(messages || []),
       ];
 
-      const response = await fetch("https://api.openai.com/v1/chat/completions", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${OPENAI_KEY}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          model: "gpt-4o-mini",
-          messages: apiMessages,
-          max_tokens: 500,
-          temperature: 0.7,
-        }),
-      });
+      const raw = await callOpenAI(OPENAI_KEY, apiMessages, 500);
+      const reply = stripMarkdown(raw) || "Erro ao gerar resposta.";
 
-      const data = await response.json();
-      if (!response.ok) {
-        console.error("OpenAI error:", data);
-        throw new Error(data.error?.message || "Erro OpenAI");
-      }
-
-      const reply = data.choices?.[0]?.message?.content || "Erro ao gerar resposta.";
       return new Response(
         JSON.stringify({ reply }),
         { headers: { ...corsHeaders, "Content-Type": "application/json" } }
@@ -130,33 +195,23 @@ ${products?.map((p: any) => `- ${p.name}: ${p.price} MTn, stock: ${p.stock}, cat
 
 PEDIDOS: Total=${totalOrders}, Concluídos=${completed}, Receita=${revenue} MTn`;
 
-      const response = await fetch("https://api.openai.com/v1/chat/completions", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${OPENAI_KEY}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          model: "gpt-4o-mini",
-          messages: [
-            {
-              role: "system",
-              content: `Você é um consultor de vendas de e-commerce em Moçambique. Analise os dados e forneça:
-1. 3 sugestões práticas para aumentar vendas
-2. Alertas sobre produtos com estoque baixo
+      const raw = await callOpenAI(OPENAI_KEY, [
+        {
+          role: "system",
+          content: `Você é um consultor de vendas de e-commerce em Moçambique para a LG TecServ. Analise os dados e forneça:
+1. Três sugestões práticas para aumentar vendas
+2. Alertas sobre produtos com stock baixo
 3. Tendências identificadas
 4. Sugestão de novos produtos para o catálogo
-Responda em português, objectivo e profissional. Use emojis.`,
-            },
-            { role: "user", content: context },
-          ],
-          max_tokens: 800,
-          temperature: 0.7,
-        }),
-      });
 
-      const data = await response.json();
-      const insights = data.choices?.[0]?.message?.content || "Sem dados suficientes.";
+Responda em português de Moçambique, objectivo e profissional.
+
+${NO_MARKDOWN_RULE}`,
+        },
+        { role: "user", content: context },
+      ], 800);
+
+      const insights = stripMarkdown(raw) || "Sem dados suficientes.";
       return new Response(
         JSON.stringify({ insights }),
         { headers: { ...corsHeaders, "Content-Type": "application/json" } }
@@ -165,29 +220,21 @@ Responda em português, objectivo e profissional. Use emojis.`,
 
     // ========== GENERATE DESCRIPTION ==========
     if (action === "generate-description") {
-      const response = await fetch("https://api.openai.com/v1/chat/completions", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${OPENAI_KEY}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          model: "gpt-4o-mini",
-          messages: [
-            {
-              role: "system",
-              content:
-                "Você é um copywriter profissional de e-commerce em Moçambique. Crie descrições de produtos atraentes, curtas (2-3 frases), focadas em benefícios. Use português de Moçambique. A descrição deve vender o produto.",
-            },
-            { role: "user", content: `Crie uma descrição profissional para: ${prompt}` },
-          ],
-          max_tokens: 300,
-          temperature: 0.7,
-        }),
-      });
+      const raw = await callOpenAI(OPENAI_KEY, [
+        {
+          role: "system",
+          content: `Você é copywriter SEO profissional de e-commerce em Moçambique para a LG TecServ. Crie descrições de produtos:
+- Optimizadas para SEO com keywords moçambicanas relevantes (Moçambique, Maputo, MTn quando fizer sentido)
+- Curtas (2 a 3 frases), vendedoras e focadas em benefícios
+- Texto corrido natural em português de Moçambique
+- Que convertem visitas em vendas
 
-      const data = await response.json();
-      const description = data.choices?.[0]?.message?.content || "Erro.";
+${NO_MARKDOWN_RULE}`,
+        },
+        { role: "user", content: `Crie uma descrição SEO profissional para: ${prompt}` },
+      ], 300);
+
+      const description = stripMarkdown(raw) || "Erro ao gerar descrição.";
       return new Response(
         JSON.stringify({ description }),
         { headers: { ...corsHeaders, "Content-Type": "application/json" } }
@@ -195,7 +242,7 @@ Responda em português, objectivo e profissional. Use emojis.`,
     }
 
     return new Response(
-      JSON.stringify({ error: "Ação inválida" }),
+      JSON.stringify({ error: "Acção inválida" }),
       { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   } catch (error) {
