@@ -122,13 +122,31 @@ export type Database = {
         }
         Relationships: []
       }
+      iadaloja: {
+        Row: {
+          api_key: string
+          created_at: string | null
+          id: string
+        }
+        Insert: {
+          api_key: string
+          created_at?: string | null
+          id?: string
+        }
+        Update: {
+          api_key?: string
+          created_at?: string | null
+          id?: string
+        }
+        Relationships: []
+      }
       order_items: {
         Row: {
           created_at: string
           id: string
           order_id: string
           price_at_purchase: number
-          product_id: string
+          product_id: string | null
           product_name: string
           quantity: number
         }
@@ -137,7 +155,7 @@ export type Database = {
           id?: string
           order_id: string
           price_at_purchase: number
-          product_id: string
+          product_id?: string | null
           product_name: string
           quantity: number
         }
@@ -146,7 +164,7 @@ export type Database = {
           id?: string
           order_id?: string
           price_at_purchase?: number
-          product_id?: string
+          product_id?: string | null
           product_name?: string
           quantity?: number
         }
@@ -178,7 +196,7 @@ export type Database = {
           status: Database["public"]["Enums"]["order_status"]
           total_amount: number
           updated_at: string
-          user_id: string
+          user_id: string | null
         }
         Insert: {
           created_at?: string
@@ -190,7 +208,7 @@ export type Database = {
           status?: Database["public"]["Enums"]["order_status"]
           total_amount: number
           updated_at?: string
-          user_id: string
+          user_id?: string | null
         }
         Update: {
           created_at?: string
@@ -202,7 +220,7 @@ export type Database = {
           status?: Database["public"]["Enums"]["order_status"]
           total_amount?: number
           updated_at?: string
-          user_id?: string
+          user_id?: string | null
         }
         Relationships: []
       }
@@ -272,6 +290,35 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "product_reviews_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      product_views: {
+        Row: {
+          id: string
+          product_id: string | null
+          session_id: string | null
+          viewed_at: string | null
+        }
+        Insert: {
+          id?: string
+          product_id?: string | null
+          session_id?: string | null
+          viewed_at?: string | null
+        }
+        Update: {
+          id?: string
+          product_id?: string | null
+          session_id?: string | null
+          viewed_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "product_views_product_id_fkey"
             columns: ["product_id"]
             isOneToOne: false
             referencedRelation: "products"
