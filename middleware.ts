@@ -1,5 +1,3 @@
-import { NextRequest, NextResponse } from 'next/server';
-
 // Bot user-agent patterns for search engine crawlers
 const BOT_PATTERNS = [
   'googlebot',
@@ -45,17 +43,30 @@ export const config = {
   ],
 };
 
-export default function middleware(req: NextRequest) {
+export default async function middleware(req: Request) {
   const userAgent = req.headers.get('user-agent') || '';
-  const pathname = req.nextUrl.pathname;
+  const url = new URL(req.url);
+  const pathname = url.pathname;
 
   // Only prerender for bots on specific paths
   if (isBot(userAgent) && shouldPrerender(pathname)) {
     const prerenderUrl = new URL('/api/prerender', req.url);
     prerenderUrl.searchParams.set('path', pathname);
-    return NextResponse.rewrite(prerenderUrl);
+    
+    try {
+      // Fetch the prerendered HTML and return it as the response
+      return await fetch(prerenderUrl.toString());
+    } catch (e) {
+      console.error('Prerender fetch failed:', e);
+      // Fall back to normal routing if fetch fails
+    }
   }
 
-  // For regular users, let the SPA handle it
-  return NextResponse.next();
+  // For regular users, let the request continue to its original destination
+  return new Response(null, {
+    headers: {
+      'x-middleware-next': '1',
+    },
+  });
 }
+
