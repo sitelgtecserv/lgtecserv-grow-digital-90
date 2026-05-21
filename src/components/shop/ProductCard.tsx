@@ -112,10 +112,10 @@ export const ProductCard = ({ product }: ProductCardProps) => {
       <CardFooter className="p-2.5 pt-0 sm:p-4 sm:pt-0 md:p-5 md:pt-0 transform md:opacity-0 md:translate-y-4 md:group-hover:opacity-100 md:group-hover:translate-y-0 transition-all duration-500 ease-out">
         <Button
           onClick={handleAddToCart}
-          className="w-full h-7 sm:h-9 md:h-11 text-[10px] sm:text-xs md:text-sm shadow-md hover:shadow-lg transition-all"
+          className="w-full h-11 sm:h-9 md:h-11 text-xs sm:text-xs md:text-sm shadow-md hover:shadow-lg transition-all"
           disabled={product.stock === 0}
         >
-          <ShoppingCart className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4" />
+          <ShoppingCart className="mr-1.5 sm:mr-2 h-3.5 w-3.5 sm:h-4 sm:w-4" />
           {product.stock === 0 ? 'Vendido' : 'Adicionar'}
         </Button>
       </CardFooter>

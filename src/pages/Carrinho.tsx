@@ -73,21 +73,23 @@ const Carrinho = () => {
         <ShopHeader />
 
         <main className="container mx-auto px-4 py-8">
-          <div className="flex items-center gap-4 mb-6">
-            <Button variant="ghost" size="icon" onClick={() => navigate('/loja')}>
-              <ArrowLeft className="h-5 w-5" />
-            </Button>
-            <div className="flex-1">
-              <h1 className="text-3xl font-bold">Meu Carrinho</h1>
-              <p className="text-muted-foreground">
-                {cart.length} {cart.length === 1 ? 'item' : 'itens'} no carrinho
-              </p>
+          <div className="flex flex-col min-[480px]:flex-row min-[480px]:items-center gap-4 mb-6">
+            <div className="flex items-center gap-3 flex-1">
+              <Button variant="ghost" size="icon" onClick={() => navigate('/loja')} className="h-9 w-9 shrink-0">
+                <ArrowLeft className="h-5 w-5" />
+              </Button>
+              <div>
+                <h1 className="text-2xl min-[360px]:text-3xl font-bold">Meu Carrinho</h1>
+                <p className="text-xs min-[360px]:text-sm text-muted-foreground">
+                  {cart.length} {cart.length === 1 ? 'item' : 'itens'} no carrinho
+                </p>
+              </div>
             </div>
             {cart.length > 0 && (
               <AlertDialog>
                 <AlertDialogTrigger asChild>
-                  <Button variant="outline">
-                    <Trash2 className="mr-2 h-4 w-4" />
+                  <Button variant="outline" size="sm" className="self-end min-[480px]:self-auto text-xs min-[360px]:text-sm">
+                    <Trash2 className="mr-1.5 h-3.5 w-3.5" />
                     Limpar tudo
                   </Button>
                 </AlertDialogTrigger>
@@ -121,61 +123,69 @@ const Carrinho = () => {
               <div className="lg:col-span-2 space-y-4">
                 {cart.map((item) => (
                   <Card key={item.cartItemId}>
-                    <CardContent className="p-4">
-                      <div className="flex gap-4">
+                    <CardContent className="p-2.5 sm:p-4">
+                      <div className="flex gap-3 sm:gap-4">
                         <div
-                          className="w-24 h-24 rounded-md overflow-hidden bg-muted flex-shrink-0 cursor-pointer"
+                          className="w-20 h-20 sm:w-24 sm:h-24 rounded-md overflow-hidden bg-muted flex-shrink-0 cursor-pointer"
                           onClick={() => navigate(`/produto/${item.id}`)}
                         >
                           {item.image_url ? (
                             <img src={item.image_url} alt={item.name} className="w-full h-full object-cover" />
                           ) : (
-                            <div className="w-full h-full flex items-center justify-center text-muted-foreground text-xs">Sem imagem</div>
+                            <div className="w-full h-full flex items-center justify-center text-muted-foreground text-[10px]">Sem imagem</div>
                           )}
                         </div>
-                        <div className="flex-1 min-w-0">
-                          <h3 className="font-semibold text-lg line-clamp-1 cursor-pointer hover:text-primary" onClick={() => navigate(`/produto/${item.id}`)}>
-                            {item.name}
-                          </h3>
-                          {item.categories?.name && (
-                            <p className="text-sm text-muted-foreground">{item.categories.name}</p>
-                          )}
-                          <p className="font-bold text-primary mt-2">
-                            {item.price.toLocaleString('pt-MZ', { style: 'currency', currency: 'MZN' })}
-                          </p>
-                          <div className="flex items-center gap-4 mt-3">
-                            <div className="flex items-center gap-2">
-                              <Button variant="outline" size="icon" className="h-8 w-8" onClick={() => updateQuantity(item.cartItemId, item.quantity - 1)}>
-                                <Minus className="h-4 w-4" />
-                              </Button>
-                              <span className="w-8 text-center font-medium">{item.quantity}</span>
-                              <Button variant="outline" size="icon" className="h-8 w-8" onClick={() => updateQuantity(item.cartItemId, item.quantity + 1)}>
-                                <Plus className="h-4 w-4" />
-                              </Button>
+                        <div className="flex-1 flex flex-col min-[540px]:flex-row justify-between gap-3 min-w-0">
+                          <div className="flex-1 min-w-0 space-y-1">
+                            <h3 className="font-semibold text-sm sm:text-base md:text-lg line-clamp-2 cursor-pointer hover:text-primary leading-snug" onClick={() => navigate(`/produto/${item.id}`)}>
+                              {item.name}
+                            </h3>
+                            {item.categories?.name && (
+                              <p className="text-xs text-muted-foreground">{item.categories.name}</p>
+                            )}
+                            <div className="flex items-baseline gap-2 mt-1">
+                              <span className="text-xs text-muted-foreground">Preço:</span>
+                              <span className="font-semibold text-xs sm:text-sm text-foreground">
+                                {item.price.toLocaleString('pt-MZ', { style: 'currency', currency: 'MZN' })}
+                              </span>
                             </div>
-                            <AlertDialog>
-                              <AlertDialogTrigger asChild>
-                                <Button variant="ghost" size="sm">
-                                  <Trash2 className="h-4 w-4 mr-1" />Remover
+                            
+                            <div className="flex flex-wrap items-center gap-2.5 sm:gap-4 mt-2">
+                              <div className="flex items-center gap-1 bg-muted/50 p-0.5 rounded-lg border border-border/40">
+                                <Button variant="ghost" size="icon" className="h-10 w-10 sm:h-7 sm:w-7 rounded-md" onClick={() => updateQuantity(item.cartItemId, item.quantity - 1)}>
+                                  <Minus className="h-4 w-4 sm:h-3.5 sm:w-3.5" />
                                 </Button>
-                              </AlertDialogTrigger>
-                              <AlertDialogContent>
-                                <AlertDialogHeader>
-                                  <AlertDialogTitle>Remover produto?</AlertDialogTitle>
-                                  <AlertDialogDescription>Tem certeza que deseja remover "{item.name}" do carrinho?</AlertDialogDescription>
-                                </AlertDialogHeader>
-                                <AlertDialogFooter>
-                                  <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                                  <AlertDialogAction onClick={() => removeFromCart(item.cartItemId)}>Sim, remover</AlertDialogAction>
-                                </AlertDialogFooter>
-                              </AlertDialogContent>
-                            </AlertDialog>
+                                <span className="w-6 text-center font-bold text-xs">{item.quantity}</span>
+                                <Button variant="ghost" size="icon" className="h-10 w-10 sm:h-7 sm:w-7 rounded-md" onClick={() => updateQuantity(item.cartItemId, item.quantity + 1)}>
+                                  <Plus className="h-4 w-4 sm:h-3.5 sm:w-3.5" />
+                                </Button>
+                              </div>
+                              <AlertDialog>
+                                <AlertDialogTrigger asChild>
+                                  <Button variant="ghost" size="sm" className="h-10 sm:h-8 px-2.5 sm:px-2 text-destructive hover:bg-destructive/10 hover:text-destructive text-xs rounded-lg">
+                                    <Trash2 className="h-4 w-4 sm:h-3.5 sm:w-3.5 mr-1" />Remover
+                                  </Button>
+                                </AlertDialogTrigger>
+                                <AlertDialogContent>
+                                  <AlertDialogHeader>
+                                    <AlertDialogTitle>Remover produto?</AlertDialogTitle>
+                                    <AlertDialogDescription>Tem certeza que deseja remover "{item.name}" do carrinho?</AlertDialogDescription>
+                                  </AlertDialogHeader>
+                                  <AlertDialogFooter>
+                                    <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                                    <AlertDialogAction onClick={() => removeFromCart(item.cartItemId)}>Sim, remover</AlertDialogAction>
+                                  </AlertDialogFooter>
+                                </AlertDialogContent>
+                              </AlertDialog>
+                            </div>
                           </div>
-                        </div>
-                        <div className="text-right">
-                          <p className="font-bold text-lg">
-                            {(item.price * item.quantity).toLocaleString('pt-MZ', { style: 'currency', currency: 'MZN' })}
-                          </p>
+                          
+                          <div className="flex min-[540px]:flex-col items-baseline min-[540px]:items-end justify-between min-[540px]:justify-start border-t min-[540px]:border-t-0 pt-2 min-[540px]:pt-0 border-border/40 mt-1 min-[540px]:mt-0">
+                            <span className="text-xs text-muted-foreground min-[540px]:hidden">Subtotal:</span>
+                            <p className="font-extrabold text-sm sm:text-base text-primary">
+                              {(item.price * item.quantity).toLocaleString('pt-MZ', { style: 'currency', currency: 'MZN' })}
+                            </p>
+                          </div>
                         </div>
                       </div>
                     </CardContent>
@@ -186,7 +196,7 @@ const Carrinho = () => {
               {/* Order Summary */}
               <div className="lg:col-span-1">
                 <Card className="sticky top-24">
-                  <CardContent className="p-6">
+                  <CardContent className="p-3 sm:p-6">
                     <h2 className="text-xl font-bold mb-4">Resumo do Pedido</h2>
                     
                     {/* Coupon Section */}

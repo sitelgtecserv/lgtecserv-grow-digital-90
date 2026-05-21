@@ -29,12 +29,12 @@ export const CookiesBanner = () => {
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50 p-4">
       <Card className="mx-auto max-w-4xl bg-background/95 backdrop-blur-sm border-border shadow-lg">
-        <div className="p-6">
+        <div className="p-4 sm:p-6">
           <div className="flex items-start gap-4">
             <img 
               src="/lovable-uploads/b1a5e62a-0fc0-447c-8210-6fed000d0b62.png" 
               alt="LG TecServ" 
-              className="h-6 w-6 mt-1 flex-shrink-0 object-contain" 
+              className="h-6 w-6 mt-1 flex-shrink-0 object-contain hidden sm:block" 
             />
             <div className="flex-1">
               <h3 className="font-semibold text-foreground mb-2">
@@ -72,9 +72,9 @@ export const CookiesBanner = () => {
               onClick={rejectCookies}
               variant="ghost"
               size="icon"
-              className="flex-shrink-0 h-8 w-8"
+              className="flex-shrink-0 h-11 w-11 sm:h-8 sm:w-8"
             >
-              <X className="h-4 w-4" />
+              <X className="h-5 w-5 sm:h-4 sm:w-4" />
             </Button>
           </div>
         </div>

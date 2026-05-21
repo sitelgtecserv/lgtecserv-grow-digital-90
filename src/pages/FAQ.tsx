@@ -70,7 +70,7 @@ const FAQ = () => {
       <Breadcrumbs />
       <main className="min-h-screen bg-gradient-subtle">
         {/* Hero Section */}
-        <section className="py-20 bg-gradient-primary text-white">
+        <section className="py-10 sm:py-16 bg-gradient-primary text-white">
           <div className="container mx-auto px-4">
             <ScrollReveal>
               <div className="max-w-4xl mx-auto text-center">
@@ -79,7 +79,7 @@ const FAQ = () => {
                     <HelpCircle className="h-12 w-12" />
                   </div>
                 </div>
-                <h1 className="text-4xl md:text-6xl font-bold mb-6">
+                <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-6">
                   Perguntas Frequentes
                 </h1>
                 <p className="text-xl md:text-2xl text-white/90 max-w-2xl mx-auto">
@@ -102,16 +102,16 @@ const FAQ = () => {
         </section>
 
         {/* FAQ Content */}
-        <section className="py-20">
+        <section className="py-10 sm:py-16 md:py-20">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto space-y-8">
               
               {/* General Questions */}
               <ScrollReveal>
-                <Card className="p-8">
+                <Card className="p-4 sm:p-6 md:p-8">
                   <div className="flex items-center gap-4 mb-6">
                     <HelpCircle className="h-8 w-8 text-primary" />
-                    <h2 className="text-2xl font-bold text-foreground">Questões Gerais</h2>
+                    <h2 className="text-xl sm:text-2xl font-bold text-foreground">Questões Gerais</h2>
                   </div>
                   <Accordion type="single" collapsible className="w-full">
                     <AccordionItem value="item-1">
@@ -195,10 +195,10 @@ const FAQ = () => {
 
               {/* Digital Services */}
               <ScrollReveal>
-                <Card className="p-8">
+                <Card className="p-4 sm:p-6 md:p-8">
                   <div className="flex items-center gap-4 mb-6">
                     <Globe className="h-8 w-8 text-primary" />
-                    <h2 className="text-2xl font-bold text-foreground">Serviços Digitais</h2>
+                    <h2 className="text-xl sm:text-2xl font-bold text-foreground">Serviços Digitais</h2>
                   </div>
                   <Accordion type="single" collapsible className="w-full">
                     <AccordionItem value="digital-1">
@@ -324,10 +324,10 @@ const FAQ = () => {
 
               {/* Electrical Services */}
               <ScrollReveal>
-                <Card className="p-8">
+                <Card className="p-4 sm:p-6 md:p-8">
                   <div className="flex items-center gap-4 mb-6">
                     <Zap className="h-8 w-8 text-primary" />
-                    <h2 className="text-2xl font-bold text-foreground">Serviços Elétricos</h2>
+                    <h2 className="text-xl sm:text-2xl font-bold text-foreground">Serviços Elétricos</h2>
                   </div>
                   <Accordion type="single" collapsible className="w-full">
                     <AccordionItem value="electric-1">
@@ -409,10 +409,10 @@ const FAQ = () => {
 
               {/* Technical Services */}
               <ScrollReveal>
-                <Card className="p-8">
+                <Card className="p-4 sm:p-6 md:p-8">
                   <div className="flex items-center gap-4 mb-6">
                     <Camera className="h-8 w-8 text-primary" />
-                    <h2 className="text-2xl font-bold text-foreground">Serviços Técnicos</h2>
+                    <h2 className="text-xl sm:text-2xl font-bold text-foreground">Serviços Técnicos</h2>
                   </div>
                   <Accordion type="single" collapsible className="w-full">
                     <AccordionItem value="tech-1">
@@ -475,10 +475,10 @@ const FAQ = () => {
 
               {/* Payment & Pricing */}
               <ScrollReveal>
-                <Card className="p-8">
+                <Card className="p-4 sm:p-6 md:p-8">
                   <div className="flex items-center gap-4 mb-6">
                     <DollarSign className="h-8 w-8 text-primary" />
-                    <h2 className="text-2xl font-bold text-foreground">Pagamento e Preços</h2>
+                    <h2 className="text-xl sm:text-2xl font-bold text-foreground">Pagamento e Preços</h2>
                   </div>
                   <Accordion type="single" collapsible className="w-full">
                     <AccordionItem value="payment-1">
@@ -532,10 +532,10 @@ const FAQ = () => {
 
               {/* Support & Guarantee */}
               <ScrollReveal>
-                <Card className="p-8 bg-primary/5 border-primary/20">
+                <Card className="p-4 sm:p-6 md:p-8 bg-primary/5 border-primary/20">
                   <div className="flex items-center gap-4 mb-6">
                     <Shield className="h-8 w-8 text-primary" />
-                    <h2 className="text-2xl font-bold text-foreground">Ainda tem dúvidas?</h2>
+                    <h2 className="text-xl sm:text-2xl font-bold text-foreground">Ainda tem dúvidas?</h2>
                   </div>
                   <div className="space-y-4 text-muted-foreground">
                     <p>

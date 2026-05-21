@@ -104,7 +104,7 @@ export const ShopHeader = ({ onCartOpen, onSearchOpen }: ShopHeaderProps) => {
                   <img src={LOGO_URL} alt="LG TecServ" className="h-8 w-8 rounded-lg object-contain" />
                   {user ? (
                     <div>
-                      <p className="font-semibold">{user.email}</p>
+                      <p className="font-semibold truncate max-w-[150px] sm:max-w-none">{user.email}</p>
                       <p className="text-xs text-muted-foreground">
                         {isAdmin ? 'Administrador' : 'Cliente'}
                       </p>
@@ -195,7 +195,7 @@ export const ShopHeader = ({ onCartOpen, onSearchOpen }: ShopHeaderProps) => {
             </SheetContent>
           </Sheet>
 
-          <div className="flex items-center gap-2" onClick={() => navigate('/loja')}>
+          <div className="flex items-center gap-2 cursor-pointer" onClick={() => navigate('/loja')}>
             <img src={LOGO_URL} alt="LG TecServ" className="h-7 w-7 rounded-lg object-contain" />
             <h1 className="text-lg font-bold">LG TecServ</h1>
           </div>

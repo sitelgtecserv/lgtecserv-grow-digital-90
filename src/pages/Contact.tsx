@@ -84,7 +84,7 @@ const Contact = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="relative py-32 bg-gradient-to-br from-primary/10 via-secondary/5 to-accent/10 overflow-hidden">
+      <section className="relative py-16 sm:py-24 md:py-32 bg-gradient-to-br from-primary/10 via-secondary/5 to-accent/10 overflow-hidden">
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
         <div className="container mx-auto px-4 relative">
           <div className="max-w-5xl mx-auto text-center">
@@ -92,11 +92,11 @@ const Contact = () => {
               <MessageCircle className="w-4 h-4" />
               Contacte-nos Agora
             </div>
-            <h1 className="text-5xl md:text-7xl font-bold mb-8 leading-tight">
+            <h1 className="text-3xl sm:text-5xl md:text-7xl font-bold mb-8 leading-tight">
               Transforme Suas 
               <span className="gradient-text block">Ideias em Realidade</span>
             </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground mb-12 text-balance max-w-3xl mx-auto">
+            <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground mb-12 text-balance max-w-3xl mx-auto">
               Somos uma agência digital especializada em criar soluções inovadoras. 
               Fale connosco e descubra como podemos impulsionar o seu negócio.
             </p>
@@ -106,7 +106,7 @@ const Contact = () => {
               <Button 
                 asChild 
                 size="lg" 
-                className="bg-gradient-primary shadow-primary hover:shadow-lg transform hover:scale-105 transition-all duration-300 px-8 py-6 text-lg"
+                className="bg-gradient-primary shadow-primary hover:shadow-lg transform hover:scale-105 transition-all duration-300 px-6 sm:px-8 py-4 sm:py-6 text-base sm:text-lg"
               >
                 <a href="https://api.whatsapp.com/send?phone=258869824047&text=Ol%C3%A1%2C%20gostaria%20de%20discutir%20um%20projeto." target="_blank" rel="noopener noreferrer">
                   <MessageCircle className="w-5 h-5 mr-2" />
@@ -117,7 +117,7 @@ const Contact = () => {
                 asChild 
                 size="lg" 
                 variant="outline"
-                className="border-2 border-primary/20 hover:border-primary/40 hover:bg-primary/5 px-8 py-6 text-lg"
+                className="border-2 border-primary/20 hover:border-primary/40 hover:bg-primary/5 px-6 sm:px-8 py-4 sm:py-6 text-base sm:text-lg"
               >
                 <a href="tel:+258869824047">
                   <Phone className="w-5 h-5 mr-2" />
@@ -147,10 +147,10 @@ const Contact = () => {
       </section>
 
       {/* Contact Information */}
-      <section className="py-20">
+      <section className="py-10 sm:py-16 md:py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold mb-6">
               Como Pode <span className="gradient-text">Contactar-nos</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
@@ -189,10 +189,10 @@ const Contact = () => {
       </section>
 
       {/* Interactive Map Section */}
-      <section className="py-20 bg-muted/30">
+      <section className="py-10 sm:py-16 md:py-20 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold mb-6">
               Visite-nos em <span className="gradient-text">Maputo</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
@@ -204,7 +204,7 @@ const Contact = () => {
             <Card className="bg-gradient-card border-0 shadow-elegant overflow-hidden">
               <CardContent className="p-0">
                 <div className="relative">
-                  <div className="h-[600px] w-full">
+                  <div className="h-[320px] sm:h-[450px] md:h-[600px] w-full">
                     <iframe
                       src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d57936.89793088204!2d32.56866727910157!3d-25.96652688048629!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1ee69720b7d1f7e3%3A0x1c84c89748bfe5f9!2sMaputo%2C%20Mozambique!5e0!3m2!1sen!2smz!4v1703186400000!5m2!1sen!2smz"
                       width="100%"
@@ -218,14 +218,14 @@ const Contact = () => {
                   </div>
                   
                   {/* Overlay Info Card */}
-                  <div className="absolute top-6 left-6 bg-background/95 backdrop-blur-sm rounded-lg shadow-lg p-6 max-w-sm">
+                  <div className="absolute top-4 left-4 right-4 sm:right-auto bg-background/95 backdrop-blur-sm rounded-lg shadow-lg p-4 sm:p-6 sm:max-w-sm">
                     <div className="flex items-center gap-3 mb-4">
                       <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
                         <MapPin className="w-6 h-6 text-primary" />
                       </div>
                       <div>
-                        <h3 className="font-bold text-lg">LG TecServ</h3>
-                        <p className="text-sm text-muted-foreground">Agência Digital</p>
+                        <h3 className="font-bold text-base sm:text-lg">LG TecServ</h3>
+                        <p className="text-xs text-muted-foreground">Agência Digital</p>
                       </div>
                     </div>
                     <div className="space-y-2 text-sm">
@@ -261,15 +261,15 @@ const Contact = () => {
       </section>
 
       {/* Contact CTA Section */}
-      <section className="py-20 bg-gradient-to-br from-primary/5 to-secondary/5">
+      <section className="py-10 sm:py-16 md:py-20 bg-gradient-to-br from-primary/5 to-secondary/5">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <Card className="bg-gradient-card border-0 shadow-elegant p-8 md:p-12 text-center">
+            <Card className="bg-gradient-card border-0 shadow-elegant p-4 sm:p-8 md:p-12 text-center">
               <div className="mb-8">
-                <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
                   Pronto para Começar o Seu Projeto?
                 </h2>
-                <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto">
                   Não perca mais tempo. Entre em contacto connosco e transforme as suas ideias em realidade digital.
                 </p>
               </div>
@@ -327,7 +327,7 @@ const Contact = () => {
               <Button 
                 asChild 
                 size="lg" 
-                className="bg-gradient-primary shadow-primary hover:shadow-lg transform hover:scale-105 transition-all duration-300 px-12 py-6 text-lg"
+                className="bg-gradient-primary shadow-primary hover:shadow-lg transform hover:scale-105 transition-all duration-300 px-6 sm:px-12 py-4 sm:py-6 text-base sm:text-lg w-full sm:w-auto"
               >
                 <a href="https://api.whatsapp.com/send?phone=258869824047&text=Ol%C3%A1%2C%20gostaria%20de%20receber%20um%20or%C3%A7amento%20personalizado%20para%20o%20meu%20projeto." target="_blank" rel="noopener noreferrer">
                   <MessageCircle className="w-5 h-5 mr-2" />

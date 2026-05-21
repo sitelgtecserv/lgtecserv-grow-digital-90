@@ -109,7 +109,7 @@ export const RelatedProducts = ({ currentProductId, categoryId, categorySlug }: 
         </p>
       </div>
 
-      <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 sm:gap-4">
+      <div className="grid grid-cols-2 min-[480px]:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 sm:gap-4">
         {products.map((product, index) => {
           const productUrl = product.categories?.slug
             ? `/loja/${product.categories.slug}/${product.slug}`

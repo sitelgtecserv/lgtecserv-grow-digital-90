@@ -96,17 +96,17 @@ const Admin = () => {
       <div className="min-h-screen bg-background">
         {/* Header */}
         <header className="sticky top-0 z-10 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b">
-          <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <Shield className="h-8 w-8 text-primary" />
+          <div className="container mx-auto px-4 py-3 sm:py-4 flex flex-col min-[480px]:flex-row gap-3 min-[480px]:gap-4 items-start min-[480px]:items-center justify-between">
+            <div className="flex items-center gap-2.5">
+              <Shield className="h-6 w-6 sm:h-8 sm:w-8 text-primary flex-shrink-0" />
               <div>
-                <h1 className="text-xl font-bold">Painel de Administração</h1>
-                <p className="text-sm text-muted-foreground">
+                <h1 className="text-lg sm:text-xl font-bold leading-tight">Painel de Administração</h1>
+                <p className="text-xs sm:text-sm text-muted-foreground leading-normal">
                   Gerenciar produtos e categorias
                 </p>
               </div>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 w-full min-[480px]:w-auto justify-end">
               <Button
                 variant="default"
                 size="sm"
@@ -116,9 +116,9 @@ const Admin = () => {
                 <Search className="mr-2 h-4 w-4" />
                 Configurar SEO
               </Button>
-              <Button variant="outline" onClick={() => navigate('/loja')}>
-                <ArrowLeft className="mr-2 h-4 w-4" />
-                Voltar para loja
+              <Button variant="outline" size="sm" onClick={() => navigate('/loja')} className="text-xs sm:text-sm h-9">
+                <ArrowLeft className="mr-1.5 h-3.5 w-3.5" />
+                Voltar<span className="hidden min-[375px]:inline"> para loja</span>
               </Button>
             </div>
           </div>

@@ -9,7 +9,7 @@ const Footer = () => {
       <div className="container mx-auto px-4 py-16 relative z-10">
         {/* Call to Action Section */}
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-balance">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-balance">
             Transforme a Sua Visão Digital em <span className="text-secondary">Realidade</span>
           </h2>
           <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto text-balance">
@@ -49,7 +49,7 @@ const Footer = () => {
                 href="https://web.facebook.com/profile.php?id=61570482453286" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="p-2 rounded-lg bg-white/10 text-white hover:bg-white hover:text-black hover:scale-110 transition-all duration-300"
+                className="p-3 rounded-lg bg-white/10 text-white hover:bg-white hover:text-black hover:scale-110 transition-all duration-300 min-w-[44px] min-h-[44px] inline-flex items-center justify-center"
               >
                 <Facebook className="w-5 h-5" />
               </a>
@@ -57,7 +57,7 @@ const Footer = () => {
                 href="https://www.instagram.com/lgtecserv/" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="p-2 rounded-lg bg-white/10 text-white hover:bg-white hover:text-black hover:scale-110 transition-all duration-300"
+                className="p-3 rounded-lg bg-white/10 text-white hover:bg-white hover:text-black hover:scale-110 transition-all duration-300 min-w-[44px] min-h-[44px] inline-flex items-center justify-center"
               >
                 <Instagram className="w-5 h-5" />
               </a>
@@ -65,7 +65,7 @@ const Footer = () => {
                 href="https://www.linkedin.com/in/lg-tecserv-112b20349/" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="p-2 rounded-lg bg-white/10 text-white hover:bg-white hover:text-black hover:scale-110 transition-all duration-300"
+                className="p-3 rounded-lg bg-white/10 text-white hover:bg-white hover:text-black hover:scale-110 transition-all duration-300 min-w-[44px] min-h-[44px] inline-flex items-center justify-center"
               >
                 <Linkedin className="w-5 h-5" />
               </a>
@@ -78,27 +78,27 @@ const Footer = () => {
               Navegação
               <div className="ml-2 w-8 h-0.5 bg-white rounded-full"></div>
             </h3>
-            <ul className="space-y-3">
+            <ul className="space-y-1">
               <li>
-                <Link to="/" className="text-sm text-white/90 hover:text-white hover:translate-x-1 transition-all duration-300 flex items-center group">
+                <Link to="/" className="text-sm text-white/90 hover:text-white hover:translate-x-1 transition-all duration-300 flex items-center py-2 px-1 group">
                   <span className="w-1 h-1 bg-white rounded-full mr-3 group-hover:w-2 transition-all duration-300"></span>
                   Início
                 </Link>
               </li>
               <li>
-                <Link to="/sobre-nos-lg-tecserv-mocambique" className="text-sm text-white/90 hover:text-white hover:translate-x-1 transition-all duration-300 flex items-center group">
+                <Link to="/sobre-nos-lg-tecserv-mocambique" className="text-sm text-white/90 hover:text-white hover:translate-x-1 transition-all duration-300 flex items-center py-2 px-1 group">
                   <span className="w-1 h-1 bg-white rounded-full mr-3 group-hover:w-2 transition-all duration-300"></span>
                   Sobre Nós
                 </Link>
               </li>
               <li>
-                <Link to="/servicos-lg-tecserv-mocambique" className="text-sm text-white/90 hover:text-white hover:translate-x-1 transition-all duration-300 flex items-center group">
+                <Link to="/servicos-lg-tecserv-mocambique" className="text-sm text-white/90 hover:text-white hover:translate-x-1 transition-all duration-300 flex items-center py-2 px-1 group">
                   <span className="w-1 h-1 bg-white rounded-full mr-3 group-hover:w-2 transition-all duration-300"></span>
                   Serviços
                 </Link>
               </li>
               <li>
-                <Link to="/pagina-de-contato-lg-tecserv-mocambique" className="text-sm text-white/90 hover:text-white hover:translate-x-1 transition-all duration-300 flex items-center group">
+                <Link to="/pagina-de-contato-lg-tecserv-mocambique" className="text-sm text-white/90 hover:text-white hover:translate-x-1 transition-all duration-300 flex items-center py-2 px-1 group">
                   <span className="w-1 h-1 bg-white rounded-full mr-3 group-hover:w-2 transition-all duration-300"></span>
                   Contacto
                 </Link>
@@ -112,63 +112,63 @@ const Footer = () => {
               Especialidades
               <div className="ml-2 w-8 h-0.5 bg-white rounded-full"></div>
             </h3>
-            <ul className="space-y-3">
+            <ul className="space-y-1">
               <li>
-                <Link to="/servicos/criacao-desenvolvimento-sites-profissionais-mocambique" className="text-sm text-white/90 hover:text-white hover:translate-x-1 transition-all duration-300 flex items-center group">
+                <Link to="/servicos/criacao-desenvolvimento-sites-profissionais-mocambique" className="text-sm text-white/90 hover:text-white hover:translate-x-1 transition-all duration-300 flex items-center py-1.5 px-1 group">
                   <span className="w-1 h-1 bg-white rounded-full mr-3 group-hover:w-2 transition-all duration-300"></span>
                   Criação de Sites
                 </Link>
               </li>
               <li>
-                <Link to="/servicos/design-grafico-profissional-mocambique" className="text-sm text-white/90 hover:text-white hover:translate-x-1 transition-all duration-300 flex items-center group">
+                <Link to="/servicos/design-grafico-profissional-mocambique" className="text-sm text-white/90 hover:text-white hover:translate-x-1 transition-all duration-300 flex items-center py-1.5 px-1 group">
                   <span className="w-1 h-1 bg-white rounded-full mr-3 group-hover:w-2 transition-all duration-300"></span>
                   Design Gráfico
                 </Link>
               </li>
               <li>
-                <Link to="/servicos/gestao-trafego-pago-marketing-digital-mocambique" className="text-sm text-white/90 hover:text-white hover:translate-x-1 transition-all duration-300 flex items-center group">
+                <Link to="/servicos/gestao-trafego-pago-marketing-digital-mocambique" className="text-sm text-white/90 hover:text-white hover:translate-x-1 transition-all duration-300 flex items-center py-1.5 px-1 group">
                   <span className="w-1 h-1 bg-white rounded-full mr-3 group-hover:w-2 transition-all duration-300"></span>
                   Tráfego Pago
                 </Link>
               </li>
               <li>
-                <Link to="/servicos/gestao-redes-sociais-marketing-digital-mocambique" className="text-sm text-white/90 hover:text-white hover:translate-x-1 transition-all duration-300 flex items-center group">
+                <Link to="/servicos/gestao-redes-sociais-marketing-digital-mocambique" className="text-sm text-white/90 hover:text-white hover:translate-x-1 transition-all duration-300 flex items-center py-1.5 px-1 group">
                   <span className="w-1 h-1 bg-white rounded-full mr-3 group-hover:w-2 transition-all duration-300"></span>
                   Gestão de Redes Sociais
                 </Link>
               </li>
               <li>
-                <Link to="/servicos/consultoria-marketing-digital-estrategico-mocambique" className="text-sm text-white/90 hover:text-white hover:translate-x-1 transition-all duration-300 flex items-center group">
+                <Link to="/servicos/consultoria-marketing-digital-estrategico-mocambique" className="text-sm text-white/90 hover:text-white hover:translate-x-1 transition-all duration-300 flex items-center py-1.5 px-1 group">
                   <span className="w-1 h-1 bg-white rounded-full mr-3 group-hover:w-2 transition-all duration-300"></span>
                   Consultoria de Marketing
                 </Link>
               </li>
               <li>
-                <Link to="/servicos/instalacoes-eletricas-profissionais-mocambique" className="text-sm text-white/90 hover:text-white hover:translate-x-1 transition-all duration-300 flex items-center group">
+                <Link to="/servicos/instalacoes-eletricas-profissionais-mocambique" className="text-sm text-white/90 hover:text-white hover:translate-x-1 transition-all duration-300 flex items-center py-1.5 px-1 group">
                   <span className="w-1 h-1 bg-white rounded-full mr-3 group-hover:w-2 transition-all duration-300"></span>
                   Instalações Elétricas
                 </Link>
               </li>
               <li>
-                <Link to="/servicos/eletricidade-residencial-instalacoes-domesticas-mocambique" className="text-sm text-white/90 hover:text-white hover:translate-x-1 transition-all duration-300 flex items-center group">
+                <Link to="/servicos/eletricidade-residencial-instalacoes-domesticas-mocambique" className="text-sm text-white/90 hover:text-white hover:translate-x-1 transition-all duration-300 flex items-center py-1.5 px-1 group">
                   <span className="w-1 h-1 bg-white rounded-full mr-3 group-hover:w-2 transition-all duration-300"></span>
                   Eletricidade Residencial
                 </Link>
               </li>
               <li>
-                <Link to="/servicos/eletricidade-industrial-instalacoes-empresariais-mocambique" className="text-sm text-white/90 hover:text-white hover:translate-x-1 transition-all duration-300 flex items-center group">
+                <Link to="/servicos/eletricidade-industrial-instalacoes-empresariais-mocambique" className="text-sm text-white/90 hover:text-white hover:translate-x-1 transition-all duration-300 flex items-center py-1.5 px-1 group">
                   <span className="w-1 h-1 bg-white rounded-full mr-3 group-hover:w-2 transition-all duration-300"></span>
                   Eletricidade Industrial
                 </Link>
               </li>
               <li>
-                <Link to="/servicos/servicos-topograficos-profissionais-maputo-mocambique" className="text-sm text-white/90 hover:text-white hover:translate-x-1 transition-all duration-300 flex items-center group">
+                <Link to="/servicos/servicos-topograficos-profissionais-maputo-mocambique" className="text-sm text-white/90 hover:text-white hover:translate-x-1 transition-all duration-300 flex items-center py-1.5 px-1 group">
                   <span className="w-1 h-1 bg-white rounded-full mr-3 group-hover:w-2 transition-all duration-300"></span>
                   Topografia
                 </Link>
               </li>
               <li>
-                <Link to="/servicos/ensaios-fotograficos-profissionais-sem-studio-mocambique" className="text-sm text-white/90 hover:text-white hover:translate-x-1 transition-all duration-300 flex items-center group">
+                <Link to="/servicos/ensaios-fotograficos-profissionais-sem-studio-mocambique" className="text-sm text-white/90 hover:text-white hover:translate-x-1 transition-all duration-300 flex items-center py-1.5 px-1 group">
                   <span className="w-1 h-1 bg-white rounded-full mr-3 group-hover:w-2 transition-all duration-300"></span>
                   Ensaios Fotográficos
                 </Link>

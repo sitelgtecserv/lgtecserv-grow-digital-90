@@ -54,7 +54,7 @@ export const ImageGallery = ({ images, productName }: ImageGalleryProps) => {
             <Button
               size="icon"
               variant="secondary"
-              className="absolute left-2 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity"
+              className="absolute left-2 top-1/2 -translate-y-1/2 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity"
               onClick={prevImage}
             >
               <ChevronLeft className="h-4 w-4" />
@@ -63,7 +63,7 @@ export const ImageGallery = ({ images, productName }: ImageGalleryProps) => {
             <Button
               size="icon"
               variant="secondary"
-              className="absolute right-2 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity"
+              className="absolute right-2 top-1/2 -translate-y-1/2 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity"
               onClick={nextImage}
             >
               <ChevronRight className="h-4 w-4" />

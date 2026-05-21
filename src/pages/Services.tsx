@@ -228,10 +228,10 @@ const Services = () => {
         <Breadcrumbs />
       
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-br from-primary/5 to-secondary/5">
+      <section className="py-10 sm:py-16 md:py-20 bg-gradient-to-br from-primary/5 to-secondary/5">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
+            <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-6">
               Nossos <span className="gradient-text">Serviços</span>
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-8 text-balance">
@@ -243,13 +243,13 @@ const Services = () => {
       </section>
 
       {/* Main Services */}
-      <section className="py-20">
+      <section className="py-10 sm:py-16 md:py-20">
         <div className="container mx-auto px-4">
           <div className="space-y-16">
             {mainServices.map((service, index) => (
               <div key={index} className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <div className={index % 2 === 1 ? "lg:order-2" : ""}>
-                  <Card className="bg-gradient-card border-0 shadow-elegant p-8 h-full">
+                  <Card className="bg-gradient-card border-0 shadow-elegant p-4 sm:p-6 md:p-8 h-full">
                     <div className="flex items-center space-x-4 mb-6">
                       <div className="p-3 rounded-lg bg-primary/10 text-primary">
                         {service.icon}
@@ -312,10 +312,10 @@ const Services = () => {
       </section>
 
       {/* Additional Services */}
-      <section className="py-20 bg-muted/30">
+      <section className="py-10 sm:py-16 md:py-20 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-4">
               Serviços <span className="gradient-text">Adicionais</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto text-balance">
@@ -345,10 +345,10 @@ const Services = () => {
       </section>
 
       {/* Process Section */}
-      <section className="py-20">
+      <section className="py-10 sm:py-16 md:py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-4">
               Como <span className="gradient-text">Trabalhamos</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto text-balance">
@@ -377,13 +377,13 @@ const Services = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-primary text-primary-foreground">
+      <section className="py-10 sm:py-16 md:py-20 bg-primary text-primary-foreground">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-5xl font-bold mb-6 text-balance">
+            <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-6 text-balance">
               Pronto para Começar o Seu Projeto?
             </h2>
-            <p className="text-xl md:text-2xl mb-8 text-primary-foreground/90 text-balance">
+            <p className="text-lg sm:text-xl md:text-2xl mb-8 text-primary-foreground/90 text-balance">
               Entre em contacto connosco hoje e receba um orçamento 
               personalizado e gratuito para o seu projeto.
             </p>
@@ -392,7 +392,7 @@ const Services = () => {
                 size="lg" 
                 variant="secondary" 
                 asChild
-                className="text-lg px-8 bg-white text-primary hover:bg-white/90"
+                className="text-base sm:text-lg px-6 sm:px-8 bg-white text-primary hover:bg-white/90"
               >
                 <Link to="/pagina-de-contato-lg-tecserv-mocambique">
                   Orçamento Gratuito
@@ -403,7 +403,7 @@ const Services = () => {
                 size="lg" 
                 variant="outline" 
                 asChild
-                className="text-lg px-8 border-white text-white hover:bg-white hover:text-primary"
+                className="text-base sm:text-lg px-6 sm:px-8 border-white text-white hover:bg-white hover:text-primary"
               >
                 <a href="https://api.whatsapp.com/send?phone=258869824047&text=Ol%C3%A1%2C%20tenho%20interesse%20nos%20seus%20servi%C3%A7os.%20Pode%20me%20dar%20mais%20informa%C3%A7%C3%B5es%3F" target="_blank" rel="noopener noreferrer">
                   Falar no WhatsApp
@@ -415,10 +415,10 @@ const Services = () => {
       </section>
 
       {/* Services Gallery */}
-      <section className="py-16 bg-muted/30">
+      <section className="py-10 sm:py-16 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
               Galeria dos <span className="gradient-text">Nossos Serviços</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto text-balance">

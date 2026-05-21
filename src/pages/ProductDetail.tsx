@@ -295,7 +295,7 @@ const ProductDetail = () => {
               className="space-y-6 lg:space-y-7 flex flex-col"
             >
               <div className="space-y-3">
-                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight lg:leading-tight bg-gradient-to-r from-foreground via-foreground/90 to-primary-dark bg-clip-text text-transparent">
+                <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight lg:leading-tight bg-gradient-to-r from-foreground via-foreground/90 to-primary-dark bg-clip-text text-transparent">
                   {product.name}
                 </h1>
                 {reviewData && (
@@ -324,7 +324,7 @@ const ProductDetail = () => {
 
                 {/* Preço com Destaque Premium e Tags de Confiança */}
                 <div className="flex flex-col gap-1.5 pt-2">
-                  <span className="text-4xl sm:text-5xl font-black text-primary tracking-tight font-price drop-shadow-sm">
+                  <span className="text-2xl min-[360px]:text-4xl sm:text-5xl font-black text-primary tracking-tight font-price drop-shadow-sm">
                     {product.price.toLocaleString('pt-MZ', {
                       style: 'currency',
                       currency: 'MZN',
@@ -338,27 +338,27 @@ const ProductDetail = () => {
               </div>
 
               {/* Destaques Rápidos de Engenharia (Quick Specs List) */}
-              <div className="grid grid-cols-3 gap-3 pt-2">
-                <div className="flex flex-col items-center justify-center p-3 rounded-2xl bg-card border border-border/80 text-center hover:border-primary/20 transition-all shadow-sm">
-                  <div className="p-1.5 bg-primary/10 rounded-lg text-primary mb-2">
-                    <Zap className="h-4.5 w-4.5 animate-pulse" />
+              <div className="grid grid-cols-3 gap-1 min-[360px]:gap-1.5 min-[480px]:gap-3 pt-2">
+                <div className="flex flex-col items-center justify-center p-1.5 min-[360px]:p-2 min-[480px]:p-3 rounded-2xl bg-card border border-border/80 text-center hover:border-primary/20 transition-all shadow-sm">
+                  <div className="p-1 bg-primary/10 rounded-lg text-primary mb-1 min-[360px]:mb-1.5">
+                    <Zap className="h-3.5 w-3.5 sm:h-4.5 sm:w-4.5 animate-pulse" />
                   </div>
-                  <span className="text-[10px] font-bold text-foreground">Alta Performance</span>
-                  <span className="text-[8px] text-muted-foreground mt-0.5">Testado em lab</span>
+                  <span className="text-[8.5px] min-[360px]:text-[9px] min-[375px]:text-[10px] font-bold text-foreground leading-tight">Alta Performance</span>
+                  <span className="text-[7.5px] min-[360px]:text-[8px] text-muted-foreground mt-0.5">Testado em lab</span>
                 </div>
-                <div className="flex flex-col items-center justify-center p-3 rounded-2xl bg-card border border-border/80 text-center hover:border-primary/20 transition-all shadow-sm">
-                  <div className="p-1.5 bg-primary/10 rounded-lg text-primary mb-2">
-                    <ShieldCheck className="h-4.5 w-4.5" />
+                <div className="flex flex-col items-center justify-center p-1.5 min-[360px]:p-2 min-[480px]:p-3 rounded-2xl bg-card border border-border/80 text-center hover:border-primary/20 transition-all shadow-sm">
+                  <div className="p-1 bg-primary/10 rounded-lg text-primary mb-1 min-[360px]:mb-1.5">
+                    <ShieldCheck className="h-3.5 w-3.5 sm:h-4.5 sm:w-4.5" />
                   </div>
-                  <span className="text-[10px] font-bold text-foreground">Suporte de Elite</span>
-                  <span className="text-[8px] text-muted-foreground mt-0.5">Engenharia dedicada</span>
+                  <span className="text-[8.5px] min-[360px]:text-[9px] min-[375px]:text-[10px] font-bold text-foreground leading-tight">Suporte de Elite</span>
+                  <span className="text-[7.5px] min-[360px]:text-[8px] text-muted-foreground mt-0.5">Engenharia dedicada</span>
                 </div>
-                <div className="flex flex-col items-center justify-center p-3 rounded-2xl bg-card border border-border/80 text-center hover:border-primary/20 transition-all shadow-sm">
-                  <div className="p-1.5 bg-primary/10 rounded-lg text-primary mb-2">
-                    <Package className="h-4.5 w-4.5" />
+                <div className="flex flex-col items-center justify-center p-1.5 min-[360px]:p-2 min-[480px]:p-3 rounded-2xl bg-card border border-border/80 text-center hover:border-primary/20 transition-all shadow-sm">
+                  <div className="p-1 bg-primary/10 rounded-lg text-primary mb-1 min-[360px]:mb-1.5">
+                    <Package className="h-3.5 w-3.5 sm:h-4.5 sm:w-4.5" />
                   </div>
-                  <span className="text-[10px] font-bold text-foreground">Pronto Levantamento</span>
-                  <span className="text-[8px] text-muted-foreground mt-0.5">Garantia local</span>
+                  <span className="text-[8.5px] min-[360px]:text-[9px] min-[375px]:text-[10px] font-bold text-foreground leading-tight">Pronto Levantamento</span>
+                  <span className="text-[7.5px] min-[360px]:text-[8px] text-muted-foreground mt-0.5">Garantia local</span>
                 </div>
               </div>
 
@@ -473,12 +473,12 @@ const ProductDetail = () => {
               </div>
 
               {/* Consultoria com Engenheiro de Plantão (Posicionamento Premium) */}
-              <div className="p-3.5 bg-muted/40 border border-border/80 rounded-2xl flex items-center justify-between gap-3 shadow-sm">
-                <div className="flex items-center gap-3">
+              <div className="p-3.5 bg-muted/40 border border-border/80 rounded-2xl flex flex-col min-[480px]:flex-row min-[480px]:items-center justify-between gap-3 shadow-sm">
+                <div className="flex items-start min-[480px]:items-center gap-3">
                   <div className="h-9 w-9 rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-600 flex-shrink-0">
                     <UserCheck className="h-4.5 w-4.5" />
                   </div>
-                  <div>
+                  <div className="min-w-0 flex-1">
                     <p className="text-[11px] font-bold text-foreground">Precisa de Suporte de Engenharia?</p>
                     <p className="text-[9px] text-muted-foreground leading-tight">Esclareça dúvidas técnicas complexas com o nosso Engenheiro de Plantão</p>
                   </div>
@@ -486,7 +486,7 @@ const ProductDetail = () => {
                 <Button
                   size="sm"
                   variant="ghost"
-                  className="h-8 text-emerald-600 hover:text-emerald-700 hover:bg-emerald-50 text-[11px] font-semibold flex items-center gap-1 border border-emerald-500/25 rounded-lg flex-shrink-0"
+                  className="h-8 w-full min-[480px]:w-auto text-emerald-600 hover:text-emerald-700 hover:bg-emerald-50 text-[11px] font-semibold flex items-center justify-center gap-1 border border-emerald-500/25 rounded-lg flex-shrink-0"
                   onClick={() => {
                     if (!product) return;
                     const message = `Olá! Gostaria de falar com o Engenheiro de Plantão para uma consultoria técnica sobre o produto *${product.name}*.\n\nLink: ${window.location.href}`;
@@ -503,14 +503,14 @@ const ProductDetail = () => {
                 <div className="absolute top-0 right-0 p-2 opacity-5 pointer-events-none select-none">
                   <Award className="h-24 w-24 text-primary" />
                 </div>
-                <div className="flex gap-3">
-                  <div className="p-2 h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0 text-primary border border-primary/15 shadow-sm">
+                <div className="flex flex-col min-[480px]:flex-row gap-3">
+                  <div className="p-2 h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0 text-primary border border-primary/15 shadow-sm self-start min-[480px]:self-center">
                     <ShieldCheck className="h-5 w-5" />
                   </div>
-                  <div className="space-y-1">
-                    <h4 className="font-bold text-xs sm:text-sm text-foreground flex items-center gap-1.5">
-                      Garantia & Certificação Técnica LG TecServ
-                      <Sparkles className="h-3.5 w-3.5 text-secondary animate-pulse" />
+                  <div className="space-y-1 flex-1 min-w-0">
+                    <h4 className="font-bold text-xs sm:text-sm text-foreground flex flex-wrap items-center gap-1.5">
+                      <span>Garantia & Certificação Técnica LG TecServ</span>
+                      <Sparkles className="h-3.5 w-3.5 text-secondary animate-pulse flex-shrink-0" />
                     </h4>
                     <p className="text-[10px] sm:text-xs text-muted-foreground leading-relaxed">
                       Cada equipamento é individualmente inspecionado, testado em laboratório e certificado pela equipa de engenharia da <strong>LG TecServ Moçambique</strong> antes de ser selado e despachado.
@@ -520,7 +520,7 @@ const ProductDetail = () => {
               </div>
 
               {/* Trust Badges Grid Glassmorphism */}
-              <div className="grid grid-cols-2 gap-3 pt-1">
+              <div className="grid grid-cols-1 min-[360px]:grid-cols-2 gap-2.5 sm:gap-3 pt-1">
                 <div className="p-3 bg-card/50 backdrop-blur-md border border-border/80 rounded-2xl space-y-1 hover:shadow-elegant hover:-translate-y-0.5 transition-all duration-300">
                   <div className="flex items-center gap-2 text-primary">
                     <div className="p-1 bg-primary/10 rounded-md">
@@ -583,19 +583,19 @@ const ProductDetail = () => {
           </motion.div>
 
           {/* Tabs Informativas Premium */}
-          <div id="detailed-info-tabs" className="mt-16 max-w-6xl mx-auto border border-border/50 bg-card/30 backdrop-blur-md rounded-3xl p-6 sm:p-8 space-y-6 shadow-sm">
+          <div id="detailed-info-tabs" className="mt-12 sm:mt-16 max-w-6xl mx-auto border border-border/50 bg-card/30 backdrop-blur-md rounded-2xl sm:rounded-3xl p-4 sm:p-8 space-y-6 shadow-sm">
             <Tabs defaultValue="detalhes" className="w-full">
               <TabsList className="grid grid-cols-2 md:grid-cols-4 gap-1 bg-muted p-1 rounded-2xl h-auto">
-                <TabsTrigger value="detalhes" className="py-3 rounded-xl text-xs sm:text-sm font-bold transition-all">
+                <TabsTrigger value="detalhes" className="py-2.5 sm:py-3 rounded-xl text-[10px] min-[360px]:text-xs sm:text-sm font-bold transition-all whitespace-normal text-center h-full">
                   Descrição Completa
                 </TabsTrigger>
-                <TabsTrigger value="especificacoes" className="py-3 rounded-xl text-xs sm:text-sm font-bold transition-all">
+                <TabsTrigger value="especificacoes" className="py-2.5 sm:py-3 rounded-xl text-[10px] min-[360px]:text-xs sm:text-sm font-bold transition-all whitespace-normal text-center h-full">
                   Especificações Técnicas
                 </TabsTrigger>
-                <TabsTrigger value="envio" className="py-3 rounded-xl text-xs sm:text-sm font-bold transition-all">
+                <TabsTrigger value="envio" className="py-2.5 sm:py-3 rounded-xl text-[10px] min-[360px]:text-xs sm:text-sm font-bold transition-all whitespace-normal text-center h-full">
                   Envio e Entrega
                 </TabsTrigger>
-                <TabsTrigger value="pagamento" className="py-3 rounded-xl text-xs sm:text-sm font-bold transition-all">
+                <TabsTrigger value="pagamento" className="py-2.5 sm:py-3 rounded-xl text-[10px] min-[360px]:text-xs sm:text-sm font-bold transition-all whitespace-normal text-center h-full">
                   Pagamento e Garantia
                 </TabsTrigger>
               </TabsList>

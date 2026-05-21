@@ -239,7 +239,7 @@ const Loja = () => {
 
           {/* Products Grid */}
           {loading ? (
-              <div className="grid grid-cols-3 gap-2 sm:gap-4 md:gap-6">
+              <div className="grid grid-cols-2 min-[480px]:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-4 md:gap-6">
               {[...Array(8)].map((_, i) => (
                 <SkeletonProductCard key={i} />
               ))}
@@ -265,7 +265,7 @@ const Loja = () => {
                   {seoDescriptionText}
                 </p>
               </div>
-              <div className="grid grid-cols-3 gap-2 sm:gap-4 md:gap-6">
+              <div className="grid grid-cols-2 min-[480px]:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-4 md:gap-6">
                 {filteredProducts.map((product, index) => (
                   <AnimatedProductCard key={product.id} product={product} index={index} />
                 ))}

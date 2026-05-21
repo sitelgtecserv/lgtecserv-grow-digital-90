@@ -148,20 +148,22 @@ const Checkout = () => {
           <div className="flex items-center gap-4 mb-6">
             <Button variant="ghost" size="icon" onClick={() => navigate('/carrinho')}><ArrowLeft className="h-5 w-5" /></Button>
             <div>
-              <h1 className="text-3xl font-bold">Finalizar Pedido</h1>
-              <p className="text-muted-foreground">Preencha seus dados para finalizar a compra</p>
+              <h1 className="text-2xl min-[360px]:text-3xl font-bold">Finalizar Pedido</h1>
+              <p className="text-sm text-muted-foreground">Preencha seus dados para finalizar a compra</p>
             </div>
           </div>
 
           {!user && (
             <div className="mb-6 p-4 bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-950/20 dark:to-orange-950/20 border border-amber-200 dark:border-amber-800 rounded-lg">
-              <div className="flex items-start gap-3">
-                <Gift className="h-5 w-5 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
-                <div className="flex-1">
-                  <p className="text-sm font-semibold text-amber-800 dark:text-amber-300">Crie uma conta e ganhe benefícios!</p>
-                  <p className="text-xs text-amber-700 dark:text-amber-400 mt-1">Com uma conta, seu pedido fica registado no histórico e após 3 compras você ganha um brinde especial.</p>
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
+                <div className="flex items-start gap-3 flex-1 w-full">
+                  <Gift className="h-5 w-5 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
+                  <div className="flex-1">
+                    <p className="text-sm font-semibold text-amber-800 dark:text-amber-300">Crie uma conta e ganhe benefícios!</p>
+                    <p className="text-xs text-amber-700 dark:text-amber-400 mt-1">Com uma conta, seu pedido fica registado no histórico e após 3 compras você ganha um brinde especial.</p>
+                  </div>
                 </div>
-                <Button variant="outline" size="sm" className="flex-shrink-0 border-amber-300 text-amber-700 hover:bg-amber-100 dark:border-amber-700 dark:text-amber-300 dark:hover:bg-amber-950/40"
+                <Button variant="outline" size="sm" className="w-full sm:w-auto flex-shrink-0 border-amber-300 text-amber-700 hover:bg-amber-100 dark:border-amber-700 dark:text-amber-300 dark:hover:bg-amber-950/40"
                   onClick={() => { localStorage.setItem('checkoutData', JSON.stringify({ customerName, customerPhone, customerAddress, notes })); navigate('/auth?redirect=/checkout'); }}>
                   <UserPlus className="mr-1 h-3 w-3" />Criar conta
                 </Button>
@@ -175,7 +177,7 @@ const Checkout = () => {
             <form onSubmit={handleSubmit} className="grid md:grid-cols-2 gap-6">
               <div className="space-y-6">
                 <Card>
-                  <CardContent className="p-6 space-y-4">
+                  <CardContent className="p-4 sm:p-6 space-y-4">
                     <h2 className="text-xl font-bold">Informações de Entrega</h2>
                     <div className="space-y-2">
                       <Label htmlFor="name">Nome Completo *</Label>
@@ -202,7 +204,7 @@ const Checkout = () => {
               </div>
               <div className="space-y-6">
                 <Card>
-                  <CardContent className="p-6 space-y-4">
+                  <CardContent className="p-4 sm:p-6 space-y-4">
                     <h2 className="text-xl font-bold">Resumo do Pedido</h2>
                     <div className="space-y-3">
                       {cart.map((item) => (

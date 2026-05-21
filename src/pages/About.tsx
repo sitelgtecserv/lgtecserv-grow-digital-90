@@ -60,10 +60,10 @@ const About = () => {
         <Breadcrumbs />
       
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-br from-primary/5 to-secondary/5">
+      <section className="py-10 sm:py-16 md:py-20 bg-gradient-to-br from-primary/5 to-secondary/5">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
+            <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-6">
               Sobre a <span className="gradient-text">LG TecServ</span>
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-8 text-balance">
@@ -75,11 +75,11 @@ const About = () => {
       </section>
 
       {/* Company Story */}
-      <section className="py-20">
+      <section className="py-10 sm:py-16 md:py-20">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6">
                 A Nossa <span className="gradient-text">História</span>
               </h2>
               <div className="space-y-6 text-lg text-muted-foreground">
@@ -121,10 +121,10 @@ const About = () => {
       </section>
 
       {/* Mission, Vision, Values */}
-      <section className="py-20 bg-muted/30">
+      <section className="py-10 sm:py-16 md:py-20 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-4">
               Os Nossos <span className="gradient-text">Pilares</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto text-balance">
@@ -154,10 +154,10 @@ const About = () => {
       </section>
 
       {/* Team Section */}
-      <section className="py-20">
+      <section className="py-10 sm:py-16 md:py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-4">
               A Nossa <span className="gradient-text">Equipa</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto text-balance">
@@ -197,10 +197,10 @@ const About = () => {
       </section>
 
       {/* Documentation CTA */}
-      <section className="py-12 bg-muted/30">
+      <section className="py-10 sm:py-12 bg-muted/30">
         <div className="container mx-auto px-4">
           <Card className="max-w-4xl mx-auto border-primary/20 bg-gradient-to-br from-primary/5 to-secondary/5">
-            <CardContent className="p-8 text-center">
+            <CardContent className="p-4 sm:p-6 md:p-8 text-center">
               <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-4">
                 <Target className="w-8 h-8 text-primary" />
               </div>
@@ -220,13 +220,13 @@ const About = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-primary text-primary-foreground">
+      <section className="py-10 sm:py-16 md:py-20 bg-primary text-primary-foreground">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-5xl font-bold mb-6 text-balance">
+            <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-6 text-balance">
               Pronto para Começar o Seu Projeto?
             </h2>
-            <p className="text-xl md:text-2xl mb-8 text-primary-foreground/90 text-balance">
+            <p className="text-lg sm:text-xl md:text-2xl mb-8 text-primary-foreground/90 text-balance">
               Entre em contacto connosco e descubra como podemos ajudar 
               o seu negócio a crescer no mundo digital.
             </p>
@@ -235,7 +235,7 @@ const About = () => {
                 size="lg" 
                 variant="secondary" 
                 asChild
-                className="text-lg px-8 bg-white text-primary hover:bg-white/90"
+                className="text-base sm:text-lg px-6 sm:px-8 bg-white text-primary hover:bg-white/90"
               >
                 <Link to="/pagina-de-contato-lg-tecserv-mocambique">
                   Começar Agora
@@ -246,7 +246,7 @@ const About = () => {
                 size="lg" 
                 variant="outline" 
                 asChild
-                className="text-lg px-8 border-white text-white hover:bg-white hover:text-primary"
+                className="text-base sm:text-lg px-6 sm:px-8 border-white text-white hover:bg-white hover:text-primary"
               >
                 <Link to="/servicos-lg-tecserv-mocambique">
                   Ver Serviços

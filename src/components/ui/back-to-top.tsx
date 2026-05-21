@@ -28,7 +28,7 @@ const BackToTop = () => {
       variant="outline"
       size="icon"
       className={cn(
-        "fixed bottom-[12.5rem] right-6 md:bottom-[10rem] md:right-6 z-40 rounded-full w-10 h-10 md:w-12 md:h-12 shadow-elegant transition-all duration-300",
+        "fixed bottom-36 right-6 md:bottom-[10rem] md:right-6 z-40 rounded-full w-11 h-11 md:w-12 md:h-12 shadow-elegant transition-all duration-300",
         "bg-background/80 backdrop-blur-sm border-2 border-primary/20",
         "hover:bg-primary hover:text-primary-foreground hover:border-primary",
         "focus:bg-primary focus:text-primary-foreground",

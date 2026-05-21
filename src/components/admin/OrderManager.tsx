@@ -146,53 +146,53 @@ export const OrderManager = () => {
   return (
     <div className="space-y-6">
       {/* Estatísticas */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-4">
         <Card>
-          <CardHeader className="pb-3">
-            <CardTitle className="text-sm font-medium text-muted-foreground">
+          <CardHeader className="p-3 sm:pb-3">
+            <CardTitle className="text-xs sm:text-sm font-medium text-muted-foreground">
               Total de Pedidos
             </CardTitle>
           </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold">{stats.total}</p>
+          <CardContent className="p-3 pt-0 sm:p-6 sm:pt-0">
+            <p className="text-xl sm:text-2xl font-bold">{stats.total}</p>
           </CardContent>
         </Card>
         <Card>
-          <CardHeader className="pb-3">
-            <CardTitle className="text-sm font-medium text-muted-foreground">
+          <CardHeader className="p-3 sm:pb-3">
+            <CardTitle className="text-xs sm:text-sm font-medium text-muted-foreground">
               Pendentes
             </CardTitle>
           </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold text-yellow-500">{stats.pending}</p>
+          <CardContent className="p-3 pt-0 sm:p-6 sm:pt-0">
+            <p className="text-xl sm:text-2xl font-bold text-yellow-500">{stats.pending}</p>
           </CardContent>
         </Card>
         <Card>
-          <CardHeader className="pb-3">
-            <CardTitle className="text-sm font-medium text-muted-foreground">
+          <CardHeader className="p-3 sm:pb-3">
+            <CardTitle className="text-xs sm:text-sm font-medium text-muted-foreground">
               Processando
             </CardTitle>
           </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold text-blue-500">{stats.processing}</p>
+          <CardContent className="p-3 pt-0 sm:p-6 sm:pt-0">
+            <p className="text-xl sm:text-2xl font-bold text-blue-500">{stats.processing}</p>
           </CardContent>
         </Card>
         <Card>
-          <CardHeader className="pb-3">
-            <CardTitle className="text-sm font-medium text-muted-foreground">
+          <CardHeader className="p-3 sm:pb-3">
+            <CardTitle className="text-xs sm:text-sm font-medium text-muted-foreground">
               Concluídos
             </CardTitle>
           </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold text-green-500">{stats.completed}</p>
+          <CardContent className="p-3 pt-0 sm:p-6 sm:pt-0">
+            <p className="text-xl sm:text-2xl font-bold text-green-500">{stats.completed}</p>
           </CardContent>
         </Card>
       </div>
 
       {/* Filtros e Ações */}
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-3">
         <Select value={filter} onValueChange={setFilter}>
-          <SelectTrigger className="w-[200px]">
+          <SelectTrigger className="w-full sm:w-[200px]">
             <SelectValue placeholder="Filtrar por status" />
           </SelectTrigger>
           <SelectContent>
@@ -205,7 +205,7 @@ export const OrderManager = () => {
           </SelectContent>
         </Select>
 
-        <Button onClick={fetchOrders} variant="outline" size="sm">
+        <Button onClick={fetchOrders} variant="outline" size="sm" className="w-full sm:w-auto h-9">
           <RefreshCw className="h-4 w-4 mr-2" />
           Atualizar
         </Button>
@@ -226,29 +226,29 @@ export const OrderManager = () => {
         <div className="space-y-4">
           {orders.map((order) => (
             <Card key={order.id}>
-              <CardContent className="p-6">
+              <CardContent className="p-4 sm:p-6">
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                  <div className="flex items-start gap-4">
-                    <div className="p-3 bg-primary/10 rounded-lg">
-                      <Package className="h-6 w-6 text-primary" />
+                  <div className="flex items-start gap-3 sm:gap-4">
+                    <div className="hidden min-[360px]:block p-2.5 sm:p-3 bg-primary/10 rounded-lg shrink-0">
+                      <Package className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
                     </div>
-                    <div>
-                      <div className="flex items-center gap-2 mb-1">
-                        <p className="font-semibold">
+                    <div className="min-w-0 flex-1">
+                      <div className="flex flex-wrap items-center gap-1.5 mb-1">
+                        <p className="font-semibold text-sm sm:text-base">
                           #{order.id.slice(0, 8).toUpperCase()}
                         </p>
                         {getStatusBadge(order.status)}
                       </div>
-                      <p className="text-sm font-medium">{order.customer_name}</p>
-                      <p className="text-sm text-muted-foreground">{order.customer_phone}</p>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-sm font-medium truncate">{order.customer_name}</p>
+                      <p className="text-xs sm:text-sm text-muted-foreground">{order.customer_phone}</p>
+                      <p className="text-xs sm:text-sm text-muted-foreground">
                         {new Date(order.created_at).toLocaleDateString('pt-BR', {
                           day: '2-digit',
                           month: 'long',
                           year: 'numeric',
                         })}
                       </p>
-                      <p className="text-lg font-bold text-primary mt-2">
+                      <p className="text-base sm:text-lg font-bold text-primary mt-1.5">
                         {order.total_amount.toLocaleString('pt-MZ', {
                           style: 'currency',
                           currency: 'MZN',
@@ -257,12 +257,12 @@ export const OrderManager = () => {
                     </div>
                   </div>
 
-                  <div className="flex flex-col md:flex-row gap-2 md:items-center">
+                  <div className="flex flex-col sm:flex-row gap-2 w-full md:w-auto">
                     <Select
                       value={order.status}
                       onValueChange={(value) => updateOrderStatus(order.id, value)}
                     >
-                      <SelectTrigger className="w-full md:w-[180px]">
+                      <SelectTrigger className="w-full md:w-[160px] h-9 text-xs sm:text-sm">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
@@ -277,7 +277,7 @@ export const OrderManager = () => {
                     <Button
                       variant="outline"
                       size="sm"
-                      className="w-full md:w-auto mt-2 md:mt-0"
+                      className="w-full md:w-auto h-9 text-xs sm:text-sm"
                       onClick={() => viewOrderDetails(order)}
                     >
                       <Eye className="h-4 w-4 mr-2" />

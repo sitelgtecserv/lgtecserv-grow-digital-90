@@ -271,7 +271,7 @@ const Index = () => {
       </section>
 
       {/* Technologies Section */}
-      <section className="py-20">
+      <section className="py-10 sm:py-16 md:py-20">
         <div className="container mx-auto px-4">
           <OptimizedScrollReveal>
             <div className="text-center mb-16">
@@ -288,7 +288,7 @@ const Index = () => {
             {technologies.map((tech, index) => (
               <OptimizedScrollReveal key={index} delay={index * 100}>
                 <Card className="bg-gradient-card border-0 shadow-sm hover:shadow-md transition-all duration-300 hover:scale-105 group">
-                  <CardContent className="p-6 text-center">
+                  <CardContent className="p-4 sm:p-6 text-center">
                     <div className="text-primary group-hover:scale-110 transition-transform duration-300 mb-3">
                       {tech.icon}
                     </div>
@@ -303,9 +303,9 @@ const Index = () => {
       </section>
 
       {/* Nossa História Section */}
-      <section className="py-20 bg-muted/30">
+      <section className="py-10 sm:py-16 md:py-20 bg-muted/30">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
             <OptimizedScrollReveal direction="left">
               <div>
                 <h2 className="text-3xl md:text-4xl font-bold mb-6">
@@ -357,7 +357,7 @@ const Index = () => {
       <PromotionalCarousel />
 
       {/* Services Section */}
-      <section className="py-20 bg-muted/30">
+      <section className="py-10 sm:py-16 md:py-20 bg-muted/30">
         <div className="container mx-auto px-4">
           <OptimizedScrollReveal>
             <div className="text-center mb-16">
@@ -395,7 +395,7 @@ const Index = () => {
       </section>
 
       {/* Process Section */}
-      <section className="py-20">
+      <section className="py-10 sm:py-16 md:py-20">
         <div className="container mx-auto px-4">
           <OptimizedScrollReveal>
             <div className="text-center mb-16">
@@ -432,7 +432,7 @@ const Index = () => {
       </section>
 
       {/* Achievements Section */}
-      <section className="py-20 bg-muted/30">
+      <section className="py-10 sm:py-16 md:py-20 bg-muted/30">
         <div className="container mx-auto px-4">
           <OptimizedScrollReveal>
             <div className="text-center mb-16">
@@ -449,7 +449,7 @@ const Index = () => {
             {achievements.map((achievement, index) => (
               <OptimizedScrollReveal key={index} delay={index * 200}>
                 <Card className="bg-gradient-card border-0 shadow-sm hover:shadow-lg transition-all duration-300 group h-full">
-                  <CardContent className="p-8 text-center h-full flex flex-col">
+                  <CardContent className="p-4 sm:p-6 md:p-8 text-center h-full flex flex-col">
                     <div className="group-hover:scale-110 transition-transform duration-300 mb-6">
                       {achievement.icon}
                     </div>
@@ -464,9 +464,9 @@ const Index = () => {
       </section>
 
       {/* Why Choose Us Section */}
-      <section className="py-20">
+      <section className="py-10 sm:py-16 md:py-20">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
             <OptimizedScrollReveal direction="left">
               <div>
                 <h2 className="text-3xl md:text-4xl font-bold mb-6">
@@ -503,7 +503,7 @@ const Index = () => {
             
             <OptimizedScrollReveal direction="right">
               <div className="relative">
-                <Card className="bg-gradient-card border-0 shadow-elegant p-8 transform hover:scale-105 transition-transform duration-300">
+                <Card className="bg-gradient-card border-0 shadow-elegant p-4 sm:p-6 md:p-8 transform hover:scale-105 transition-transform duration-300">
                   <div className="text-center">
                     <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-4">
                       <Users className="w-8 h-8 text-primary" />
@@ -530,7 +530,7 @@ const Index = () => {
       </section>
 
       {/* Team Section */}
-      <section className="py-20">
+      <section className="py-10 sm:py-16 md:py-20">
         <div className="container mx-auto px-4">
           <OptimizedScrollReveal>
             <div className="text-center mb-16">
@@ -605,7 +605,7 @@ const Index = () => {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-20 bg-muted/30">
+      <section className="py-10 sm:py-16 md:py-20 bg-muted/30">
         <div className="container mx-auto px-4">
           <OptimizedScrollReveal>
             <div className="text-center mb-16">
@@ -639,7 +639,7 @@ const Index = () => {
                 <Button 
                   size="lg" 
                   asChild
-                  className="text-lg px-10 py-4 bg-gradient-primary shadow-elegant group relative overflow-hidden transform hover:scale-105 transition-all duration-300"
+                  className="text-base sm:text-lg px-6 sm:px-10 py-3.5 sm:py-4 bg-gradient-primary shadow-elegant group relative overflow-hidden transform hover:scale-105 transition-all duration-300"
                 >
                   <Link to="/pagina-de-contato-lg-tecserv-mocambique">
                     <span className="relative z-10 flex items-center justify-center">
@@ -653,7 +653,7 @@ const Index = () => {
                   size="lg" 
                   variant="outline" 
                   asChild
-                  className="text-lg px-10 py-4 group transform hover:scale-105 transition-all duration-300"
+                  className="text-base sm:text-lg px-6 sm:px-10 py-3.5 sm:py-4 group transform hover:scale-105 transition-all duration-300"
                 >
                   <a href="https://api.whatsapp.com/send?phone=258869824047&text=Ol%C3%A1%2C%20quero%20uma%20consulta%20gratuita%20sobre%20marketing%20digital!" target="_blank" rel="noopener noreferrer">
                     <MessageCircle className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
@@ -667,7 +667,7 @@ const Index = () => {
       </section>
 
       {/* Partners Section */}
-      <section className="py-20 bg-muted/30 relative overflow-hidden">
+      <section className="py-10 sm:py-16 md:py-20 bg-muted/30 relative overflow-hidden">
         <div className="container mx-auto px-4">
           <OptimizedScrollReveal>
             <div className="text-center mb-16">
@@ -680,7 +680,7 @@ const Index = () => {
             </div>
           </OptimizedScrollReveal>
           
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 items-center justify-items-center">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-8 items-center justify-items-center">
             {[
               { name: "AJC Serviços", logo: "/lovable-uploads/partner-ajc-services.png" },
               { name: "Energia Moderna", logo: "/lovable-uploads/partner-energia-logo.png" },
@@ -689,14 +689,13 @@ const Index = () => {
               { name: "Clo Sabores", logo: "/lovable-uploads/partner-clo-sabores.png" }
             ].map((partner, index) => (
               <OptimizedScrollReveal key={index} delay={index * 100}>
-                <div className="group transform hover:scale-110 transition-all duration-300 p-6 rounded-xl bg-gray-800/90 shadow-lg hover:shadow-xl border border-gray-600/20 hover:bg-gray-700">
+                <div className="group transform hover:scale-110 transition-all duration-300 p-3 sm:p-6 rounded-xl bg-gray-800/90 shadow-lg hover:shadow-xl border border-gray-600/20 hover:bg-gray-700">
                   <img
                     src={partner.logo}
                     alt={`Logo ${partner.name}`}
-                    className="w-40 h-28 object-contain mx-auto transition-all duration-300 filter brightness-125 contrast-110 group-hover:brightness-130 group-hover:scale-105"
+                    className="w-28 sm:w-40 h-20 sm:h-28 object-contain mx-auto transition-all duration-300 filter brightness-125 contrast-110 group-hover:brightness-130 group-hover:scale-105"
                     style={{
-                      maxWidth: '160px',
-                      maxHeight: '112px',
+                      maxWidth: '100%',
                       width: 'auto',
                       height: 'auto'
                     }}

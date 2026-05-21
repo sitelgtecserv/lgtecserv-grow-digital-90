@@ -30,7 +30,7 @@ const LoyaltyProgress = ({ completedOrders }: { completedOrders: number }) => {
 
   return (
     <Card className={`mb-6 overflow-hidden ${isComplete ? 'border-amber-400 dark:border-amber-600' : 'border-primary/20'}`}>
-      <CardContent className="p-5">
+      <CardContent className="p-4 sm:p-5">
         <div className="flex items-center gap-3 mb-3">
           <div className={`p-2 rounded-full ${isComplete ? 'bg-amber-100 dark:bg-amber-900/30' : 'bg-primary/10'}`}>
             <Gift className={`h-5 w-5 ${isComplete ? 'text-amber-600 dark:text-amber-400' : 'text-primary'}`} />
@@ -232,8 +232,8 @@ const MeusPedidos = () => {
                   <ArrowLeft className="h-5 w-5" />
                 </Button>
                 <div className="flex-1">
-                  <h1 className="text-3xl font-bold">Meus Pedidos</h1>
-                  <p className="text-muted-foreground">Acompanhe o status dos seus pedidos</p>
+                  <h1 className="text-2xl min-[360px]:text-3xl font-bold">Meus Pedidos</h1>
+                  <p className="text-xs min-[360px]:text-sm text-muted-foreground">Acompanhe o status dos seus pedidos</p>
                 </div>
               </div>
 
@@ -265,7 +265,7 @@ const MeusPedidos = () => {
                 <div className="space-y-4">
                   {orders.map((order) => (
                     <Card key={order.id}>
-                      <CardContent className="p-6">
+                      <CardContent className="p-4 sm:p-6">
                         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                           <div className="flex items-start gap-4">
                             <div className="p-3 bg-primary/10 rounded-lg">

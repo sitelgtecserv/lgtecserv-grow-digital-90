@@ -121,9 +121,8 @@ const Header = () => {
             </Button>
           </div>
 
-          {/* Mobile menu button */}
           <div className="md:hidden">
-            <Button variant="ghost" size="sm" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+            <Button variant="ghost" size="icon" className="h-11 w-11" onClick={() => setIsMenuOpen(!isMenuOpen)}>
               {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </Button>
           </div>
@@ -134,7 +133,7 @@ const Header = () => {
       {isMenuOpen && <div className="md:hidden border-t bg-background">
           <div className="container mx-auto px-4 py-4">
             <nav className="flex flex-col space-y-4">
-              {navigation.map(item => <Link key={item.name} to={item.href} className={`text-sm font-medium transition-colors hover:text-primary ${isActive(item.href) ? "text-primary" : "text-muted-foreground"}`} onClick={() => setIsMenuOpen(false)}>
+              {navigation.map(item => <Link key={item.name} to={item.href} className={`text-sm font-medium transition-colors hover:text-primary py-2.5 px-1 block ${isActive(item.href) ? "text-primary font-semibold" : "text-muted-foreground"}`} onClick={() => setIsMenuOpen(false)}>
                   {item.name}
                 </Link>)}
               
@@ -142,8 +141,8 @@ const Header = () => {
               <div className="flex flex-col space-y-2">
                 <Link 
                   to="/servicos-lg-tecserv-mocambique" 
-                  className={`text-sm font-medium transition-colors hover:text-primary ${
-                    location.pathname === '/servicos-lg-tecserv-mocambique' ? "text-primary" : "text-muted-foreground"
+                  className={`text-sm font-medium transition-colors hover:text-primary py-2.5 px-1 block ${
+                    location.pathname === '/servicos-lg-tecserv-mocambique' ? "text-primary font-semibold" : "text-muted-foreground"
                   }`}
                   onClick={() => setIsMenuOpen(false)}
                 >
@@ -154,8 +153,8 @@ const Header = () => {
                     <Link
                       key={service.href}
                       to={service.href}
-                      className={`text-xs font-medium transition-colors hover:text-primary ${
-                        isActive(service.href) ? "text-primary" : "text-muted-foreground"
+                      className={`text-xs font-medium transition-colors hover:text-primary py-2 px-1 block ${
+                        isActive(service.href) ? "text-primary font-semibold" : "text-muted-foreground"
                       }`}
                       onClick={() => setIsMenuOpen(false)}
                     >
@@ -165,12 +164,12 @@ const Header = () => {
                 </div>
               </div>
               <div className="flex flex-col space-y-2 pt-4 border-t">
-                <Button asChild variant="outline" size="sm">
+                <Button asChild variant="outline" size="default">
                   <Link to="/pagina-de-contato-lg-tecserv-mocambique" onClick={() => setIsMenuOpen(false)}>
                     Orçamento Grátis
                   </Link>
                 </Button>
-                <Button asChild size="sm" className="bg-gradient-primary">
+                <Button asChild size="default" className="bg-gradient-primary">
                   <a href="https://api.whatsapp.com/send?phone=258869824047&text=Ol%C3%A1%2C%20tenho%20interesse%20nos%20seus%20servi%C3%A7os.%20Pode%20me%20dar%20mais%20informa%C3%A7%C3%B5es%3F" target="_blank" rel="noopener noreferrer">
                     WhatsApp
                   </a>
