@@ -1,37 +1,48 @@
-## Actualizar Edge Function `ia-loja`
+# Auto-Rebuild da Vercel quando produtos mudam
 
-A função já existe em `supabase/functions/ia-loja/index.ts` com `verify_jwt = false` no `config.toml`. Vou actualizá-la para incluir contexto completo da empresa e remover markdown das respostas.
+## Objetivo
+Sempre que um produto for criado, atualizado ou eliminado na tabela `products`, disparar automaticamente um POST para o Deploy Hook da Vercel, fazendo rebuild do site (regenera `sitemap.xml` e propaga produtos novos ao Google).
 
-### Alterações em `supabase/functions/ia-loja/index.ts`
+## Abordagem
+Usar a extensão `pg_net` (já disponível no Supabase) para chamar `net.http_post` diretamente da base de dados via um trigger AFTER INSERT/UPDATE/DELETE na tabela `products`.
 
-**1. Novo SYSTEM_PROMPT enriquecido** com:
-- **Contactos**: email contato@lgtecserv.com, telefones +258 84 1524 822 e +258 86 982 4047, WhatsApp +258 86 982 4047
-- **8 Serviços**: Criação de Sites, Design Gráfico, Tráfego Pago, Gestão de Redes Sociais, Consultoria de Marketing, Instalações Eléctricas (Residencial e Industrial), Topografia, Ensaios Fotográficos
-- **Páginas do site**: Home (/), Loja (/loja), Sobre (/sobre), Serviços (/servicos), Contacto (/contacto), FAQ (/faq), Documentação (/documentacao), Carrinho (/carrinho), Meus Pedidos (/meus-pedidos)
-- **Redes sociais**: Facebook, Instagram, WhatsApp
-- **Emails segmentados**: contato@ (geral), loja@ (pedidos), topografia@ (topografia)
+Vantagens: zero código no frontend, zero edge functions, dispara mesmo quando produtos são alterados via SQL ou painel admin.
 
-**2. Regra obrigatória anti-markdown** em todas as 3 acções:
-- Instrução explícita: "NUNCA use markdown. Não use asteriscos (*, **), cardinais (#), traços de lista (-), nem qualquer formatação markdown. Escreva em texto corrido natural."
-- Adicionar pós-processamento que faz strip de `**`, `*`, `#`, ` ``` ` caso o modelo escape
+## Migração SQL a aplicar
 
-**3. Acção `chat`** (mantém estrutura actual):
-- Busca produtos com `categories(name)` 
-- Separa disponíveis vs esgotados
-- gpt-4o-mini, max_tokens 500, retorna `{reply}` sem markdown
+```sql
+-- 1. Garantir que pg_net está ativo
+CREATE EXTENSION IF NOT EXISTS pg_net WITH SCHEMA extensions;
 
-**4. Acção `ai-insights`** (mantém estrutura actual):
-- Busca produtos + orders, calcula stats
-- gpt-4o-mini, max_tokens 800, retorna `{insights}` sem markdown
+-- 2. Função que chama o Deploy Hook da Vercel
+CREATE OR REPLACE FUNCTION public.trigger_vercel_rebuild()
+RETURNS TRIGGER
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public, extensions
+AS $$
+BEGIN
+  PERFORM net.http_post(
+    url := 'https://api.vercel.com/v1/integrations/deploy/prj_IMoVerMnAzaHfZg4TvzOTnBvf8Uj/AOYp6cSYs9',
+    headers := '{"Content-Type": "application/json"}'::jsonb,
+    body := '{}'::jsonb
+  );
+  RETURN COALESCE(NEW, OLD);
+END;
+$$;
 
-**5. Acção `generate-description`** (reforçada para SEO):
-- System prompt actualizado: copywriter SEO focado em keywords moçambicanas, 2-3 frases vendedoras, sem markdown
-- gpt-4o-mini, max_tokens 300, retorna `{description}`
+-- 3. Trigger na tabela products (INSERT, UPDATE, DELETE)
+DROP TRIGGER IF EXISTS products_vercel_rebuild ON public.products;
+CREATE TRIGGER products_vercel_rebuild
+AFTER INSERT OR UPDATE OR DELETE ON public.products
+FOR EACH ROW
+EXECUTE FUNCTION public.trigger_vercel_rebuild();
+```
 
-**6. CORS** mantido com `Access-Control-Allow-Origin: *` em todas as respostas (incluindo erros).
+## Considerações
+- **Silencioso e não-bloqueante:** `net.http_post` é assíncrono — não atrasa nem falha a operação no produto mesmo que a Vercel esteja em baixo.
+- **Múltiplas alterações em lote:** se forem editados 10 produtos seguidos, dispara 10 builds. A Vercel agrupa/cancela builds redundantes automaticamente, mas se quiser podemos depois adicionar debounce (não incluído nesta versão para manter simples).
+- **Sem alteração no frontend** nem em ficheiros do projeto — só a migração da BD.
 
-### Ficheiros
-- `supabase/functions/ia-loja/index.ts` — actualizar
-- `supabase/config.toml` — já tem `[functions.ia-loja] verify_jwt = false`, sem alterações
-- Secret `iadaloja` — já configurado, sem alterações
-- Sem alterações no frontend
+## Ficheiros a alterar
+- Apenas migração SQL via ferramenta de migrações (sem ficheiros do código).
