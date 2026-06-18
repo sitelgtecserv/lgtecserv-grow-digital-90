@@ -24,7 +24,8 @@ const staticPages = [
     { url: '/servicos/criacao-desenvolvimento-sites-profissionais-mocambique', title: 'Criação de Sites Profissionais Moçambique', img: '/lovable-uploads/criacao-sites-banner.webp', desc: 'Desenvolvemos sites rápidos, modernos e otimizados para vendas e conversões.' },
     { url: '/servicos/design-grafico-profissional-mocambique', title: 'Design Gráfico Profissional Moçambique', img: '/lovable-uploads/design-grafico-banner.webp', desc: 'Logótipos, banners e identidade visual profissional para a sua marca.' },
     { url: '/servicos/gestao-trafego-pago-marketing-digital-mocambique', title: 'Gestão Tráfego Pago Marketing Digital', img: '/lovable-uploads/consultoria-marketing-banner.webp', desc: 'Aumente as suas vendas com anúncios no Google, Facebook e Instagram.' },
-    { url: '/servicos/seguranca-eletronica-mocambique', title: 'Segurança Eletrónica Moçambique', img: '/lovable-uploads/Baner principal seguranca eletronica.webp', desc: 'Instalação e manutenção de Câmaras de Segurança, Cercas Elétricas e Controle de Acessos.' }
+    { url: '/servicos/seguranca-eletronica-mocambique', title: 'Segurança Eletrónica Moçambique', img: '/lovable-uploads/Baner principal seguranca eletronica.webp', desc: 'Instalação e manutenção de Câmaras de Segurança, Cercas Elétricas e Controle de Acessos.' },
+    { url: '/documentacao-oficial-lg-tecserv', title: 'Documentação Oficial - Termos e Políticas | LG TecServ', img: '/lovable-uploads/lg-tecserv-logo-oficial.webp', desc: 'Termos e Condições Gerais de Prestação de Serviços, Políticas de Reembolso, Garantias e Manutenção da LG TecServ Moçambique.' }
 ];
 
 function escapeHtml(unsafe) {
