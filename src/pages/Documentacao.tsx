@@ -218,43 +218,60 @@ const Documentacao = () => {
                         <CardTitle className="text-2xl">Missão, Visão e Valores</CardTitle>
                       </div>
                     </CardHeader>
-                    <CardContent className="space-y-6">
-                      <div className="space-y-3">
-                        <div className="flex items-start gap-3">
-                          <Target className="w-5 h-5 text-secondary mt-1 flex-shrink-0" />
+                    <CardContent className="space-y-8">
+                      <div className="space-y-3 p-6 bg-muted/30 rounded-xl border border-border/50">
+                        <div className="flex items-start gap-4">
+                          <div className="p-3 bg-background rounded-lg shadow-sm border border-border/50 flex-shrink-0">
+                            <Target className="w-6 h-6 text-secondary" />
+                          </div>
                           <div>
-                            <h3 className="text-xl font-semibold mb-2 text-foreground">Missão</h3>
-                            <p className="text-muted-foreground">
-                              Fornecer serviços digitais com qualidade, transparência e inovação.
+                            <h3 className="text-xl font-bold mb-3 text-foreground">A Nossa Missão</h3>
+                            <p className="text-muted-foreground leading-relaxed text-lg">
+                              Impulsionar a transformação digital das empresas em Moçambique e no mundo, fornecendo soluções tecnológicas inovadoras, robustas e escaláveis. Comprometemo-nos a entregar serviços de excelência que combinam design sofisticado, engenharia de ponta e estratégias orientadas para resultados, garantindo a total satisfação e o crescimento sustentável dos nossos clientes.
                             </p>
                           </div>
                         </div>
                       </div>
 
-                      <div className="space-y-3">
-                        <div className="flex items-start gap-3">
-                          <Eye className="w-5 h-5 text-secondary mt-1 flex-shrink-0" />
+                      <div className="space-y-3 p-6 bg-muted/30 rounded-xl border border-border/50">
+                        <div className="flex items-start gap-4">
+                          <div className="p-3 bg-background rounded-lg shadow-sm border border-border/50 flex-shrink-0">
+                            <Eye className="w-6 h-6 text-secondary" />
+                          </div>
                           <div>
-                            <h3 className="text-xl font-semibold mb-2 text-foreground">Visão</h3>
-                            <p className="text-muted-foreground">
-                              Ser referência em Moçambique na criação de sites e soluções digitais completas.
+                            <h3 className="text-xl font-bold mb-3 text-foreground">A Nossa Visão</h3>
+                            <p className="text-muted-foreground leading-relaxed text-lg">
+                              Consolidar a LG TecServ como a principal e mais confiável referência tecnológica em Moçambique e no continente africano. Ambicionamos liderar o mercado de soluções digitais através da inovação contínua, estabelecendo novos padrões de qualidade, segurança e performance no desenvolvimento de ecossistemas web e mobile.
                             </p>
                           </div>
                         </div>
                       </div>
 
-                      <div className="space-y-3">
-                        <div className="flex items-start gap-3">
-                          <Heart className="w-5 h-5 text-secondary mt-1 flex-shrink-0" />
-                          <div>
-                            <h3 className="text-xl font-semibold mb-2 text-foreground">Valores</h3>
-                            <div className="flex flex-wrap gap-2">
-                              <Badge variant="outline">Profissionalismo</Badge>
-                              <Badge variant="outline">Ética</Badge>
-                              <Badge variant="outline">Responsabilidade</Badge>
-                              <Badge variant="outline">Inovação</Badge>
-                              <Badge variant="outline">Respeito ao Cliente</Badge>
-                            </div>
+                      <div className="space-y-4 pt-4">
+                        <div className="flex items-center gap-3 mb-6">
+                          <Heart className="w-6 h-6 text-secondary flex-shrink-0" />
+                          <h3 className="text-xl font-bold text-foreground">Os Nossos Valores Essenciais</h3>
+                        </div>
+                        
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div className="p-4 border rounded-lg bg-card hover:border-secondary/50 transition-colors">
+                            <h4 className="font-semibold text-foreground mb-1">Profissionalismo & Rigor</h4>
+                            <p className="text-sm text-muted-foreground">Atuamos com o máximo rigor técnico, excelência operacional e compromisso inabalável com os prazos acordados.</p>
+                          </div>
+                          
+                          <div className="p-4 border rounded-lg bg-card hover:border-secondary/50 transition-colors">
+                            <h4 className="font-semibold text-foreground mb-1">Ética & Transparência</h4>
+                            <p className="text-sm text-muted-foreground">Mantemos total clareza e honestidade em todas as nossas relações comerciais e processos de desenvolvimento.</p>
+                          </div>
+                          
+                          <div className="p-4 border rounded-lg bg-card hover:border-secondary/50 transition-colors">
+                            <h4 className="font-semibold text-foreground mb-1">Inovação Tecnológica</h4>
+                            <p className="text-sm text-muted-foreground">Procuramos constantemente as melhores e mais recentes tecnologias para oferecer soluções à prova do futuro.</p>
+                          </div>
+                          
+                          <div className="p-4 border rounded-lg bg-card hover:border-secondary/50 transition-colors">
+                            <h4 className="font-semibold text-foreground mb-1">Foco Total no Cliente</h4>
+                            <p className="text-sm text-muted-foreground">O sucesso, a escalabilidade e os resultados dos nossos parceiros são a verdadeira métrica do nosso próprio sucesso.</p>
                           </div>
                         </div>
                       </div>
