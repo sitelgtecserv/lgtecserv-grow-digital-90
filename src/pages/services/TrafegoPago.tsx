@@ -110,7 +110,7 @@ const TrafegoPago = () => {
         title="Gestão de Tráfego Pago Google Ads Facebook Ads | Marketing Digital Moçambique - LG TecServ"
         description="Gestão profissional de tráfego pago em Moçambique. Campanhas no Google Ads e Facebook Ads com ROI garantido. Aumente suas vendas online com a LG TecServ!"
         keywords="tráfego pago Moçambique, Google Ads, Facebook Ads, marketing digital, campanhas pagas, ROI, vendas online, LG TecServ"
-        image="https://www.lgtecserv.com/lovable-uploads/consultoria-marketing-banner.png"
+        image="https://www.lgtecserv.com/lovable-uploads/consultoria-marketing-banner.webp"
         url="https://www.lgtecserv.com/servicos/gestao-trafego-pago-marketing-digital-mocambique"
         type="service"
         structuredData={[organizationData, serviceStructuredData]}

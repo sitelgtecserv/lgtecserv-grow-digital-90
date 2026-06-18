@@ -7,10 +7,10 @@ const HeroBanner = () => {
   const [currentImage, setCurrentImage] = useState(0);
 
   const bannerImages = [
-    "/lovable-uploads/cf635400-84f4-488e-9657-e75e01a40cb9.png",
-    "/lovable-uploads/28debcb6-ac82-49e3-a295-1e7d48776737.png", 
-    "/lovable-uploads/360c27c7-e400-44e2-8dc0-059c833a6322.png",
-    "/lovable-uploads/2e1040f3-64d4-4448-9285-beddd362435d.png"
+    "/lovable-uploads/cf635400-84f4-488e-9657-e75e01a40cb9.webp",
+    "/lovable-uploads/28debcb6-ac82-49e3-a295-1e7d48776737.webp", 
+    "/lovable-uploads/360c27c7-e400-44e2-8dc0-059c833a6322.webp",
+    "/lovable-uploads/2e1040f3-64d4-4448-9285-beddd362435d.webp"
   ];
 
   // Auto-rotate images every 5 seconds
@@ -81,6 +81,22 @@ const HeroBanner = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Wave Transition */}
+      <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none z-20 transform translate-y-[1px]">
+        <svg
+          className="relative block w-full h-[60px] md:h-[100px]"
+          data-name="Layer 1"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 1200 120"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C59.71,118.08,130.83,119.93,198.39,109.18Z"
+            className="text-background fill-current"
+          ></path>
+        </svg>
       </div>
 
     </section>

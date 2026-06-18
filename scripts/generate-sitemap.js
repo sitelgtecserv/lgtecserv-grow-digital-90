@@ -26,18 +26,41 @@ const staticPages = [
     { url: '/', priority: '1.0', changefreq: 'weekly' },
     { url: '/sobre-nos-lg-tecserv-mocambique', priority: '0.8', changefreq: 'monthly' },
     { url: '/servicos-lg-tecserv-mocambique', priority: '0.9', changefreq: 'weekly' },
-    { url: '/servicos/criacao-desenvolvimento-sites-profissionais-mocambique', priority: '0.8', changefreq: 'monthly', img: '/lovable-uploads/criacao-sites-banner.png', title: 'Criação de Sites Profissionais Moçambique' },
-    { url: '/servicos/design-grafico-profissional-mocambique', priority: '0.8', changefreq: 'monthly', img: '/lovable-uploads/design-grafico-banner.png', title: 'Design Gráfico Profissional Moçambique' },
-    { url: '/servicos/gestao-trafego-pago-marketing-digital-mocambique', priority: '0.8', changefreq: 'monthly', img: '/lovable-uploads/consultoria-marketing-banner.png', title: 'Gestão Tráfego Pago Marketing Digital Moçambique' },
-    { url: '/servicos/gestao-redes-sociais-marketing-digital-mocambique', priority: '0.8', changefreq: 'monthly', img: '/lovable-uploads/consultoria-marketing-banner.png', title: 'Gestão Redes Sociais Marketing Digital Moçambique' },
-    { url: '/servicos/consultoria-marketing-digital-estrategico-mocambique', priority: '0.8', changefreq: 'monthly', img: '/lovable-uploads/consultoria-marketing-banner.png', title: 'Consultoria Marketing Digital Estratégico Moçambique' },
-    { url: '/servicos/instalacoes-eletricas-profissionais-mocambique', priority: '0.8', changefreq: 'monthly', img: '/lovable-uploads/instalacoes-eletricas-banner.png', title: 'Instalações Elétricas Profissionais Moçambique' },
+    { url: '/servicos/criacao-desenvolvimento-sites-profissionais-mocambique', priority: '0.8', changefreq: 'monthly', img: '/lovable-uploads/criacao-sites-banner.webp', title: 'Criação de Sites Profissionais Moçambique' },
+    { url: '/servicos/design-grafico-profissional-mocambique', priority: '0.8', changefreq: 'monthly', img: '/lovable-uploads/design-grafico-banner.webp', title: 'Design Gráfico Profissional Moçambique' },
+    { url: '/servicos/gestao-trafego-pago-marketing-digital-mocambique', priority: '0.8', changefreq: 'monthly', img: '/lovable-uploads/consultoria-marketing-banner.webp', title: 'Gestão Tráfego Pago Marketing Digital Moçambique' },
+    { url: '/servicos/gestao-redes-sociais-marketing-digital-mocambique', priority: '0.8', changefreq: 'monthly', img: '/lovable-uploads/consultoria-marketing-banner.webp', title: 'Gestão Redes Sociais Marketing Digital Moçambique' },
+    { url: '/servicos/consultoria-marketing-digital-estrategico-mocambique', priority: '0.8', changefreq: 'monthly', img: '/lovable-uploads/consultoria-marketing-banner.webp', title: 'Consultoria Marketing Digital Estratégico Moçambique' },
+    { url: '/servicos/instalacoes-eletricas-profissionais-mocambique', priority: '0.8', changefreq: 'monthly', img: '/lovable-uploads/instalacoes-eletricas-banner.webp', title: 'Instalações Elétricas Profissionais Moçambique' },
     { url: '/servicos/eletricidade-residencial-instalacoes-domesticas-mocambique', priority: '0.7', changefreq: 'monthly' },
     { url: '/servicos/eletricidade-industrial-instalacoes-empresariais-mocambique', priority: '0.7', changefreq: 'monthly' },
+    { url: '/servicos/seguranca-eletronica-mocambique', priority: '0.8', changefreq: 'monthly', img: '/lovable-uploads/Baner principal seguranca eletronica.webp', title: 'Segurança Eletrónica Moçambique' },
     { url: '/pagina-de-contato-lg-tecserv-mocambique', priority: '0.7', changefreq: 'monthly' },
     { url: '/termos-e-condicoes-lg-tecserv', priority: '0.3', changefreq: 'yearly' },
     { url: '/sitemap', priority: '0.4', changefreq: 'monthly' },
-    { url: '/loja', priority: '0.9', changefreq: 'daily', img: '/lovable-uploads/cf635400-84f4-488e-9657-e75e01a40cb9.png', title: 'Loja Online - LG TecServ Moçambique' }
+    { url: '/loja', priority: '0.9', changefreq: 'daily', img: '/lovable-uploads/cf635400-84f4-488e-9657-e75e01a40cb9.webp', title: 'Loja Online - LG TecServ Moçambique' }
+];
+
+const targetCities = [
+    'maputo',
+    'matola',
+    'beira',
+    'nampula',
+    'quelimane',
+    'tete'
+];
+
+const targetServices = [
+    { slug: 'criacao-de-sites', title: 'Criação de Sites' },
+    { slug: 'design-grafico', title: 'Design Gráfico' },
+    { slug: 'trafego-pago', title: 'Tráfego Pago' },
+    { slug: 'gestao-de-redes-sociais', title: 'Gestão de Redes Sociais' },
+    { slug: 'consultoria-de-marketing', title: 'Consultoria de Marketing' },
+    { slug: 'instalacoes-eletricas', title: 'Instalações Elétricas' },
+    { slug: 'topografia', title: 'Topografia' },
+    { slug: 'ensaios-fotograficos', title: 'Ensaios Fotográficos' },
+    { slug: 'construcao-civil', title: 'Construção Civil' },
+    { slug: 'seguranca-eletronica', title: 'Segurança Eletrónica' }
 ];
 
 function escapeXml(unsafe) {
@@ -79,14 +102,22 @@ function createUrlNode(page) {
 async function generateSitemap() {
     console.log('\ud83d\udd04 A obter produtos da base de dados Supabase...');
 
+    let allProducts = [];
     try {
-        const { data: allProducts, error: allErr } = await supabase
+        try {
+        const { data, error } = await supabase
             .from('products')
             .select('id, name, slug, updated_at, categories(slug), product_images(image_url, is_primary)');
 
-        if (allErr) throw allErr;
-
-        console.log(`\u2705 Foram encontrados ${allProducts?.length || 0} produtos!`);
+        if (error) {
+            console.warn(`⚠️ Aviso: Erro ao obter produtos do Supabase, ignorando... (${error.message})`);
+        } else {
+            allProducts = data || [];
+            console.log(`✅ Foram encontrados ${allProducts.length} produtos!`);
+        }
+    } catch (e) {
+        console.warn(`⚠️ Aviso: Falha na ligação ao Supabase, a ignorar produtos da loja.`, e.message);
+    }
 
         let xmlContent = `<?xml version="1.0" encoding="UTF-8"?>\n`;
         xmlContent += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"\n`;
@@ -98,6 +129,23 @@ async function generateSitemap() {
         for (const page of staticPages) {
             xmlContent += createUrlNode(page);
             urlList.push(`${BASE_URL}${page.url}`);
+        }
+
+        // 1.5. Local SEO Dinâmico (Serviços X Cidades)
+        console.log(`\ud83d\udccd A gerar páginas de SEO Local...`);
+        for (const service of targetServices) {
+            for (const city of targetCities) {
+                const urlPath = `/servicos/${service.slug}/local/${city}`;
+                const cityName = city.charAt(0).toUpperCase() + city.slice(1);
+                const pageData = {
+                    url: urlPath,
+                    priority: '0.7',
+                    changefreq: 'monthly',
+                    title: `${service.title} em ${cityName} - Especialistas`
+                };
+                xmlContent += createUrlNode(pageData);
+                urlList.push(`${BASE_URL}${urlPath}`);
+            }
         }
 
         // 2. Produtos Dinâmicos

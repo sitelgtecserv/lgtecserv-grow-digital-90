@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { MapPin, Phone, Mail, Facebook, Instagram, Linkedin } from "lucide-react";
-const logoUrl = "/lovable-uploads/b1a5e62a-0fc0-447c-8210-6fed000d0b62.png";
+const logoUrl = "/lovable-uploads/b1a5e62a-0fc0-447c-8210-6fed000d0b62.webp";
 
 const Footer = () => {
   return (
@@ -103,6 +103,12 @@ const Footer = () => {
                   Contacto
                 </Link>
               </li>
+              <li>
+                <Link to="/vagas-de-emprego" className="text-sm text-white/90 hover:text-white hover:translate-x-1 transition-all duration-300 flex items-center py-2 px-1 group">
+                  <span className="w-1 h-1 bg-white rounded-full mr-3 group-hover:w-2 transition-all duration-300"></span>
+                  Vagas de Emprego
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -171,6 +177,18 @@ const Footer = () => {
                 <Link to="/servicos/ensaios-fotograficos-profissionais-sem-studio-mocambique" className="text-sm text-white/90 hover:text-white hover:translate-x-1 transition-all duration-300 flex items-center py-1.5 px-1 group">
                   <span className="w-1 h-1 bg-white rounded-full mr-3 group-hover:w-2 transition-all duration-300"></span>
                   Ensaios Fotográficos
+                </Link>
+              </li>
+              <li>
+                <Link to="/servicos/construcao-civil-mocambique" className="text-sm text-white/90 hover:text-white hover:translate-x-1 transition-all duration-300 flex items-center py-1.5 px-1 group">
+                  <span className="w-1 h-1 bg-white rounded-full mr-3 group-hover:w-2 transition-all duration-300"></span>
+                  Construção Civil
+                </Link>
+              </li>
+              <li>
+                <Link to="/servicos/seguranca-eletronica-mocambique" className="text-sm text-white/90 hover:text-white hover:translate-x-1 transition-all duration-300 flex items-center py-1.5 px-1 group">
+                  <span className="w-1 h-1 bg-white rounded-full mr-3 group-hover:w-2 transition-all duration-300"></span>
+                  Segurança Eletrónica
                 </Link>
               </li>
             </ul>

@@ -74,7 +74,7 @@ const Contact = () => {
         title="Contacte a LG TecServ - Orçamento Gratuito para Soluções Digitais"
         description="Entre em contacto com a LG TecServ para solicitar um orçamento gratuito. Estamos em Maputo, Moçambique, prontos para ajudar o seu negócio a crescer no mundo digital."
         keywords="contacto LG TecServ, orçamento gratuito, Maputo Moçambique, telefone, email, WhatsApp, soluções digitais"
-        image="https://www.lgtecserv.com/lovable-uploads/7c383221-e93f-4908-a3ab-03f2194a4b5b.png"
+        image="https://www.lgtecserv.com/lovable-uploads/7c383221-e93f-4908-a3ab-03f2194a4b5b.webp"
         url="https://www.lgtecserv.com/pagina-de-contato-lg-tecserv-mocambique"
         type="website"
         structuredData={[organizationData, localBusinessData]}

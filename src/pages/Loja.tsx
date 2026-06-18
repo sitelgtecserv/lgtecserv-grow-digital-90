@@ -21,7 +21,6 @@ import { BottomNav } from '@/components/shop/BottomNav';
 import { AiAssistant } from '@/components/shop/AiAssistant';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { CanonicalURL } from '@/components/seo/CanonicalURL';
 import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
 
 interface Product {
@@ -190,7 +189,6 @@ const Loja = () => {
         url={`${baseUrl}${canonicalPath}`}
         structuredData={productListSchema}
       />
-      <CanonicalURL baseUrl={baseUrl} canonicalPath={canonicalPath} />
       <div className="min-h-screen bg-background pb-20 md:pb-0">
         <ShopHeader onCartOpen={() => setCartDrawerOpen(true)} />
 

@@ -119,7 +119,7 @@ const RedesSociais = () => {
         title="Gestão de Redes Sociais Profissional | Facebook Instagram WhatsApp - LG TecServ"
         description="Gestão profissional de redes sociais em Moçambique. Criação de conteúdo, crescimento orgânico no Facebook, Instagram e WhatsApp Business. Aumente seu engajamento!"
         keywords="gestão redes sociais Moçambique, Facebook, Instagram, WhatsApp Business, conteúdo social, engajamento, crescimento orgânico, LG TecServ"
-        image="https://www.lgtecserv.com/lovable-uploads/consultoria-marketing-banner.png"
+        image="https://www.lgtecserv.com/lovable-uploads/consultoria-marketing-banner.webp"
         url="https://www.lgtecserv.com/servicos/gestao-redes-sociais-marketing-digital-mocambique"
         type="service"
         structuredData={[organizationData, serviceStructuredData]}

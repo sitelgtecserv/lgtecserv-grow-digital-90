@@ -32,7 +32,7 @@ export const CookiesBanner = () => {
         <div className="p-4 sm:p-6">
           <div className="flex items-start gap-4">
             <img 
-              src="/lovable-uploads/b1a5e62a-0fc0-447c-8210-6fed000d0b62.png" 
+              src="/lovable-uploads/b1a5e62a-0fc0-447c-8210-6fed000d0b62.webp" 
               alt="LG TecServ" 
               className="h-6 w-6 mt-1 flex-shrink-0 object-contain hidden sm:block" 
             />

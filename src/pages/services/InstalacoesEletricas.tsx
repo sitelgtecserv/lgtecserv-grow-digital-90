@@ -119,7 +119,7 @@ const InstalacoesEletricas = () => {
         title="Instalações Elétricas Profissionais Residenciais e Industriais | Moçambique - LG TecServ"
         description="Instalações elétricas profissionais em Moçambique. Serviços residenciais e industriais com segurança garantida, certificação técnica e manutenção especializada."
         keywords="instalações elétricas Moçambique, eletricista profissional, instalações residenciais, instalações industriais, manutenção elétrica, certificação, LG TecServ"
-        image="https://www.lgtecserv.com/lovable-uploads/instalacoes-eletricas-banner.png"
+        image="https://www.lgtecserv.com/lovable-uploads/instalacoes-eletricas-banner.webp"
         url="https://www.lgtecserv.com/servicos/instalacoes-eletricas-profissionais-mocambique"
         type="service"
         structuredData={[organizationData, serviceStructuredData]}

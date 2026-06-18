@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
+import { useInView } from "framer-motion";
 
 interface OptimizedCounterProps {
   end: number;
@@ -16,61 +17,41 @@ const OptimizedCounter = ({
   threshold = 0.3 
 }: OptimizedCounterProps) => {
   const [count, setCount] = useState(0);
-  const [isVisible, setIsVisible] = useState(false);
-  const counterRef = useRef<HTMLSpanElement>(null);
-  const animationRef = useRef<number>();
-
-  const startAnimation = useCallback(() => {
-    if (isVisible) return; // Prevent multiple animations
-    
-    setIsVisible(true);
-    let startTime: number;
-    const startCount = 0;
-
-    const animate = (currentTime: number) => {
-      if (!startTime) startTime = currentTime;
-      const progress = Math.min((currentTime - startTime) / duration, 1);
-      
-      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-      const currentCount = Math.floor(easeOutQuart * (end - startCount) + startCount);
-      
-      setCount(currentCount);
-
-      if (progress < 1) {
-        animationRef.current = requestAnimationFrame(animate);
-      } else {
-        setCount(end);
-      }
-    };
-
-    animationRef.current = requestAnimationFrame(animate);
-  }, [isVisible, end, duration]);
+  const ref = useRef<HTMLSpanElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "0px 0px -50px 0px" });
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !isVisible) {
-          startAnimation();
-          observer.disconnect(); // Stop observing after animation starts
+    if (isInView) {
+      let startTimestamp: number;
+      let animationFrameId: number;
+
+      const step = (timestamp: number) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        
+        // easeOutQuart
+        const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+        setCount(Math.floor(easeOutQuart * end));
+        
+        if (progress < 1) {
+          animationFrameId = window.requestAnimationFrame(step);
+        } else {
+          setCount(end);
         }
-      },
-      { threshold }
-    );
+      };
+      
+      animationFrameId = window.requestAnimationFrame(step);
 
-    if (counterRef.current) {
-      observer.observe(counterRef.current);
+      return () => {
+        if (animationFrameId) {
+          window.cancelAnimationFrame(animationFrameId);
+        }
+      };
     }
-
-    return () => {
-      observer.disconnect();
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
-    };
-  }, [startAnimation, isVisible, threshold]);
+  }, [isInView, end, duration]);
 
   return (
-    <span ref={counterRef} className="font-bold">
+    <span ref={ref} className="font-bold">
       {prefix}{count}{suffix}
     </span>
   );

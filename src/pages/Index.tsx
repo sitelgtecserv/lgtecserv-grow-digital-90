@@ -35,7 +35,9 @@ import {
   Smartphone,
   Search,
   MapPin,
-  Camera
+  Camera,
+  HardHat,
+  ShieldCheck
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import SEOHead from "@/components/seo/SEOHead";
@@ -54,7 +56,7 @@ const Index = () => {
         "Integração com redes sociais",
         "Painel administrativo intuitivo"
       ],
-      image: "/lovable-uploads/13b16b00-a0c3-4b06-97f3-2a00840fba17.png",
+      image: "/lovable-uploads/13b16b00-a0c3-4b06-97f3-2a00840fba17.webp",
       link: "/servicos/criacao-desenvolvimento-sites-profissionais-mocambique"
     },
     {
@@ -67,7 +69,7 @@ const Index = () => {
         "Identidade visual completa",
         "Design para redes sociais"
       ],
-      image: "/lovable-uploads/6ebe3952-c9f6-4acb-9671-26f3d73b4d89.png",
+      image: "/lovable-uploads/6ebe3952-c9f6-4acb-9671-26f3d73b4d89.webp",
       link: "/servicos/design-grafico-profissional-mocambique"
     },
     {
@@ -80,7 +82,7 @@ const Index = () => {
         "Relatórios detalhados de performance",
         "Otimização contínua das campanhas"
       ],
-      image: "/lovable-uploads/97dafdc2-4228-47b1-b714-a1bac6741704.png",
+      image: "/lovable-uploads/97dafdc2-4228-47b1-b714-a1bac6741704.webp",
       link: "/servicos/gestao-trafego-pago-marketing-digital-mocambique"
     },
     {
@@ -93,7 +95,7 @@ const Index = () => {
         "Aumento do engajamento",
         "Análise de métricas e resultados"
       ],
-      image: "/lovable-uploads/956f6140-f148-4d7b-8b9e-46e4e63a8bf2.png",
+      image: "/lovable-uploads/956f6140-f148-4d7b-8b9e-46e4e63a8bf2.webp",
       link: "/servicos/gestao-redes-sociais-marketing-digital-mocambique"
     },
     {
@@ -106,7 +108,7 @@ const Index = () => {
         "Otimização de processos",
         "Relatórios de performance"
       ],
-      image: "/lovable-uploads/8aa64f23-1d05-4062-baf8-1ebc04598ee1.png",
+      image: "/lovable-uploads/8aa64f23-1d05-4062-baf8-1ebc04598ee1.webp",
       link: "/servicos/consultoria-marketing-digital-estrategico-mocambique"
     },
     {
@@ -147,6 +149,32 @@ const Index = () => {
       ],
       image: "/lovable-uploads/ensaios-fotograficos-banner.webp",
       link: "/servicos/ensaios-fotograficos-profissionais-sem-studio-mocambique"
+    },
+    {
+      title: "Construção Civil",
+      description: "Construção de raiz, remodelações e fiscalização de obras com excelência",
+      icon: <HardHat className="w-6 h-6" />,
+      features: [
+        "Construção de moradias e edifícios",
+        "Remodelações completas",
+        "Projetos de arquitetura e engenharia",
+        "Gestão e fiscalização de obras"
+      ],
+      image: "/lovable-uploads/construcao-civil-banner.webp",
+      link: "/servicos/construcao-civil-mocambique"
+    },
+    {
+      title: "Segurança Eletrónica",
+      description: "Sistemas de CCTV, alarmes e controlo de acessos para a sua proteção",
+      icon: <ShieldCheck className="w-6 h-6" />,
+      features: [
+        "Sistemas de videovigilância (CCTV)",
+        "Controlo de acessos biométricos",
+        "Alarmes contra intrusão e incêndio",
+        "Monitorização e acesso remoto"
+      ],
+      image: "/lovable-uploads/Baner principal seguranca eletronica.webp",
+      link: "/servicos/seguranca-eletronica-mocambique"
     }
   ];
 
@@ -172,10 +200,10 @@ const Index = () => {
   ];
 
   const stats = [
-    { number: 200, label: "Clientes Satisfeitos", suffix: "+" },
-    { number: 500, label: "Projetos Concluídos", suffix: "+" },
-    { number: 5, label: "Anos de Experiência", suffix: "+" },
-    { number: 98, label: "Taxa de Satisfação", suffix: "%" }
+    { number: 500, label: "Clientes Satisfeitos", suffix: "+" },
+    { number: 1200, label: "Projetos Concluídos", suffix: "+" },
+    { number: 8, label: "Anos de Experiência", suffix: "+" },
+    { number: 99, label: "Taxa de Satisfação", suffix: "%" }
   ];
 
   const technologies = [
@@ -238,7 +266,7 @@ const Index = () => {
         title="LG TecServ - Soluções Digitais Completas | Criação de Sites, Design e Marketing Digital"
         description="LG TecServ oferece soluções completas em criação de sites, design gráfico, tráfego pago, gestão de redes sociais e consultoria de marketing em Moçambique. Faça seu negócio crescer!"
         keywords="criação de sites, design gráfico, tráfego pago, gestão redes sociais, marketing digital, LG TecServ, Moçambique, soluções digitais, desenvolvimento web"
-        image="https://www.lgtecserv.com/lovable-uploads/7c383221-e93f-4908-a3ab-03f2194a4b5b.png"
+        image="https://www.lgtecserv.com/lovable-uploads/7c383221-e93f-4908-a3ab-03f2194a4b5b.webp"
         url="https://www.lgtecserv.com/"
         type="website"
         structuredData={[organizationData, websiteData]}
@@ -251,7 +279,7 @@ const Index = () => {
       <HeroBanner />
 
       {/* Stats Section with Animated Counters */}
-      <section className="py-16 bg-muted/30 relative">
+      <section className="py-16 bg-background relative">
         <div className="container mx-auto px-4">
           <OptimizedScrollReveal>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
@@ -550,31 +578,31 @@ const Index = () => {
                 name: "Luis Matsenjua",
                 role: "Director Geral",
                 description: "Líder estratégico responsável pela visão e direção geral da empresa.",
-                image: "/lovable-uploads/luis-matsenjua.png"
+                image: "/lovable-uploads/luis-matsenjua.webp"
               },
               {
                 name: "Inácio Langa",
                 role: "CEO & Fundador",
                 description: "Líder visionário com vasta experiência em gestão empresarial e estratégia de negócios.",
-                image: "/lovable-uploads/66f9605c-90e0-4c1d-8691-d378145507c4.png"
+                image: "/lovable-uploads/66f9605c-90e0-4c1d-8691-d378145507c4.webp"
               },
               {
                 name: "Lemos Sabado",
                 role: "Agente de Campo e Coordenador Geral",
                 description: "Responsável pela coordenação das operações de campo e gestão geral dos projectos.",
-                image: "/lovable-uploads/lemos-sabado.png"
+                image: "/lovable-uploads/lemos-sabado.webp"
               },
               {
                 name: "Félex Lourindo",
                 role: "Técnico Sénior",
                 description: "Profissional especializado em desenvolvimento web e soluções tecnológicas avançadas.",
-                image: "/lovable-uploads/felex-lourindo.jpeg"
+                image: "/lovable-uploads/felex-lourindo.webp"
               },
               {
                 name: "Cláudia Armando",
                 role: "Assistente Administrativa",
                 description: "Responsável pela coordenação administrativa e suporte operacional da empresa.",
-                image: "/lovable-uploads/fe69f3f8-90ce-42e0-bb62-d81679a9ba6c.png"
+                image: "/lovable-uploads/fe69f3f8-90ce-42e0-bb62-d81679a9ba6c.webp"
               }
             ].map((member, index) => (
               <OptimizedScrollReveal key={index} delay={index * 150}>
@@ -682,11 +710,11 @@ const Index = () => {
           
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-8 items-center justify-items-center">
             {[
-              { name: "AJC Serviços", logo: "/lovable-uploads/partner-ajc-services.png" },
-              { name: "Energia Moderna", logo: "/lovable-uploads/partner-energia-logo.png" },
-              { name: "Geoconstrutivo", logo: "/lovable-uploads/partner-geoconstrutivo.png" },
-              { name: "QL Group", logo: "/lovable-uploads/partner-ql-group.png" },
-              { name: "Clo Sabores", logo: "/lovable-uploads/partner-clo-sabores.png" }
+              { name: "AJC Serviços", logo: "/lovable-uploads/partner-ajc-services.webp" },
+              { name: "Energia Moderna", logo: "/lovable-uploads/partner-energia-logo.webp" },
+              { name: "Geoconstrutivo", logo: "/lovable-uploads/partner-geoconstrutivo.webp" },
+              { name: "QL Group", logo: "/lovable-uploads/partner-ql-group.webp" },
+              { name: "Clo Sabores", logo: "/lovable-uploads/partner-clo-sabores.webp" }
             ].map((partner, index) => (
               <OptimizedScrollReveal key={index} delay={index * 100}>
                 <div className="group transform hover:scale-110 transition-all duration-300 p-3 sm:p-6 rounded-xl bg-gray-800/90 shadow-lg hover:shadow-xl border border-gray-600/20 hover:bg-gray-700">
@@ -720,6 +748,36 @@ const Index = () => {
         {/* Floating background elements */}
         <div className="absolute top-10 left-10 w-32 h-32 bg-primary/5 rounded-full blur-3xl" />
         <div className="absolute bottom-10 right-10 w-40 h-40 bg-accent/5 rounded-full blur-3xl" />
+      </section>
+
+      {/* Hiring Section */}
+      <section className="py-10 sm:py-16 md:py-20 bg-primary/5">
+        <div className="container mx-auto px-4">
+          <OptimizedScrollReveal>
+            <div className="bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-primary/10 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-primary opacity-5 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
+              <div className="flex flex-col md:flex-row items-center justify-between gap-8 relative z-10">
+                <div className="flex-1">
+                  <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                    Estamos a contratar em Moçambique!
+                  </h2>
+                  <p className="text-lg text-muted-foreground mb-6 max-w-xl">
+                    Junte-se à nossa equipa como Afiliado de Marketing Digital. Trabalhe de forma 100% remota, faça o seu próprio horário e ganhe excelentes comissões.
+                  </p>
+                  <Button asChild size="lg" className="bg-gradient-primary shadow-primary transform hover:scale-105 transition-all duration-300">
+                    <Link to="/vagas-de-emprego">
+                      Trabalhe Connosco
+                      <ArrowRight className="w-5 h-5 ml-2" />
+                    </Link>
+                  </Button>
+                </div>
+                <div className="hidden md:flex w-48 h-48 bg-primary/5 rounded-full items-center justify-center">
+                  <Users className="w-24 h-24 text-primary opacity-80" />
+                </div>
+              </div>
+            </div>
+          </OptimizedScrollReveal>
+        </div>
       </section>
 
       {/* Related Links */}

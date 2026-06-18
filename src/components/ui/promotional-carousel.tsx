@@ -9,25 +9,25 @@ const PromotionalCarousel = () => {
   const banners = [
     {
       id: 1,
-      image: "/lovable-uploads/criacao-sites-banner.png",
+      image: "/lovable-uploads/criacao-sites-banner.webp",
       alt: "Promoção Criação de Sites",
       whatsappMessage: "Olá! Tenho interesse na mega promoção de criação de sites por 4999 MT. Podem me dar mais informações?"
     },
     {
       id: 2,
-      image: "/lovable-uploads/design-grafico-banner.png",
+      image: "/lovable-uploads/design-grafico-banner.webp",
       alt: "Promoção Design Gráfico",
       whatsappMessage: "Olá! Gostaria de saber mais sobre a promoção Paga 1 Leva 2 em Design Gráfico!"
     },
     {
       id: 3,
-      image: "/lovable-uploads/consultoria-marketing-banner.png",
+      image: "/lovable-uploads/consultoria-marketing-banner.webp",
       alt: "Consultoria de Marketing",
       whatsappMessage: "Olá! Quero agendar uma consultoria de marketing para fazer minha empresa crescer!"
     },
     {
       id: 4,
-      image: "/lovable-uploads/instalacoes-eletricas-banner.png",
+      image: "/lovable-uploads/instalacoes-eletricas-banner.webp",
       alt: "Instalações Elétricas",
       whatsappMessage: "Olá! Tenho interesse na promoção de instalações elétricas seguras. Podem me ajudar?"
     }

@@ -10,7 +10,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-const logoUrl = "/lovable-uploads/b1a5e62a-0fc0-447c-8210-6fed000d0b62.png";
+const logoUrl = "/lovable-uploads/b1a5e62a-0fc0-447c-8210-6fed000d0b62.webp";
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
@@ -23,6 +23,9 @@ const Header = () => {
   }, {
     name: "Loja",
     href: "/loja"
+  }, {
+    name: "Vagas",
+    href: "/vagas-de-emprego"
   }, {
     name: "Contacto",
     href: "/pagina-de-contato-lg-tecserv-mocambique"
@@ -39,6 +42,8 @@ const Header = () => {
     { name: "Instalações Elétricas", href: "/servicos/instalacoes-eletricas-profissionais-mocambique" },
     { name: "Eletricidade Residencial", href: "/servicos/eletricidade-residencial-instalacoes-domesticas-mocambique" },
     { name: "Eletricidade Industrial", href: "/servicos/eletricidade-industrial-instalacoes-empresariais-mocambique" },
+    { name: "Construção Civil", href: "/servicos/construcao-civil-mocambique" },
+    { name: "Segurança Eletrónica", href: "/servicos/seguranca-eletronica-mocambique" },
   ];
   const isActive = (path: string) => location.pathname === path;
   return <header className="bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50 w-full border-b shadow-sm">

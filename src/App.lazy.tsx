@@ -11,6 +11,7 @@ export const RedesSociais = lazy(() => import('./pages/services/RedesSociais'));
 export const TrafegoPago = lazy(() => import('./pages/services/TrafegoPago'));
 export const Topografia = lazy(() => import('./pages/services/Topografia'));
 export const EnsaiosFotograficos = lazy(() => import('./pages/services/EnsaiosFotograficos'));
+export const SegurancaEletronica = lazy(() => import('./pages/services/SegurancaEletronica'));
 
 // Lazy load other pages
 export const About = lazy(() => import('./pages/About'));
@@ -20,6 +21,9 @@ export const Contact = lazy(() => import('./pages/Contact'));
 export const TermosCondicoes = lazy(() => import('./pages/TermosCondicoes'));
 export const PoliticaPrivacidade = lazy(() => import('./pages/PoliticaPrivacidade'));
 export const FAQ = lazy(() => import('./pages/FAQ'));
+export const VagasDeEmprego = lazy(() => import('./pages/VagasDeEmprego'));
+export const ConstrucaoCivil = lazy(() => import('./pages/ConstrucaoCivil'));
+export const LocalSEO = lazy(() => import('./pages/LocalSEO'));
 
 // Lazy load shop pages
 export const Auth = lazy(() => import('./pages/Auth'));

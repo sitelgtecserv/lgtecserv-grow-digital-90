@@ -138,7 +138,7 @@ const ConsultoriaMarketing = () => {
         title="Consultoria de Marketing Digital Estratégico | Consultores Especializados - LG TecServ"
         description="Consultoria de marketing digital especializada em Moçambique. Estratégias personalizadas, análise de mercado e planos de crescimento para seu negócio. Consultores experientes!"
         keywords="consultoria marketing digital Moçambique, estratégia marketing, consultores especializados, análise mercado, plano marketing, crescimento negócios, LG TecServ"
-        image="https://www.lgtecserv.com/lovable-uploads/consultoria-marketing-banner.png"
+        image="https://www.lgtecserv.com/lovable-uploads/consultoria-marketing-banner.webp"
         url="https://www.lgtecserv.com/servicos/consultoria-marketing-digital-estrategico-mocambique"
         type="service"
         structuredData={[organizationData, serviceStructuredData]}

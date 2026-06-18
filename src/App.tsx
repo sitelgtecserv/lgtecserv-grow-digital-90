@@ -3,6 +3,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HelmetProvider } from "react-helmet-async";
 import { Suspense } from "react";
 import { AuthProvider } from "./contexts/AuthContext";
 import { CartProvider } from "./contexts/CartContext";
@@ -32,6 +33,7 @@ import {
   TrafegoPago,
   Topografia,
   EnsaiosFotograficos,
+  SegurancaEletronica,
   Auth,
   Loja,
   ProductDetail,
@@ -41,7 +43,10 @@ import {
   MeusPedidos,
   Admin,
   GoogleSearchConsole,
-  MemberProfile
+  MemberProfile,
+  VagasDeEmprego,
+  ConstrucaoCivil,
+  LocalSEO
 } from "./App.lazy";
 
 const queryClient = new QueryClient();
@@ -65,13 +70,20 @@ const AppContent = () => {
         <Route path="/servicos/instalacoes-eletricas-profissionais-mocambique" element={<InstalacoesEletricas />} />
         <Route path="/servicos/eletricidade-residencial-instalacoes-domesticas-mocambique" element={<EletricidadeResidencial />} />
         <Route path="/servicos/eletricidade-industrial-instalacoes-empresariais-mocambique" element={<EletricidadeIndustrial />} />
+        <Route path="/servicos/construcao-civil-mocambique" element={<ConstrucaoCivil />} />
         <Route path="/servicos/servicos-topograficos-profissionais-maputo-mocambique" element={<Topografia />} />
         <Route path="/servicos/ensaios-fotograficos-profissionais-sem-studio-mocambique" element={<EnsaiosFotograficos />} />
+        <Route path="/servicos/seguranca-eletronica-mocambique" element={<SegurancaEletronica />} />
+        
+        {/* Dynamic Local SEO Route */}
+        <Route path="/servicos/:serviceSlug/local/:cidadeSlug" element={<LocalSEO />} />
+        
         <Route path="/pagina-de-contato-lg-tecserv-mocambique" element={<Contact />} />
         <Route path="/termos-e-condicoes-lg-tecserv" element={<TermosCondicoes />} />
         <Route path="/politica-privacidade" element={<PoliticaPrivacidade />} />
         <Route path="/faq" element={<FAQ />} />
         <Route path="/documentacao-oficial-lg-tecserv" element={<Documentacao />} />
+        <Route path="/vagas-de-emprego" element={<VagasDeEmprego />} />
         <Route path="/sitemap" element={<Sitemap />} />
         {/* Loja Online Routes */}
         <Route path="/auth" element={<Auth />} />
@@ -98,25 +110,28 @@ const AppContent = () => {
   );
 };
 
+
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <BrowserRouter>
-        <AuthProvider>
-          <CartProvider>
-            <AccessibilityEnhancer />
-            <ScrollProgress />
-            <Toaster />
-            <Sonner />
-            <AppContent />
-            <AiAssistant />
-            <BackToTop />
-            <CookiesBanner />
-          </CartProvider>
-        </AuthProvider>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
+  <HelmetProvider>
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <BrowserRouter>
+          <AuthProvider>
+            <CartProvider>
+              <AccessibilityEnhancer />
+              <ScrollProgress />
+              <Toaster />
+              <Sonner />
+              <AppContent />
+              <AiAssistant />
+              <BackToTop />
+              <CookiesBanner />
+            </CartProvider>
+          </AuthProvider>
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
+  </HelmetProvider>
 );
 
 export default App;

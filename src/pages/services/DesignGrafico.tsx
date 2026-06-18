@@ -92,7 +92,7 @@ const DesignGrafico = () => {
         title="Design Gráfico Profissional em Moçambique | Logótipos e Identidade Visual - LG TecServ"
         description="Serviços de design gráfico profissional em Moçambique. Criação de logótipos, identidade visual, material promocional e design para redes sociais. Qualidade garantida!"
         keywords="design gráfico Moçambique, criação logótipos, identidade visual, design profissional, material gráfico, LG TecServ, Maputo"
-        image="https://www.lgtecserv.com/lovable-uploads/design-grafico-banner.png"
+        image="https://www.lgtecserv.com/lovable-uploads/design-grafico-banner.webp"
         url="https://www.lgtecserv.com/servicos/design-grafico-profissional-mocambique"
         type="service"
         structuredData={[organizationData, serviceStructuredData]}

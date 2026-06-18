@@ -93,7 +93,7 @@ const CriacaoSites = () => {
         title="Criação de Sites Profissionais em Moçambique | Desenvolvimento Web - LG TecServ"
         description="Criação de sites profissionais e responsivos em Moçambique. Desenvolvimento web com SEO otimizado, design moderno e preços acessíveis. Orçamento gratuito!"
         keywords="criação sites Moçambique, desenvolvimento web, sites responsivos, SEO, design web, programação sites, LG TecServ, Maputo"
-        image="https://www.lgtecserv.com/lovable-uploads/criacao-sites-banner.png"
+        image="https://www.lgtecserv.com/lovable-uploads/criacao-sites-banner.webp"
         url="https://www.lgtecserv.com/servicos/criacao-desenvolvimento-sites-profissionais-mocambique"
         type="service"
         structuredData={[organizationData, serviceStructuredData]}

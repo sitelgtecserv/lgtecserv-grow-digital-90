@@ -69,7 +69,7 @@ const Topografia = () => {
       "@type": "Organization",
       "name": "LG TecServ",
       "url": "https://www.lgtecserv.com",
-      "logo": "https://www.lgtecserv.com/lovable-uploads/7c383221-e93f-4908-a3ab-03f2194a4b5b.png"
+      "logo": "https://www.lgtecserv.com/lovable-uploads/7c383221-e93f-4908-a3ab-03f2194a4b5b.webp"
     },
     "areaServed": {
       "@type": "Place", 
