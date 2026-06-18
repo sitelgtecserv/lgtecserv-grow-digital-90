@@ -9,7 +9,7 @@ const BusinessBanner = () => {
             {/* Banner Image */}
             <div className="aspect-[16/10] sm:aspect-[16/6] md:aspect-[16/4] lg:aspect-[16/3] relative overflow-hidden bg-muted/10">
               <img
-                src="/lovable-uploads/325d2c5b-6f59-4ea5-9d92-9f389ced5bf8.webp"
+                src="/lovable-uploads/negocios-banner-promocional.webp"
                 alt="Transformação Digital - Tecnologia e Inovação"
                 className="w-full h-full object-cover"
               />

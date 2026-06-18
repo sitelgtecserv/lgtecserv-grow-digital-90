@@ -10,9 +10,10 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-const logoUrl = "/lovable-uploads/b1a5e62a-0fc0-447c-8210-6fed000d0b62.webp";
+const logoUrl = "/lovable-uploads/lg-tecserv-logo-oficial.webp";
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isServicesOpen, setIsServicesOpen] = useState(false);
   const location = useLocation();
   const navigation = [{
     name: "Início",
@@ -135,7 +136,7 @@ const Header = () => {
       </div>
 
       {/* Mobile Navigation */}
-      {isMenuOpen && <div className="md:hidden border-t bg-background">
+      {isMenuOpen && <div className="md:hidden border-t bg-background max-h-[calc(100vh-4.5rem)] overflow-y-auto">
           <div className="container mx-auto px-4 py-4">
             <nav className="flex flex-col space-y-4">
               {navigation.map(item => <Link key={item.name} to={item.href} className={`text-sm font-medium transition-colors hover:text-primary py-2.5 px-1 block ${isActive(item.href) ? "text-primary font-semibold" : "text-muted-foreground"}`} onClick={() => setIsMenuOpen(false)}>
@@ -144,29 +145,32 @@ const Header = () => {
               
               {/* Mobile Serviços menu */}
               <div className="flex flex-col space-y-2">
-                <Link 
-                  to="/servicos-lg-tecserv-mocambique" 
-                  className={`text-sm font-medium transition-colors hover:text-primary py-2.5 px-1 block ${
-                    location.pathname === '/servicos-lg-tecserv-mocambique' ? "text-primary font-semibold" : "text-muted-foreground"
+                <div 
+                  className={`flex items-center justify-between text-sm font-medium transition-colors hover:text-primary py-2.5 px-1 cursor-pointer ${
+                    location.pathname.startsWith('/servicos') ? "text-primary font-semibold" : "text-muted-foreground"
                   }`}
-                  onClick={() => setIsMenuOpen(false)}
+                  onClick={() => setIsServicesOpen(!isServicesOpen)}
                 >
-                  Serviços
-                </Link>
-                <div className="ml-4 flex flex-col space-y-2">
-                  {servicosSubmenu.map((service) => (
-                    <Link
-                      key={service.href}
-                      to={service.href}
-                      className={`text-xs font-medium transition-colors hover:text-primary py-2 px-1 block ${
-                        isActive(service.href) ? "text-primary font-semibold" : "text-muted-foreground"
-                      }`}
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      {service.name}
-                    </Link>
-                  ))}
+                  <Link to="/servicos-lg-tecserv-mocambique" onClick={(e) => { e.stopPropagation(); setIsMenuOpen(false); }}>Serviços</Link>
+                  <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${isServicesOpen ? "rotate-180" : ""}`} />
                 </div>
+                
+                {isServicesOpen && (
+                  <div className="ml-4 flex flex-col space-y-2 animate-in slide-in-from-top-2">
+                    {servicosSubmenu.map((service) => (
+                      <Link
+                        key={service.href}
+                        to={service.href}
+                        className={`text-xs font-medium transition-colors hover:text-primary py-2 px-1 block ${
+                          isActive(service.href) ? "text-primary font-semibold" : "text-muted-foreground"
+                        }`}
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        {service.name}
+                      </Link>
+                    ))}
+                  </div>
+                )}
               </div>
               <div className="flex flex-col space-y-2 pt-4 border-t">
                 <Button asChild variant="outline" size="default">

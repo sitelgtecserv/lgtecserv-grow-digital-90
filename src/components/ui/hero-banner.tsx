@@ -7,10 +7,10 @@ const HeroBanner = () => {
   const [currentImage, setCurrentImage] = useState(0);
 
   const bannerImages = [
-    "/lovable-uploads/cf635400-84f4-488e-9657-e75e01a40cb9.webp",
-    "/lovable-uploads/28debcb6-ac82-49e3-a295-1e7d48776737.webp", 
-    "/lovable-uploads/360c27c7-e400-44e2-8dc0-059c833a6322.webp",
-    "/lovable-uploads/2e1040f3-64d4-4448-9285-beddd362435d.webp"
+    "/lovable-uploads/lg-tecserv-logo-seo.webp",
+    "/lovable-uploads/banner-hero-marketing.webp", 
+    "/lovable-uploads/banner-hero-tecnologia.webp",
+    "/lovable-uploads/banner-hero-inovacao.webp"
   ];
 
   // Auto-rotate images every 5 seconds

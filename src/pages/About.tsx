@@ -31,10 +31,10 @@ const About = () => {
 
   const team = [
     { name: "Luís Martins", role: "Director Geral", slug: "luismatsenjua", description: "Líder estratégico com ampla experiência em gestão empresarial e desenvolvimento de negócios.", image: "/lovable-uploads/luis-matsenjua.webp" },
-    { name: "Inácio Langa", role: "CEO & Fundador", slug: "inaciolanga", description: "Líder visionário com vasta experiência em gestão empresarial e estratégia de negócios.", image: "/lovable-uploads/66f9605c-90e0-4c1d-8691-d378145507c4.webp" },
+    { name: "Inácio Langa", role: "CEO & Fundador", slug: "inaciolanga", description: "Líder visionário com vasta experiência em gestão empresarial e estratégia de negócios.", image: "/lovable-uploads/equipe-membro-1.webp" },
     { name: "Félix Florindo", role: "Técnico Sénior – Marketing Digital", slug: "felexlourindo", description: "Especialista em produção audiovisual e campanhas de marketing digital.", image: "/lovable-uploads/felex-lourindo.webp" },
     { name: "Lemos Sábado", role: "Coordenador Geral & Técnico Operacional", slug: "lemossabado", description: "Responsável pela coordenação operacional e execução de serviços técnicos.", image: "/lovable-uploads/lemos-sabado.webp" },
-    { name: "Cláudia Muale", role: "Assistente Administrativa", slug: "claudiaarmando", description: "Responsável pela gestão administrativa e assuntos legais da empresa.", image: "/lovable-uploads/fe69f3f8-90ce-42e0-bb62-d81679a9ba6c.webp" }
+    { name: "Cláudia Muale", role: "Assistente Administrativa", slug: "claudiaarmando", description: "Responsável pela gestão administrativa e assuntos legais da empresa.", image: "/lovable-uploads/equipe-membro-2.webp" }
   ];
 
   const achievements = [
@@ -50,7 +50,7 @@ const About = () => {
         title="Sobre a LG TecServ - Empresa de Soluções Digitais em Moçambique"
         description="Conheça a LG TecServ, empresa moçambicana especializada em soluções digitais desde 2019. Nossa equipa experiente oferece serviços de qualidade em criação de sites, marketing digital e instalações elétricas."
         keywords="LG TecServ, sobre nós, empresa moçambicana, soluções digitais, Maputo, história da empresa, equipa, marketing digital Moçambique"
-        image="https://www.lgtecserv.com/lovable-uploads/7c383221-e93f-4908-a3ab-03f2194a4b5b.webp"
+        image="https://www.lgtecserv.com/lovable-uploads/lg-tecserv-logo-secundario.webp"
         url="https://www.lgtecserv.com/sobre-nos-lg-tecserv-mocambique"
         type="website"
         structuredData={[organizationData, localBusinessData]}

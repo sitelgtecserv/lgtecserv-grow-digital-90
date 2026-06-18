@@ -14,7 +14,7 @@ const SEOHead: React.FC<SEOHeadProps> = ({ children, ...seoConfig }) => {
     ? schemas 
     : [...schemas, organizationData, websiteData];
 
-  const defaultImage = `${baseUrl}/lovable-uploads/cf635400-84f4-488e-9657-e75e01a40cb9.webp`;
+  const defaultImage = `${baseUrl}/lovable-uploads/lg-tecserv-logo-seo.webp`;
   const image = seoConfig.image || defaultImage;
 
   return (

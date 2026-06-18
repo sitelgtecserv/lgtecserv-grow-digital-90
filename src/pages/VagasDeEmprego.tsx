@@ -19,7 +19,7 @@ const jobPostingSchema = {
     "@type": "Organization",
     "name": "LG TecServ",
     "sameAs": "https://www.lgtecserv.com",
-    "logo": "https://www.lgtecserv.com/lovable-uploads/cf635400-84f4-488e-9657-e75e01a40cb9.webp"
+    "logo": "https://www.lgtecserv.com/lovable-uploads/lg-tecserv-logo-seo.webp"
   },
   "jobLocation": {
     "@type": "Place",

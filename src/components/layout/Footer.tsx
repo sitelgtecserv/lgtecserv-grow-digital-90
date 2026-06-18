@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { MapPin, Phone, Mail, Facebook, Instagram, Linkedin } from "lucide-react";
-const logoUrl = "/lovable-uploads/b1a5e62a-0fc0-447c-8210-6fed000d0b62.webp";
+const logoUrl = "/lovable-uploads/lg-tecserv-logo-oficial.webp";
 
 const Footer = () => {
   return (

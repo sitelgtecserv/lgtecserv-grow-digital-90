@@ -15,7 +15,7 @@ const LOCAL_BUSINESS_SCHEMA = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   "name": "LG TecServ",
-  "image": "https://www.lgtecserv.com/lovable-uploads/cf635400-84f4-488e-9657-e75e01a40cb9.webp",
+  "image": "https://www.lgtecserv.com/lovable-uploads/lg-tecserv-logo-seo.webp",
   "@id": "https://www.lgtecserv.com",
   "url": "https://www.lgtecserv.com",
   "telephone": "+258842145328",

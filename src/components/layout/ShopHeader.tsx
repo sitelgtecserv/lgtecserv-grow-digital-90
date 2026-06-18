@@ -1,6 +1,6 @@
 import { ShoppingBag, LogOut, Shield, Menu, Search, History, Gift, LogIn } from 'lucide-react';
 
-const LOGO_URL = '/lovable-uploads/7c383221-e93f-4908-a3ab-03f2194a4b5b.webp';
+const LOGO_URL = '/lovable-uploads/lg-tecserv-logo-secundario.webp';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
 import { useCart } from '@/contexts/CartContext';

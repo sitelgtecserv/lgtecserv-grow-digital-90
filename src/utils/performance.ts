@@ -46,7 +46,7 @@ export const initPerformanceOptimizations = () => {
   preconnect('https://fonts.gstatic.com');
   
   // Preload critical images
-  preloadImage('/lovable-uploads/7c383221-e93f-4908-a3ab-03f2194a4b5b.webp');
+  preloadImage('/lovable-uploads/lg-tecserv-logo-secundario.webp');
   
   // Set up Service Worker for caching (if available)
   if ('serviceWorker' in navigator && 'caches' in window) {

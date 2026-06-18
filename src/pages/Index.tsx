@@ -56,7 +56,7 @@ const Index = () => {
         "Integração com redes sociais",
         "Painel administrativo intuitivo"
       ],
-      image: "/lovable-uploads/13b16b00-a0c3-4b06-97f3-2a00840fba17.webp",
+      image: "/lovable-uploads/servico-criacao-sites.webp",
       link: "/servicos/criacao-desenvolvimento-sites-profissionais-mocambique"
     },
     {
@@ -69,7 +69,7 @@ const Index = () => {
         "Identidade visual completa",
         "Design para redes sociais"
       ],
-      image: "/lovable-uploads/6ebe3952-c9f6-4acb-9671-26f3d73b4d89.webp",
+      image: "/lovable-uploads/servico-design-grafico.webp",
       link: "/servicos/design-grafico-profissional-mocambique"
     },
     {
@@ -82,7 +82,7 @@ const Index = () => {
         "Relatórios detalhados de performance",
         "Otimização contínua das campanhas"
       ],
-      image: "/lovable-uploads/97dafdc2-4228-47b1-b714-a1bac6741704.webp",
+      image: "/lovable-uploads/servico-trafego-pago.webp",
       link: "/servicos/gestao-trafego-pago-marketing-digital-mocambique"
     },
     {
@@ -95,7 +95,7 @@ const Index = () => {
         "Aumento do engajamento",
         "Análise de métricas e resultados"
       ],
-      image: "/lovable-uploads/956f6140-f148-4d7b-8b9e-46e4e63a8bf2.webp",
+      image: "/lovable-uploads/servico-gestao-redes-sociais.webp",
       link: "/servicos/gestao-redes-sociais-marketing-digital-mocambique"
     },
     {
@@ -108,7 +108,7 @@ const Index = () => {
         "Otimização de processos",
         "Relatórios de performance"
       ],
-      image: "/lovable-uploads/8aa64f23-1d05-4062-baf8-1ebc04598ee1.webp",
+      image: "/lovable-uploads/servico-consultoria-marketing.webp",
       link: "/servicos/consultoria-marketing-digital-estrategico-mocambique"
     },
     {
@@ -266,7 +266,7 @@ const Index = () => {
         title="LG TecServ - Soluções Digitais Completas | Criação de Sites, Design e Marketing Digital"
         description="LG TecServ oferece soluções completas em criação de sites, design gráfico, tráfego pago, gestão de redes sociais e consultoria de marketing em Moçambique. Faça seu negócio crescer!"
         keywords="criação de sites, design gráfico, tráfego pago, gestão redes sociais, marketing digital, LG TecServ, Moçambique, soluções digitais, desenvolvimento web"
-        image="https://www.lgtecserv.com/lovable-uploads/7c383221-e93f-4908-a3ab-03f2194a4b5b.webp"
+        image="https://www.lgtecserv.com/lovable-uploads/lg-tecserv-logo-secundario.webp"
         url="https://www.lgtecserv.com/"
         type="website"
         structuredData={[organizationData, websiteData]}
@@ -584,7 +584,7 @@ const Index = () => {
                 name: "Inácio Langa",
                 role: "CEO & Fundador",
                 description: "Líder visionário com vasta experiência em gestão empresarial e estratégia de negócios.",
-                image: "/lovable-uploads/66f9605c-90e0-4c1d-8691-d378145507c4.webp"
+                image: "/lovable-uploads/equipe-membro-1.webp"
               },
               {
                 name: "Lemos Sabado",
@@ -602,7 +602,7 @@ const Index = () => {
                 name: "Cláudia Armando",
                 role: "Assistente Administrativa",
                 description: "Responsável pela coordenação administrativa e suporte operacional da empresa.",
-                image: "/lovable-uploads/fe69f3f8-90ce-42e0-bb62-d81679a9ba6c.webp"
+                image: "/lovable-uploads/equipe-membro-2.webp"
               }
             ].map((member, index) => (
               <OptimizedScrollReveal key={index} delay={index * 150}>
