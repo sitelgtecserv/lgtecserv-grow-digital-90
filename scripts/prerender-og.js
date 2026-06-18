@@ -96,11 +96,11 @@ async function runPrerender() {
             url: fullUrl
         });
         
-        // Criar diretório e escrever o index.html clone
-        const targetDir = path.join(distPath, page.url.substring(1)); // remove leading slash
-        fs.mkdirSync(targetDir, { recursive: true });
-        fs.writeFileSync(path.join(targetDir, 'index.html'), newHtml, 'utf8');
-        console.log(`✅ Prerendered genérico: ${page.url}`);
+        // Criar diretório e escrever o .html clone
+        const targetFilePath = path.join(distPath, page.url + '.html');
+        fs.mkdirSync(path.dirname(targetFilePath), { recursive: true });
+        fs.writeFileSync(targetFilePath, newHtml, 'utf8');
+        console.log(`✅ Prerendered genérico: ${page.url}.html`);
     }
 
     // 2. Fetch de Produtos do Supabase para renderizar dinamicamente
@@ -134,10 +134,10 @@ async function runPrerender() {
                         url: fullUrl
                     });
                     
-                    const targetDir = path.join(distPath, urlPath.substring(1));
-                    fs.mkdirSync(targetDir, { recursive: true });
-                    fs.writeFileSync(path.join(targetDir, 'index.html'), newHtml, 'utf8');
-                    console.log(`✅ Prerendered produto: ${urlPath}`);
+                    const targetFilePath = path.join(distPath, urlPath + '.html');
+                    fs.mkdirSync(path.dirname(targetFilePath), { recursive: true });
+                    fs.writeFileSync(targetFilePath, newHtml, 'utf8');
+                    console.log(`✅ Prerendered produto: ${urlPath}.html`);
                 }
             }
         } catch (e) {
