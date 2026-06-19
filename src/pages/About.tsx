@@ -10,6 +10,18 @@ import SEOHead from "@/components/seo/SEOHead";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { organizationData, localBusinessData } from "@/utils/seoData";
 
+const videoData = {
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "LG TecServ - Nossa História",
+  "description": "Conheça a história da LG TecServ, uma empresa moçambicana dedicada a transformar negócios através de soluções digitais inovadoras.",
+  "thumbnailUrl": [
+    "https://img.youtube.com/vi/3phYfGSglH8/maxresdefault.jpg"
+  ],
+  "uploadDate": "2023-01-01T08:00:00+08:00",
+  "embedUrl": "https://www.youtube.com/embed/3phYfGSglH8"
+};
+
 const About = () => {
   const values = [
     {
@@ -53,7 +65,7 @@ const About = () => {
         image="https://www.lgtecserv.com/lovable-uploads/lg-tecserv-logo-secundario.webp"
         url="https://www.lgtecserv.com/sobre-nos-lg-tecserv-mocambique"
         type="website"
-        structuredData={[organizationData, localBusinessData]}
+        structuredData={[organizationData, localBusinessData, videoData]}
       />
       <div className="min-h-screen">
         <Header />

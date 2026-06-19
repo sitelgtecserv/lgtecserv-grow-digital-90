@@ -43,6 +43,17 @@ import { Link } from "react-router-dom";
 import SEOHead from "@/components/seo/SEOHead";
 import RelatedLinks from "@/components/ui/related-links";
 import { organizationData, websiteData } from "@/utils/seoData";
+const videoData = {
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "LG TecServ - Nossa História",
+  "description": "Conheça a história da LG TecServ, uma empresa moçambicana dedicada a transformar negócios através de soluções digitais inovadoras.",
+  "thumbnailUrl": [
+    "https://img.youtube.com/vi/3phYfGSglH8/maxresdefault.jpg"
+  ],
+  "uploadDate": "2023-01-01T08:00:00+08:00",
+  "embedUrl": "https://www.youtube.com/embed/3phYfGSglH8"
+};
 
 const Index = () => {
   const services = [
@@ -269,7 +280,7 @@ const Index = () => {
         image="https://www.lgtecserv.com/lovable-uploads/lg-tecserv-logo-secundario.webp"
         url="https://www.lgtecserv.com/"
         type="website"
-        structuredData={[organizationData, websiteData]}
+        structuredData={[organizationData, websiteData, videoData]}
       />
       <div className="min-h-screen relative">
       <FloatingElements />
